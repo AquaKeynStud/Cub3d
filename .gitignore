@@ -1,0 +1,10 @@
+.subject.pdf
+.pdf
+.swp
+.vscode
+.dep/
+.obj/
+cub3D
+libft/.obj/
+libft/.dep/
+libft/libft.a
