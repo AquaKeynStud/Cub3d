@@ -2,7 +2,7 @@
 
 .DELETE_ON_ERROR:
 
-NAME := minishell
+NAME := cub3d
 
 # ╭━━━━━━━━━━━━══════════╕出 ❖ BASICS VARIABLES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
@@ -98,8 +98,8 @@ endif
 
 fclean:
 	@$(MAKE) -s -C $(D_LFT) fclean
-	@$(MAKE) -s -w -C $(D_MLX) fclean
 	@$(MAKE) -s SHOW_MSG_CLEAN=false clean
+	@$(RM) $(D_LIB)/%.a
 	@$(RM) $(NAME)
 	@echo "\e[0;34m$(NAME) executable deleted ! 🧼\e[0m"
 
