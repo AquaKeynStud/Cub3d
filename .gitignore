@@ -1,10 +1,21 @@
-.subject.pdf
-.pdf
-.swp
-.vscode
-.dep/
+# Fichiers de compilation
+*.o
+*.d
 .obj/
-cub3D
-libft/.obj/
-libft/.dep/
-libft/libft.a
+.dep/
+.objs/
+.deps/
+.build/
+.minilibx/
+
+# Binaires
+a.out
+cub3d
+valgrind*
+
+# Fichiers de sauvegarde / éditeur
+*~
+*.swp
+
+# Configuration d'éditeur
+.vscode/
