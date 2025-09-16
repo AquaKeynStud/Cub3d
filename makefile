@@ -40,6 +40,8 @@ D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 # file lists
 LST_SRC	=	main.c
 
+LST_INC	=	cub.h
+
 LST_SRCS	=	$(LST_SRC)
 
 INC			=	$(addprefix $(D_INC), $(LST_INC))
@@ -50,9 +52,9 @@ DEPS		=	$(addprefix $(D_DEP), $(notdir $(LST_SRCS:.c=.d)))
 
 LIBS		:=	-L$(D_LFT) -lft -lreadline -lncurses
 
-INCS		:=	-I$(D_INC) -I$(D_LFT)
+INCS		:=	-I$(D_INC) -I$(D_LFT)inc/ -I$(D_MLX)
 
-LIBS		:=	-L$(D_LIB) -lft -lmlx
+LIBS		:=	-L$(D_LIB) -lft -lmlx -lX11 -lXext
 
 LIBFT		:=	$(D_LIB)libft.a
 
@@ -127,3 +129,4 @@ re:
 
 norminette:
 	norminette $(D_SRC) $(D_LFT) $(D_INC)
+
