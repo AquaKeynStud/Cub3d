@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/18 16:20:40 by arocca           ###   ########.fr       */
+/*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
+/*   Updated: 2025/09/18 17:43:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef PARSING_H
+# define PARSING_H
 
 /* -- Includes -- */
-# include "map.h"
-# include "mlx.h"
-# include "mlx_int.h"
 
 /* -- Structures -- */
-typedef struct	s_data
+typedef struct s_image
 {
-	void	*mlx;
-	void	*win;
-	t_map	*map;
-	t_img	*imgs;
-}			t_data;
+	void	*f;
+	void	*c;
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
+}			t_image;
 
-/* -- Macros -- */
-# define KEY_W 122 // 119
-# define KEY_A 113 // 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_ESC 65307
-
-# define INFO "\t\t\e[1;34m🗻 Info: "
-
-/* -- Logs Functions -- */
-void	print_header(void);
+typedef struct s_map
+{
+	int	fd;
+}			t_map;
 
 #endif

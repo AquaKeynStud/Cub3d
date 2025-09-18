@@ -33,12 +33,16 @@ D_OBJ	=	$(D_BLD)bin/
 D_DEP	=	$(D_BLD)dep/
 D_LIB	=	$(D_BLD)libs/
 
-D_SRCS	=	$(D_SRC)
+D_PAR	=	$(D_SRC)parsing/
 
 D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 
 # file lists
-LST_SRC	=	main.c
+LST_SRC	=	main.c		\
+			logs.c
+
+LST_PAR	=	images.c	\
+			file_manager.c
 
 LST_INC	=	cub.h
 
@@ -82,7 +86,7 @@ $(D_BLD):
 $(D_BLDS): | $(D_BLD)
 	@$(MKDIR) $@
 
-vpath %.c $(D_SRCS)
+vpath %.c $(D_SRC)
 
 check_newer:
 	@if [ ! -f $(NAME) ] || [ makefile -nt $(NAME) ] || find $(D_SRC) -name '*.c' -newer $(NAME) | grep -q .; then \
