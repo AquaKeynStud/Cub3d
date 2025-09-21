@@ -16,6 +16,7 @@
 /* -- Includes -- */
 # include "map.h"
 # include "mlx.h"
+# include <stdbool.h>
 # include "mlx_int.h"
 
 /* -- Structures -- */
@@ -23,8 +24,8 @@ typedef struct	s_data
 {
 	void	*mlx;
 	void	*win;
-	t_map	*map;
-	t_img	*imgs;
+	t_map	map;
+	t_txts	assets;
 }			t_data;
 
 /* -- Macros -- */
@@ -38,7 +39,14 @@ typedef struct	s_data
 
 # define INFO "\t\t\e[1;34m🗻 Info: "
 
+# define USAGE_ERR "\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
+
+# define IMG_EXT ".xpm"
+
 /* -- Logs Functions -- */
 void	print_header(void);
+
+/* -- File Functions -- */
+bool	has_ext(const char *filename, char *ext);
 
 #endif

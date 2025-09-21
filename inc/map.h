@@ -16,15 +16,25 @@
 /* -- Includes -- */
 
 /* -- Structures -- */
-typedef struct s_image
+typedef struct s_image {
+	int		bpp;
+	int		slen;
+	void	*img;
+	char	*addr;
+	int		width;
+	int		endian;
+	int		height;
+}   t_image;
+
+typedef struct s_txts
 {
-	void	*f;
-	void	*c;
-	void	*no;
-	void	*so;
-	void	*we;
-	void	*ea;
-}			t_image;
+	t_image	west;
+	t_image	east;
+	t_image	north;
+	t_image	south;
+	int		floor;
+	int		ceiling;
+}			t_txts;
 
 typedef struct s_map
 {

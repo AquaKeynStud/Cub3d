@@ -96,7 +96,7 @@ check_newer:
 	fi
 
 $(D_OBJ)%.o: %.c $(INC) makefile | $(D_BLDS) makefile check_newer
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@ -MF $(D_DEP)$(notdir $*.d)
+	@$(CC) $(CFLAGS) -g3 $(INCS) -c $< -o $@ -MF $(D_DEP)$(notdir $*.d)
 	@echo "\e[1;38;5;210m   🦐 $(NAME): $@ created 🦐\e[0m"
 
 $(LIBFT): $(LFT_DEP) | $(D_BLDS) makefile
@@ -134,3 +134,12 @@ re:
 norminette:
 	norminette $(D_SRC) $(D_LFT) $(D_INC)
 
+valgrind:
+	@$(MAKE)
+	@clear
+	valgrind										\
+		--leak-check=full								\
+		--show-leak-kinds=all							\
+		--track-origins=yes 							\
+		--track-fds=yes									\
+		./$(NAME) $(word 2,$(MAKECMDGOALS))
