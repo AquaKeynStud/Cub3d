@@ -1,4 +1,4 @@
-.PHONY : all clean fclean re libft norminette
+.PHONY : all clean fclean re libft norminette supp valgrind rmv rmsupp
 
 .DELETE_ON_ERROR:
 
@@ -37,16 +37,19 @@ D_PAR	=	$(D_SRC)parsing/
 
 D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 
+D_SRCS	=	$(D_SRC) $(D_PAR)
+
 # file lists
 LST_SRC	=	main.c		\
-			logs.c
+			logs.c		\
+			printers.c
 
 LST_PAR	=	images.c	\
 			file_manager.c
 
 LST_INC	=	cub.h
 
-LST_SRCS	=	$(LST_SRC)
+LST_SRCS	=	$(LST_SRC) $(LST_PAR)
 
 INC			=	$(addprefix $(D_INC), $(LST_INC))
 
@@ -86,7 +89,7 @@ $(D_BLD):
 $(D_BLDS): | $(D_BLD)
 	@$(MKDIR) $@
 
-vpath %.c $(D_SRC)
+vpath %.c $(D_SRCS)
 
 check_newer:
 	@if [ ! -f $(NAME) ] || [ makefile -nt $(NAME) ] || find $(D_SRC) -name '*.c' -newer $(NAME) | grep -q .; then \
@@ -100,7 +103,7 @@ $(D_OBJ)%.o: %.c $(INC) makefile | $(D_BLDS) makefile check_newer
 	@echo "\e[1;38;5;210m   🦐 $(NAME): $@ created 🦐\e[0m"
 
 $(LIBFT): $(LFT_DEP) | $(D_BLDS) makefile
-	@$(MAKE) -C $(D_LFT)
+	@$(MAKE) -C $(D_LFT) bonus
 	@mv $(D_LFT)libft.a $(D_LIB)libft.a
 
 $(LIBMLX): $(LFT_DEP) | $(D_BLDS) makefile
@@ -129,17 +132,49 @@ fclean:
 re:
 	@$(MAKE) fclean
 	@$(MAKE) all
-	@echo "\e[0;32m$(NAME) program recreated successfully ! 🫡\e[0m"
+
+# ╭━━━━━━━━━━━━══════════╕出 ❖ DEBUGGING ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
 norminette:
 	norminette $(D_SRC) $(D_LFT) $(D_INC)
 
-valgrind:
+D_DBG		=	$(D_BLD)debug/
+
+SUPP		=	x11_writev.supp
+
+SUPP_FILE	=	$(addprefix $(D_DBG), $(SUPP))
+
+$(D_DBG): | $(D_BLD)
+	@$(MKDIR) $@
+
+rmv:
+	@$(RM) $(D_DBG)
+	@echo "\e[1;33m🍤 Debug files suppressed successfully 🍤\e[0m"
+
+rmsupp:
+	@$(RM) $(wildcard $(D_DBG)*.supp)
+	@echo "\e[1;38;5;217m🐙 All suppression files deleted successfully 🐙\e[0m"
+
+supp:
+	@$(MAKE) $(SUPP_FILE)
+
+$(SUPP_FILE): | $(D_DBG)
+	@echo "{" > $(SUPP_FILE)
+	@echo "   writev_x11_libxcb" >> $(SUPP_FILE)
+	@echo "   Memcheck:Param" >> $(SUPP_FILE)
+	@echo "   writev(vector[0])" >> $(SUPP_FILE)
+	@echo "   ..." >> $(SUPP_FILE)
+	@echo "   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.*" >> $(SUPP_FILE)
+	@echo "}" >> $(SUPP_FILE)
+	@echo "\e[1;38;5;216m🦀 Suppression file generated: $(SUPP_FILE) 🦀\e[0m"
+
+valgrind: $(SUPP_FILE)
 	@$(MAKE)
 	@clear
-	valgrind										\
+	@valgrind										\
 		--leak-check=full								\
 		--show-leak-kinds=all							\
 		--track-origins=yes 							\
 		--track-fds=yes									\
+		--suppressions=$(CURDIR)/$(SUPP_FILE)			\
 		./$(NAME) $(word 2,$(MAKECMDGOALS))

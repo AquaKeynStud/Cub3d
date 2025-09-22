@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/18 16:20:40 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/22 15:27:13 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef struct	s_data
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
 
-# define INFO "\t\t\e[1;34m🗻 Info: "
+# define EOL		"     \e[0m\n"	
+# define INFO		"\t\e[107m     \e[1;34m🗻 Info: "
+# define ERROR		"\t\e[100m     \e[1;34m🏮 Error: "
+# define MAP_REP	"\t\e[107m     \e[1;38;5;210m"
 
 # define USAGE_ERR "\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
 
@@ -48,5 +51,13 @@ void	print_header(void);
 
 /* -- File Functions -- */
 bool	has_ext(const char *filename, char *ext);
+
+bool	get_info_from_file(t_data *data, const char *filename);
+
+bool	err(char *msg);
+
+
+void    debug_assets(t_data *data);
+void	debug(char *message, char *str);
 
 #endif
