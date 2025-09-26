@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/25 20:54:13 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:23:19 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ static bool	get_data_from_line(t_data *data, char *line, int *pos, int *cap)
 {
 	if (is_empty_line(line) && data->map.map)
 		return (err("Empty line in map"));
+	if (in_str('\t', line, false))
+		return (err("Tabs are not allowed in map"));
 	if (in_str(*line, "NSWEFC", false) && !data->map.map)
 		return (parse_param(data, line));
-	if (in_str(*line, "10 \t", false))
+	if (in_str(*line, "10 ", false))
 		return (parse_map(&data->map.map, line, pos, cap));
 	return (err_str("Invalid line in file : `%s`", line));
 }
@@ -77,10 +79,10 @@ bool	get_info_from_file(t_data *data, const char *filename)
 		perror("open");
 		return (false);
 	}
-	ft_printf("%s⛩️  Start reading file: %s 🚏%s", MAP_REP, filename, EOL);
+	ft_printf("%s⛩️  Start reading file: %s 🚏%s", MAPLOG, filename, EOL);
 	checker = read_lines(data);
 	close(data->fd);
 	if (checker && everything_set(data, data->assets))
-		return (ft_printf("%s🎏 Read successfull, file closed 📚%s", MAP_REP, EOL));
+		return (ft_printf("%s🎏 Read successfull, file closed 📚%s", MAPLOG, EOL));
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/25 20:54:46 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:19:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-bool has_ext(const char *filename, char *ext)
+bool	has_ext(const char *filename, char *ext)
 {
 	int	len;
 	int	pad;
@@ -46,16 +46,17 @@ void	clean_exit(t_data *data, int code)
 	exit(code);
 }
 
-int close_on_esc(int keycode, t_data *data)
+int	close_on_esc(int keycode, t_data *data)
 {
-    if (keycode == 65307) // Échap sous Linux
-        mlx_loop_end(data->mlx);
-    return (0);
+	if (keycode == 65307)
+		mlx_loop_end(data->mlx);
+	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	data;
+
 	if (argc != 2 || !has_ext(argv[1], ".cub"))
 		return (ft_printf(USAGE_ERR, argv[0]));
 	print_header();
@@ -65,8 +66,9 @@ int main(int argc, char **argv)
 		return (1);
 	if (!get_info_from_file(&data, argv[1]))
 		clean_exit(&data, EXIT_FAILURE);
+	if (!configure_map(&data.map))
+		clean_exit(&data, EXIT_FAILURE);
 	debug_assets(data.assets);
-	configure_map(&data.map);
 	print_map(data.map.map);
 	if (!create_window(&data, 800, 600, "cub3d"))
 	{
@@ -74,7 +76,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	mlx_hook(data.win, 17, 0, mlx_loop_end, data.mlx);
-	mlx_hook(data.win, 2, 1L<<0, close_on_esc, &data);
+	mlx_hook(data.win, 2, 1L << 0, close_on_esc, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
 	clean_exit(&data, EXIT_SUCCESS);

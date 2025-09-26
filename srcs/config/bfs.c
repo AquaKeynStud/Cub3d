@@ -6,11 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 09:58:20 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:22:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "cub.h"
 #include "libft.h"
 
 static t_bfs	*create_bfs(int size)
@@ -30,64 +30,79 @@ static t_bfs	*create_bfs(int size)
 	return (bfs);
 }
 
-void	add_queue(t_bfs *bfs, t_point cell)
+static void	add_queue(t_bfs *bfs, t_point cell, int width, int height)
 {
+	if (cell.x < 0 || cell.y < 0 || cell.x >= width || cell.y >= height)
+		return ;
 	bfs->queue[bfs->rear] = cell;
 	bfs->rear = (bfs->rear + 1) % bfs->size;
 }
 
-bool	breadth_first_search(t_map *map, t_point cell)
+static bool	breadth_first_search(t_bfs *bfs, char **map, int width, int height)
 {
-	t_bfs	*bfs;
 	t_point	curr;
 
-	bfs = create_bfs(map->width * map->height);
-	if (!bfs)
-		return (err("Failed to initialize map verification"));
-	bfs->queue[bfs->rear++] = cell;
 	while (bfs->front != bfs->rear)
 	{
 		curr = bfs->queue[bfs->front];
 		bfs->front = (bfs->front + 1) % bfs->size;
-		if (in_str(map->map[curr.y][curr.x], "1V", false))
+		if (in_str(map[curr.y][curr.x], "1V", false))
 			continue ;
-		else if (map->map[curr.y][curr.x] != ' ')
+		else if (map[curr.y][curr.x] != ' ')
 			return (err("Map must be surrounded by walls"));
-		map->map[curr.y][curr.x] = 'V';
-		add_queue(bfs, (t_point){curr.x + 1, curr.y});
-		add_queue(bfs, (t_point){curr.x - 1, curr.y});
-		add_queue(bfs, (t_point){curr.x, curr.y + 1});
-		add_queue(bfs, (t_point){curr.x, curr.y - 1});
+		map[curr.y][curr.x] = 'V';
+		add_queue(bfs, (t_point){curr.x + 1, curr.y}, width, height);
+		add_queue(bfs, (t_point){curr.x - 1, curr.y}, width, height);
+		add_queue(bfs, (t_point){curr.x, curr.y + 1}, width, height);
+		add_queue(bfs, (t_point){curr.x, curr.y - 1}, width, height);
 	}
-	free(bfs->queue);
-	free(bfs);
 	return (true);
 }
 
-t_point	find_space(char **map)
+static bool	find_space(char **map, t_point *cell)
 {
 	int		i;
 	int		j;
 
+	i = 0;
 	while (map[i])
 	{
+		j = 0;
 		while (map[i][j])
 		{
 			if (map[i][j] == ' ')
-				return ((t_point){i, j});
+			{
+				cell->x = j;
+				cell->y = i;
+				return (true);
+			}
 			j++;
 		}
 		i++;
 	}
-	return ((t_point){-1, -1});
+	return (false);
 }
 
-bool	init_bfs(t_map *map)
+bool	init_bfs(char **map, int width, int height)
 {
 	t_bfs	*bfs;
+	t_point	start;
+	bool	closed;
 
-	bfs = create_bfs(map->width * map->height);
+	closed = true;
+	bfs = create_bfs(width * height);
 	if (!bfs)
 		return (err("Failed to initialize map verification"));
-	
+	while (find_space(map, &start))
+	{
+		if (start.x < 0 || start.y < 0 || start.x >= width || start.y >= height)
+			return (err("Error in map format; aborting BFS..."));
+		bfs->queue[bfs->rear++] = start;
+		closed = breadth_first_search(bfs, map, width, height);
+		if (!closed)
+			break ;
+	}
+	free(bfs->queue);
+	free(bfs);
+	return (closed);
 }

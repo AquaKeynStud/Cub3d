@@ -6,17 +6,18 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/25 23:44:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:18:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef DATA_H
+# define DATA_H
 
 /* -- Includes -- */
 
 /* -- Structures -- */
-typedef struct s_image {
+typedef struct s_image
+{
 	int		bpp;
 	int		slen;
 	void	*img;
@@ -24,7 +25,7 @@ typedef struct s_image {
 	int		width;
 	int		endian;
 	int		height;
-}   t_image;
+}			t_image;
 
 typedef struct s_txts
 {

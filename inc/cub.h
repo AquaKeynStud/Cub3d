@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/25 21:12:51 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:22:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CUB_H
 
 /* -- Includes -- */
-# include "data.h"
 # include "mlx.h"
+# include "data.h"
 # include <stdbool.h>
 # include "mlx_int.h"
 
@@ -41,7 +41,7 @@ typedef struct s_data
 # define EOL		"     \e[0m\n"	
 # define INFO		"\t\e[107;1;34m     🗻 Info: "
 # define ERROR		"\t\e[107;1;31m     🏮 Error: "
-# define MAP_REP	"\t\e[107;1;38;5;210m     "
+# define MAPLOG		"\t\e[107;1;38;5;210m     "
 # define ERRNOLOG	"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
 # define TOPBAND	"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
 # define BOTTOMBAND	"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
@@ -63,15 +63,18 @@ bool	parse_map(char ***map, char *line, int *pos, int *cap);
 /* -- Display Functions -- */
 bool	create_window(t_data *data, int width, int height, char *name);
 
-void	configure_map(t_map *map);
+bool	configure_map(t_map *map);
+bool	init_bfs(char **map, int width, int height);
 
 /* -- Errors Functions -- */
 bool	err(char *msg);
 bool	err_errno(char *msg);
 bool	err_str(char *msg, char *str);
 
+int		browse_map_cells(char **map, bool (*function)(char c));
 
-void    debug_assets(t_txts txts);
+
+void	debug_assets(t_txts txts);
 void	print_map(char **map);
 void	debug(char *message);
 

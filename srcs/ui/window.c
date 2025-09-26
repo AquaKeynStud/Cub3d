@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/24 17:12:45 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:21:23 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	create_window(t_data *data, int width, int height, char *name)
 	if (!width || !height)
 		return (false);
 	screen_width = 0;
-	screen_height = 0;	
+	screen_height = 0;
 	mlx_get_screen_size(data->mlx, &screen_width, &screen_height);
 	if (width > screen_width || height > screen_height)
 		return (false);
@@ -33,5 +33,5 @@ bool	create_window(t_data *data, int width, int height, char *name)
 	if (!data->win)
 		return (false);
 	ft_printf("%s🗼 Window size : %ix%i 🚞%s", INFO, width, height, EOL);
-	return (true);	
+	return (true);
 }
