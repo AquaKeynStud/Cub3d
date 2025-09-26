@@ -33,23 +33,34 @@ D_OBJ	=	$(D_BLD)bin/
 D_DEP	=	$(D_BLD)dep/
 D_LIB	=	$(D_BLD)libs/
 
-D_PAR	=	$(D_SRC)parsing/
+D_UIS	=	$(D_SRC)ui/
+D_INT	=	$(D_SRC)init/
+D_LOG	=	$(D_SRC)logs/
+D_PAR	=	$(D_SRC)config/
 
 D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 
-D_SRCS	=	$(D_SRC) $(D_PAR)
+D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR)
 
 # file lists
-LST_SRC	=	main.c		\
-			logs.c		\
-			printers.c
+LST_SRC	=	main.c
 
-LST_PAR	=	images.c	\
-			file_manager.c
+LST_INT	=	file_init.c		\
+			data_store.c
 
-LST_INC	=	cub.h
+LST_UIS	=	window.c
 
-LST_SRCS	=	$(LST_SRC) $(LST_PAR)
+LST_LOG	=	logs.c		\
+			errors.c	\
+			data_logs.c
+
+LST_PAR	=	bfs.c		\
+			parser.c
+
+LST_INC	=	cub.h	\
+			data.h
+
+LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR)
 
 INC			=	$(addprefix $(D_INC), $(LST_INC))
 
@@ -67,8 +78,8 @@ LIBFT		:=	$(D_LIB)libft.a
 
 LIBMLX		:=	$(D_LIB)libmlx.a
 
-LFT_DEP		=	$(foreach dir, $(D_LFT), $(wildcard $(dir)*.c $(dir)*.h $(dir)Makefile))
-MLX_DEP		=	$(foreach dir, $(D_MLX), $(wildcard $(dir)*.c $(dir)*.h $(dir)Makefile))
+LFT_DEP		=	$(foreach dir, $(D_LFT), $(wildcard $(dir)*.c $(dir)*.h $(dir)*akefile))
+MLX_DEP		=	$(foreach dir, $(D_MLX), $(wildcard $(dir)*.c $(dir)*.h $(dir)*akefile))
 
 START_TIME	:=	$(shell date +%s%3N)
 

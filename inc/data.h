@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/18 17:43:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/25 23:44:28 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,23 @@ typedef struct s_txts
 
 typedef struct s_map
 {
-	int	fd;
+	char	**map;
+	int		width;
+	int		height;
 }			t_map;
+
+typedef struct s_point
+{
+	int		x;
+	int		y;
+}			t_point;
+
+typedef struct s_bfs
+{
+	int		size;
+	int		rear;
+	int		front;
+	t_point	*queue;
+}			t_bfs;
 
 #endif

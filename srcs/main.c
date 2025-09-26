@@ -6,44 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/22 12:45:30 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/25 20:54:46 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
 #include "ft_printf.h"
-
-bool	err(char *msg)
-{
-	ft_printf(ERROR);
-	ft_printf("%s", msg);
-	ft_printf(EOL);
-	return (false);
-}
-
-static bool	create_window(t_data *data, int width, int height, char *name)
-{
-	int	screen_width;
-	int	screen_height;
-
-	if (!width || !height)
-		return (false);
-	screen_width = 0;
-	screen_height = 0;	
-	mlx_get_screen_size(data->mlx, &screen_width, &screen_height);
-	if (width > screen_width || height > screen_height)
-		return (false);
-	if (width < 0)
-		width = screen_width;
-	if (height < 0)
-		height = screen_height;
-	data->win = mlx_new_window(data->mlx, width, height, name);
-	if (!data->win)
-		return (false);
-	ft_printf("%s🗼 Window size : %ix%i 🚞%s", INFO, width, height, EOL);
-	return (true);	
-}
 
 bool has_ext(const char *filename, char *ext)
 {
@@ -59,7 +28,7 @@ bool has_ext(const char *filename, char *ext)
 
 void	clean_exit(t_data *data, int code)
 {
-	if (data->assets.east.img)	// penser à un cleanup_assets...
+	if (data->assets.east.img)
 		mlx_destroy_image(data->mlx, data->assets.east.img);
 	if (data->assets.west.img)
 		mlx_destroy_image(data->mlx, data->assets.west.img);
@@ -67,6 +36,8 @@ void	clean_exit(t_data *data, int code)
 		mlx_destroy_image(data->mlx, data->assets.south.img);
 	if (data->assets.north.img)
 		mlx_destroy_image(data->mlx, data->assets.north.img);
+	if (data->map.map)
+		double_free((void **)data->map.map, 0);
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);
@@ -92,8 +63,11 @@ int main(int argc, char **argv)
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (1);
-	get_info_from_file(&data, argv[1]);
-	debug_assets(&data);
+	if (!get_info_from_file(&data, argv[1]))
+		clean_exit(&data, EXIT_FAILURE);
+	debug_assets(data.assets);
+	configure_map(&data.map);
+	print_map(data.map.map);
 	if (!create_window(&data, 800, 600, "cub3d"))
 	{
 		free(data.mlx);
@@ -103,6 +77,6 @@ int main(int argc, char **argv)
 	mlx_hook(data.win, 2, 1L<<0, close_on_esc, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
-	clean_exit(&data, 0);
+	clean_exit(&data, EXIT_SUCCESS);
 	return (0);
 }

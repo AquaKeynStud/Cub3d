@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_manager.c                                     :+:      :+:    :+:   */
+/*   data_store.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:17:53 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/22 15:28:11 by arocca           ###   ########.fr       */
+/*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
+/*   Updated: 2025/09/25 20:53:46 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
-#include <fcntl.h>
 
-int	to_rgb(char *s)
+static int	to_rgb(char *s)
 {
 	int		r;
 	int		g;
@@ -24,7 +23,6 @@ int	to_rgb(char *s)
 	if (!s || !*s)
 		return (-1);
 	split = ft_split(s, ',');
-	free(s);
 	if (!split || !*split)
 		return (-1);
 	if (!split[1] || !split[2] || split[3])
@@ -41,36 +39,57 @@ int	to_rgb(char *s)
 	return (r << 16 | g << 8 | b);
 }
 
-t_image	get_image(t_data *data, char *path, char *ext)
+static t_image	get_image(t_data *data, char *path, char *ext)
 {
 	t_image	img;
 
-	debug("Entrée dans la fonction de récupération d'image: %s\n", path);
 	(void)ext;
 	if (!has_ext(path, ".xpm"))
-	{
-		debug("Mauvaise extension, sortie de la fonction...\n", NULL);
 		return ((t_image){0});
-	}
-	debug("Le fichier à la bonne extension\n", NULL);
 	img.img = mlx_xpm_file_to_image(data->mlx, path, &img.width, &img.height);
 	if (!img.img)
 	{
-		debug("On a pas réussi à récupérer l'image\n", NULL);
+		err_errno(path);
 		return ((t_image){0});
 	}
-	debug("On a réussi à trouver l'image\n", NULL);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.slen, &img.endian);
 	return (img);
 }
 
-bool	parse_params(t_data *data, char *line)
+static bool	upscale_map(char ***map, int *pos, int *cap)
+{
+	int		slot;
+	char	**tmp;
+
+	slot = sizeof(char *) * (*cap);
+	if (!*map && *pos)
+		return (false);
+	if (!*map)
+	{
+		*map = (char **)malloc(slot);
+		if (!*map)
+			return (err("Failed to allocate memory for the map"));
+	}
+	if ((*pos) >= (*cap) - 1)
+	{
+		tmp = (char **)ft_realloc(*map, slot, (slot * 2));
+		if (!tmp)
+		{
+			double_free((void **)*map, 0);
+			return (err("Failed to upscale the map; aborting..."));
+		}
+		*map = tmp;
+		(*cap) *= 2;
+	}
+	return (true);
+}
+
+bool	parse_param(t_data *data, char *line)
 {
 	char	*value;
 
-	debug("Entée ici: %s\n", line);
 	if (count_words(line, " \t") != 2)
-		return (err("Too many arguments on line"));
+		return (err_str("Too many arguments on line: `%s`", line));
 	value = get_word(line, 1);
 	if (!ft_strncmp(line, "F ", 2))
 		data->assets.floor = to_rgb(value);
@@ -87,57 +106,34 @@ bool	parse_params(t_data *data, char *line)
 	else
 	{
 		free(value);
-		return (err("Invalid line in file"));
+		return (err_str("Invalid identifier: `%.2s`", line));
 	}
+	free(line);
 	free(value);
 	return (true);
 }
 
-bool	parse_map(t_data *data)
+bool	parse_map(char ***map, char *line, int *pos, int *cap)
 {
-	(void)data;
-	return (true);
-}
+	int		slot;
+	char	**tmp;
 
-bool	read_lines(t_data *data)
-{
-	char	*line;
-
-	while (1)
+	slot = sizeof(char *);
+	if (line && *line)
 	{
-		line = get_next_line(data->map.fd);
-		if (!line)
-			return (true);
-		else if (!*line || is_empty_line(line))
-		{
-			free(line);
-			debug("Ligne vide; on continue\n", NULL);
-			continue ;
-		}
-		else if (in_str(*line, "NSWEFC", false) && !parse_params(data, line))
-			break ;
-		else if (!in_str(*line, " 01", false) && !parse_map(data))
-			break ;
-		else
-			break ;
-		free(line);
+		if (!upscale_map(map, pos, cap))
+			return (false);
+		(*map)[(*pos)] = line;
+		(*map)[(*pos) + 1] = NULL;
+		(*pos)++;
+		return (true);
 	}
-	if (line)
-		free(line);
-	return (false);
-}
-
-bool	get_info_from_file(t_data *data, const char *filename)
-{
-	data->map.fd = open(filename, O_RDONLY);
-	if (data->map.fd == -1)
+	tmp = ft_realloc((*map), (*cap) * slot, (*pos + 1) * slot);
+	if (!tmp)
 	{
-		perror("open");
-		return (false);
+		double_free((void **)(*map), 0);
+		return (err("Failed to crop the map at the right size"));
 	}
-	ft_printf("%s⛩️  Start reading file: %s 🚏%s", MAP_REP, filename, EOL);
-	read_lines(data);
-	close(data->map.fd);
-	ft_printf("%s⛩️  Read successfull, file closed 🚏%s", MAP_REP, EOL);
+	(*map) = tmp;
 	return (true);
 }
