@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:19:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:25:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ int	main(int argc, char **argv)
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (1);
-	if (!get_info_from_file(&data, argv[1]))
-		clean_exit(&data, EXIT_FAILURE);
-	if (!configure_map(&data.map))
+	if (!get_info_from_file(&data, argv[1]) || !configure_map(&data.map))
 		clean_exit(&data, EXIT_FAILURE);
 	debug_assets(data.assets);
 	print_map(data.map.map);

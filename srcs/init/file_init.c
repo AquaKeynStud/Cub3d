@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:23:19 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/26 21:27:18 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	checker = read_lines(data);
 	close(data->fd);
 	if (checker && everything_set(data, data->assets))
-		return (ft_printf("%s🎏 Read successfull, file closed 📚%s", MAPLOG, EOL));
+		return (ft_printf("%s🎏 Info saved, file closed 📚%s", MAPLOG, EOL));
 	return (false);
 }
