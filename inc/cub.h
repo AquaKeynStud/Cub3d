@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:22:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/27 00:35:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_data
 	t_txts	assets;
 }			t_data;
 
-/* -- Macros -- */
+/* -- Input Macros -- */
 # define KEY_W 122 // 119
 # define KEY_A 113 // 97
 # define KEY_S 115
@@ -38,18 +38,19 @@ typedef struct s_data
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 
-# define EOL		"     \e[0m\n"	
-# define INFO		"\t\e[107;1;34m     🗻 Info: "
+/* -- Error Reports Macros -- */
+# define EOL		"     \e[0m\n"
 # define ERROR		"\t\e[107;1;31m     🏮 Error: "
-# define MAPLOG		"\t\e[107;1;38;5;210m     "
 # define ERRNOLOG	"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
-# define TOPBAND	"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
-# define BOTTOMBAND	"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
-
 # define USAGE_ERR		"\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
 # define WALL_IMG_ERR	"🪾  Failed to initialize %s wall image 🍂"
+# define COLOR_IMG_ERR	"🌈 No color found for %s 🍡"
 
-# define IMG_EXT ".xpm"
+/* -- Info Reports Macros -- */
+# define MAPLOG		"\t\e[107;1;38;5;210m     "
+# define INFO		"\t\e[107;1;34m     🗻 Info: "
+# define TOPBAND	"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
+# define BOTTOMBAND	"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
 
 /* -- Logs Functions -- */
 void	print_header(void);

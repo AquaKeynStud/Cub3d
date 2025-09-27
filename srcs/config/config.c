@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:27:02 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:21:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/27 19:00:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,31 @@ static void	get_map_size(char **map, int *width, int *height)
 	}
 }
 
-static void	normalize_map(char **map, int unit)
+static bool	normalize_map(char **map, int unit)
 {
-	int	i;
-	int	pos;
+	int		i;
+	int		pos;
+	char	*tmp;
 
 	i = 0;
 	while (map[i])
 	{
 		pos = (int)ft_strlen(map[i]);
 		if (pos > 0 && map[i][pos - 1] == '\n')
-		{
-			map[i][pos - 1] = '\0';
-			pos--;
-		}
+			map[i][--pos] = '\0';
 		if (pos < unit)
 		{
-			map[i] = (char *)ft_realloc(map[i], pos + 1, unit + 1);
+			tmp = (char *)ft_realloc(map[i], pos + 1, unit + 1);
+			if (!tmp)
+				return (false);
+			map[i] = tmp;
 			while (pos < unit)
 				map[i][pos++] = ' ';
 			map[i][pos] = '\0';
 		}
 		i++;
 	}
+	return (true);
 }
 
 static void	reset_after_bfs(char **map)
@@ -104,8 +106,8 @@ static bool	check_player_nb(char **map)
 bool	configure_map(t_map *map)
 {
 	get_map_size(map->map, &map->width, &map->height);
-	normalize_map(map->map, map->width);
-	if (!init_bfs(map->map, map->width, map->height))
+	if (!normalize_map(map->map, map->width)
+		|| !init_bfs(map->map, map->width, map->height))
 		return (false);
 	reset_after_bfs(map->map);
 	if (check_player_nb(map->map) != 1)

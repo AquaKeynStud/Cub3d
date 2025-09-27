@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:22:03 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/27 19:00:29 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,17 @@ bool	init_bfs(char **map, int width, int height)
 	t_point	start;
 	bool	closed;
 
-	closed = true;
+	closed = false;
 	bfs = create_bfs(width * height);
 	if (!bfs)
 		return (err("Failed to initialize map verification"));
 	while (find_space(map, &start))
 	{
 		if (start.x < 0 || start.y < 0 || start.x >= width || start.y >= height)
-			return (err("Error in map format; aborting BFS..."));
+		{
+			closed = err("Error while checking map borders; aborting...");
+			break ;
+		}
 		bfs->queue[bfs->rear++] = start;
 		closed = breadth_first_search(bfs, map, width, height);
 		if (!closed)

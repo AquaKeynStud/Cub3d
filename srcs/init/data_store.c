@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:22:09 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/27 00:19:24 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,17 @@ bool	parse_param(t_data *data, char *line)
 	if (count_words(line, " \t") != 2)
 		return (err_str("Too many arguments on line: `%s`", line));
 	value = get_word(line, 1);
-	if (!ft_strncmp(line, "F ", 2))
+	if (!ft_strncmp(line, "F ", 2) && data->assets.floor == -1)
 		data->assets.floor = to_rgb(value);
-	else if (!ft_strncmp(line, "C ", 2))
+	else if (!ft_strncmp(line, "C ", 2) && data->assets.ceiling == -1)
 		data->assets.ceiling = to_rgb(value);
-	else if (!ft_strncmp(line, "EA ", 3))
+	else if (!ft_strncmp(line, "EA ", 3) && !data->assets.east.img)
 		data->assets.east = get_image(data, value, ".xpm");
-	else if (!ft_strncmp(line, "WE ", 3))
+	else if (!ft_strncmp(line, "WE ", 3) && !data->assets.west.img)
 		data->assets.west = get_image(data, value, ".xpm");
-	else if (!ft_strncmp(line, "SO ", 3))
+	else if (!ft_strncmp(line, "SO ", 3) && !data->assets.south.img)
 		data->assets.south = get_image(data, value, ".xpm");
-	else if (!ft_strncmp(line, "NO ", 3))
+	else if (!ft_strncmp(line, "NO ", 3) && !data->assets.north.img)
 		data->assets.north = get_image(data, value, ".xpm");
 	else
 	{
