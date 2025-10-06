@@ -55,6 +55,7 @@ LST_LOG	=	logs.c		\
 			data_logs.c
 
 LST_PAR	=	bfs.c		\
+			parser.c	\
 			config.c
 
 LST_INC	=	cub.h	\

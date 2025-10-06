@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/27 18:21:06 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/01 09:56:15 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 	debug_assets(data.assets);
 	if (!configure_map(&data.map))
 		clean_exit(&data, EXIT_FAILURE);
-	print_map(data.map.map);
+	print_map(data.map.map, print_type);
 	if (!create_window(&data, 800, 600, "cub3d"))
 	{
 		free(data.mlx);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:05:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:20:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/01 10:03:20 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	debug_assets(t_txts txts)
 	ft_printf(BOTTOMBAND, "   ", "肌", "理");
 }
 
-static void	print_type(char c)
+void	print_type(char c)
 {
 	if (c == ' ')
 		ft_printf("   ");
@@ -42,9 +42,25 @@ static void	print_type(char c)
 		ft_printf("🪵 ");
 	else if (c == '0')
 		ft_printf("🌱 ");
+	else
+		ft_printf("🍄 ");
 }
 
-void	print_map(char **map)
+void	print_verification(char c)
+{
+	if (c == ' ')
+		ft_printf("   ");
+	else if (in_str(c, "NSWE", false))
+		ft_printf("🚢 ");
+	else if (c == '1')
+		ft_printf("🫧 ");
+	else if (c == 'V')
+		ft_printf("🍤 ");
+	else
+		ft_printf("🦐 ");
+}
+
+void	print_map(char **map, void (*printer)(char c))
 {
 	int	i;
 	int	j;
@@ -55,7 +71,7 @@ void	print_map(char **map)
 		j = 0;
 		ft_printf("\t%4i ", i + 1);
 		while (map[i][j])
-			print_type(map[i][j++]);
+			printer(map[i][j++]);
 		ft_printf("\n");
 		i++;
 	}

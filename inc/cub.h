@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/27 00:35:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/03 16:26:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,21 @@
 # include "mlx_int.h"
 
 /* -- Structures -- */
+typedef struct s_file
+{
+	int	fd;
+	int	nl;
+	int	pos;
+	int	cap;
+	int	line_nb;
+}			t_file;
+
 typedef struct s_data
 {
-	int		fd;
 	t_map	map;
 	void	*mlx;
 	void	*win;
+	t_file	file;
 	t_txts	assets;
 }			t_data;
 
@@ -72,11 +81,14 @@ bool	err(char *msg);
 bool	err_errno(char *msg);
 bool	err_str(char *msg, char *str);
 
-int		browse_map_cells(char **map, bool (*function)(char c));
-
-
 void	debug_assets(t_txts txts);
-void	print_map(char **map);
+void	print_map(char **map, void (*printer)(char c));
+void	print_type(char c);
+void	print_verification(char c);
 void	debug(char *message);
+
+void	reset_after_bfs(char **map);
+bool	check_player_nb(char **map);
+bool	check_map_content(char **map);
 
 #endif

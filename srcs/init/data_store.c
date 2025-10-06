@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/27 00:19:24 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/30 16:34:35 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	to_rgb(char *s)
 	int		b;
 	char	**split;
 
-	if (!s || !*s)
+	if (!s || !*s || count_char(s, ',') != 2)
 		return (-1);
 	split = ft_split(s, ',');
 	if (!split || !*split)
@@ -34,7 +34,7 @@ static int	to_rgb(char *s)
 	g = strict_pos_atoi(split[1]);
 	b = strict_pos_atoi(split[2]);
 	double_free((void **)split, 0);
-	if (r > 255 || g > 255 || b > 255)
+	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
 		return (-1);
 	return (r << 16 | g << 8 | b);
 }
@@ -45,7 +45,10 @@ static t_image	get_image(t_data *data, char *path, char *ext)
 
 	(void)ext;
 	if (!has_ext(path, ".xpm"))
+	{
+		printf("\e[1;38;5;203m🈲    %s: Invalid extension    🈲\e[0m\n", path);
 		return ((t_image){0});
+	}
 	img.img = mlx_xpm_file_to_image(data->mlx, path, &img.width, &img.height);
 	if (!img.img)
 	{
@@ -88,7 +91,7 @@ bool	parse_param(t_data *data, char *line)
 {
 	char	*value;
 
-	if (count_words(line, " \t") != 2)
+	if (count_words(line, " \t\n\v\f\r") != 2)
 		return (err_str("Too many arguments on line: `%s`", line));
 	value = get_word(line, 1);
 	if (!ft_strncmp(line, "F ", 2) && data->assets.floor == -1)

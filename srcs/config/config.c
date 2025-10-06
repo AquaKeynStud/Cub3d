@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:27:02 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/27 19:00:49 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/03 16:26:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	normalize_map(char **map, int unit)
 		{
 			tmp = (char *)ft_realloc(map[i], pos + 1, unit + 1);
 			if (!tmp)
-				return (false);
+				return (err("Failed to normalize the map"));
 			map[i] = tmp;
 			while (pos < unit)
 				map[i][pos++] = ' ';
@@ -59,58 +59,16 @@ static bool	normalize_map(char **map, int unit)
 	return (true);
 }
 
-static void	reset_after_bfs(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'V')
-				map[i][j] = ' ';
-			j++;
-		}
-		i++;
-	}
-}
-
-static bool	check_player_nb(char **map)
-{
-	int		i;
-	int		j;
-	int		count;
-
-	i = 0;
-	count = 0;
-	if (!map || !*map)
-		return (-1);
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-					|| map[i][j] == 'W' || map[i][j] == 'E')
-				count += 1;
-			j++;
-		}
-		i++;
-	}
-	return (count == 1);
-}
-
 bool	configure_map(t_map *map)
 {
 	get_map_size(map->map, &map->width, &map->height);
-	if (!normalize_map(map->map, map->width)
-		|| !init_bfs(map->map, map->width, map->height))
+	if (!normalize_map(map->map, map->width) || !check_map_content(map->map))
 		return (false);
+	if (!init_bfs(map->map, map->width, map->height))
+		return (false);
+	print_map(map->map, print_verification);
 	reset_after_bfs(map->map);
 	if (check_player_nb(map->map) != 1)
-		return (err("Only one player is allowed on the map"));
+		return (err("The map must contain 1 player (max)"));
 	return (true);
 }

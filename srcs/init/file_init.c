@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/27 02:18:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/09/28 19:28:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,50 @@
 #include "libft.h"
 #include <fcntl.h>
 
-static bool	get_data_from_line(t_data *data, char *line, int *pos, int *cap)
+static bool	get_data_from_line(t_data *data, char *line)
 {
-	if (is_empty_line(line) && data->map.map)
-		return (err("Empty line in map"));
-	if (in_str(*line, "NSWEFC", false) && !data->map.map)
-		return (parse_param(data, line));
+	bool	empty;
+
+	empty = is_empty_line(line);
+	if (in_str(*line, "NSWEFC", false))
+	{
+		if (!data->map.map)
+			return (parse_param(data, line));
+		return (err("The map should be after all parameters"));
+	}
 	if (in_str(*line, "10 ", false))
-		return (parse_map(&data->map.map, line, pos, cap));
-	return (err_str("Invalid line in file : `%s`", line));
+	{
+		if (data->file.nl)
+			return (err("Empty line in map"));
+		return (parse_map(&data->map.map, line, &data->file.pos, &data->file.cap));
+	}
+	free(line);
+	if (empty)
+		return (data->file.nl += (data->file.nl == false));
+	else
+		return ((data->file.nl -= (data->file.nl == true)) || true);
+	return (err_str("🏞️  Invalid line in file : `%s` 🍥", line));
 }
 
-static bool	read_lines(t_data *data, int *count)
+static bool	read_lines(t_data *data)
 {
 	char	*line;
-	int		position;
-	int		capacity;
 
-	position = 0;
-	capacity = 16;
 	while (1)
 	{
-		line = get_next_line(data->fd);
+		line = get_next_line(data->file.fd);
 		if (!line)
+		{
+			get_next_line(-1);
 			return (true);
-		(*count)++;
+		}
+		data->file.line_nb++;
 		if (!*line || (is_empty_line(line) && !data->map.map))
 		{
 			free(line);
 			continue ;
 		}
-		else if (!get_data_from_line(data, line, &position, &capacity))
+		else if (!get_data_from_line(data, line))
 			break ;
 	}
 	if (line)
@@ -74,22 +87,21 @@ static bool	everything_set(t_data *data, t_txts txts)
 
 bool	get_info_from_file(t_data *data, const char *filename)
 {
-	int		lines;
 	bool	checker;
 
-	lines = 0;
+	data->file.cap = 16;
 	data->assets.floor = -1;
 	data->assets.ceiling = -1;
-	data->fd = open(filename, O_RDONLY);
-	if (data->fd == -1)
+	data->file.fd = open(filename, O_RDONLY);
+	if (data->file.fd == -1)
 	{
 		perror("open");
 		return (false);
 	}
 	ft_printf("%s⛩️  Start reading file: %s 🚏%s", MAPLOG, filename, EOL);
-	checker = read_lines(data, &lines);
-	close(data->fd);
-	if (!lines)
+	checker = read_lines(data);
+	close(data->file.fd);
+	if (!data->file.line_nb)
 		return (err("🌁 Config file seems empty... 🔬"));
 	if (checker && everything_set(data, data->assets))
 		return (ft_printf("%s🎏 Info saved, file closed 📚%s", MAPLOG, EOL));

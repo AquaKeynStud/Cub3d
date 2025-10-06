@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/27 19:00:29 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/03 16:01:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static bool	breadth_first_search(t_bfs *bfs, char **map, int width, int height)
 	{
 		curr = bfs->queue[bfs->front];
 		bfs->front = (bfs->front + 1) % bfs->size;
-		if (in_str(map[curr.y][curr.x], "1V", false))
+		if (in_str(map[curr.y][curr.x], "1VNSEW", false))
 			continue ;
-		else if (map[curr.y][curr.x] != ' ')
+		else if (map[curr.y][curr.x] != '0')
 			return (err("Map must be surrounded by walls"));
 		map[curr.y][curr.x] = 'V';
 		add_queue(bfs, (t_point){curr.x + 1, curr.y}, width, height);
@@ -59,7 +59,7 @@ static bool	breadth_first_search(t_bfs *bfs, char **map, int width, int height)
 	return (true);
 }
 
-static bool	find_space(char **map, t_point *cell)
+static bool	find_cell(char **map, t_point *cell)
 {
 	int		i;
 	int		j;
@@ -70,7 +70,7 @@ static bool	find_space(char **map, t_point *cell)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == ' ')
+			if (map[i][j] == '0')
 			{
 				cell->x = j;
 				cell->y = i;
@@ -89,11 +89,11 @@ bool	init_bfs(char **map, int width, int height)
 	t_point	start;
 	bool	closed;
 
-	closed = false;
+	closed = true;
 	bfs = create_bfs(width * height);
 	if (!bfs)
 		return (err("Failed to initialize map verification"));
-	while (find_space(map, &start))
+	while (find_cell(map, &start))
 	{
 		if (start.x < 0 || start.y < 0 || start.x >= width || start.y >= height)
 		{
