@@ -6,12 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:27:02 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 16:19:04 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:10:36 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
+#include "config.h"
 
 static void	get_map_size(char **map, int *width, int *height)
 {
@@ -48,7 +49,7 @@ static bool	normalize_map(char **map, int unit)
 		{
 			tmp = (char *)ft_realloc(map[i], pos + 1, unit + 1);
 			if (!tmp)
-				return (err("Failed to normalize the map"));
+				return (err(MAP_NORM_ERR));
 			map[i] = tmp;
 			while (pos < unit)
 				map[i][pos++] = ' ';
@@ -69,15 +70,16 @@ bool	configure_map(t_map *map_data)
 	get_map_size(map, &map_data->width, &map_data->height);
 	xlen = map_data->width;
 	ylen = map_data->height;
-	if (!normalize_map(map, xlen) || !check_map_content(map))
-		return (false);
-	if (!init_bfs(map, xlen, ylen))
+	if (!normalize_map(map, xlen) || !check_map_content(map)
+		|| !init_bfs(map, xlen, ylen))
 		return (false);
 	print_map(map, print_verification);
-	if (!ew_walls(map) || !ns_walls(map, xlen, ylen))
+	if (!east_west_walls(map) || !south_north_walls(map, xlen, ylen))
 		return (err(BFS_ERR));
 	reset_after_bfs(map);
-	if (check_player_nb(map) != 1)
-		return (err("The map must contain 1 player (max)"));
+	if (check_player_nb(map) > 1)
+		return (err(MANY_PLAYER_ERR));
+	else if (check_player_nb(map) < 1)
+		return (err(NO_PLAYER_ERR));
 	return (true);
 }

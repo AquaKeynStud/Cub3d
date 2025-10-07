@@ -6,12 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 15:52:58 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:14:09 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
+#include "config.h"
 
 static t_bfs	*create_bfs(int size)
 {
@@ -87,25 +88,25 @@ bool	init_bfs(char **map, int width, int height)
 {
 	t_bfs	*bfs;
 	t_point	start;
-	bool	closed;
+	bool	result;
 
-	closed = true;
+	result = true;
 	bfs = create_bfs(width * height);
 	if (!bfs)
-		return (err("🛟 Failed to initialize map verification 🐡"));
+		return (err(BFS_INIT_ERR));
 	while (find_cell(map, &start))
 	{
 		if (start.x < 0 || start.y < 0 || start.x >= width || start.y >= height)
 		{
-			closed = err("🚧 Error while checking map borders; aborting... 🚈");
+			result = err(BFS_CELL_ERR);
 			break ;
 		}
 		bfs->queue[bfs->rear++] = start;
-		closed = breadth_first_search(bfs, map, width, height);
-		if (!closed)
+		result = breadth_first_search(bfs, map, width, height);
+		if (!result)
 			break ;
 	}
 	free(bfs->queue);
 	free(bfs);
-	return (closed);
+	return (result);
 }

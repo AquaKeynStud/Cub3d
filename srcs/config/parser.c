@@ -6,12 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 16:04:31 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:11:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
+#include "config.h"
 
 bool	check_map_content(char **map)
 {
@@ -25,7 +26,10 @@ bool	check_map_content(char **map)
 		while (map[i][j])
 		{
 			if (!in_str(map[i][j], "01NSEW ", false))
-				return (err("Invalid type in map"));
+			{
+				print_map(map, print_type);
+				return (err(MAP_TYPE_ERR));
+			}
 			j++;
 		}
 		i++;
@@ -33,7 +37,7 @@ bool	check_map_content(char **map)
 	return (true);
 }
 
-bool	check_player_nb(char **map)
+int	check_player_nb(char **map)
 {
 	int		i;
 	int		j;
@@ -55,7 +59,7 @@ bool	check_player_nb(char **map)
 		}
 		i++;
 	}
-	return (count == 1);
+	return (count);
 }
 
 void	reset_after_bfs(char **map)
@@ -77,7 +81,7 @@ void	reset_after_bfs(char **map)
 	}
 }
 
-bool	ew_walls(char **map)
+bool	east_west_walls(char **map)
 {
 	int	i;
 	int	j;
@@ -91,7 +95,7 @@ bool	ew_walls(char **map)
 		if (j >= 0 && (!map[i][j] || map[i][j] != '1'))
 			return (false);
 		j = 0;
-		while (j >= 0 && map[i][j] && map[i][j] == ' ')
+		while (j < (int)ft_strlen(map[i]) && map[i][j] && map[i][j] == ' ')
 			j++;
 		if (j >= 0 && (!map[i][j] || map[i][j] != '1'))
 			return (false);
@@ -100,7 +104,7 @@ bool	ew_walls(char **map)
 	return (true);
 }
 
-bool	ns_walls(char **map, int width, int height)
+bool	south_north_walls(char **map, int width, int height)
 {
 	int	i;
 	int	j;

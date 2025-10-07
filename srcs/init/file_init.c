@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/28 19:28:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:12:42 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,17 @@ static bool	read_lines(t_data *data)
 static bool	everything_set(t_data *data, t_txts txts)
 {
 	if (!txts.east.img || !txts.east.addr)
-		return (err_str(WALL_IMG_ERR, "east"));
+		return (err_str(WALL_DATA_ERR, "east"));
 	if (!txts.west.img || !txts.west.addr)
-		return (err_str(WALL_IMG_ERR, "west"));
+		return (err_str(WALL_DATA_ERR, "west"));
 	if (!txts.north.img || !txts.north.addr)
-		return (err_str(WALL_IMG_ERR, "north"));
+		return (err_str(WALL_DATA_ERR, "north"));
 	if (!txts.south.img || !txts.south.addr)
-		return (err_str(WALL_IMG_ERR, "south"));
+		return (err_str(WALL_DATA_ERR, "south"));
 	if (txts.floor == -1)
-		return (err_str(COLOR_IMG_ERR, "floor"));
+		return (err_str(COLOR_DATA_ERR, "floor"));
 	if (txts.ceiling == -1)
-		return (err_str(COLOR_IMG_ERR, "ceiling"));
+		return (err_str(COLOR_DATA_ERR, "ceiling"));
 	if (!data->map.map || !*data->map.map)
 		return (err("🧭 No map found in file 🗺️"));
 	return (true);

@@ -58,8 +58,9 @@ LST_PAR	=	bfs.c		\
 			parser.c	\
 			config.c
 
-LST_INC	=	cub.h	\
-			data.h
+LST_INC	=	cub.h		\
+			data.h		\
+			config.h
 
 LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR)
 

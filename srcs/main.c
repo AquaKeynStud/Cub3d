@@ -6,12 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 15:53:39 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:13:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
+#include "config.h"
 #include "ft_printf.h"
 
 bool	has_ext(const char *filename, char *ext)

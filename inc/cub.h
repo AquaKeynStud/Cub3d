@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 16:04:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 18:12:57 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ typedef struct s_data
 
 /* -- Error Reports Macros -- */
 # define ERROR			"\t\e[107;1;31m     🏮 Error: "
-# define BFS_ERR		"⚗️  Map must be surrounded by walls 🎑"
 # define ERRNOLOG		"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
 # define USAGE_ERR		"\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
-# define WALL_IMG_ERR	"🪾  Failed to initialize %s wall image 🍂"
-# define COLOR_IMG_ERR	"🌈 No color found for %s 🍡"
+
+# define WALL_DATA_ERR	"🪾  Failed to initialize %s wall image 🍂"
+# define COLOR_DATA_ERR	"🌈 No color found for %s 🍡"
 
 /* -- Info Reports Macros -- */
 # define MAPLOG		"\t\e[107;1;38;5;210m     "
@@ -75,24 +75,15 @@ bool	parse_map(char ***map, char *line, int *pos, int *cap);
 /* -- Display Functions -- */
 bool	create_window(t_data *data, int width, int height, char *name);
 
-bool	configure_map(t_map *map);
-bool	init_bfs(char **map, int width, int height);
-
-/* -- Errors Functions -- */
+/* -- Error Functions -- */
 bool	err(char *msg);
 bool	err_errno(char *msg);
 bool	err_str(char *msg, char *str);
 
-void	debug_assets(t_txts txts);
-void	print_map(char **map, void (*printer)(char c));
+/* -- Print Functions -- */
 void	print_type(char c);
-void	print_verification(char c);
 void	debug(char *message);
-
-void	reset_after_bfs(char **map);
-bool	ew_walls(char **map);
-bool	ns_walls(char **map, int width, int height);
-bool	check_player_nb(char **map);
-bool	check_map_content(char **map);
+void	print_verification(char c);
+void	print_map(char **map, void (*printer)(char c));
 
 #endif
