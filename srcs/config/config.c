@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:27:02 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/03 16:26:03 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 16:19:04 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,25 @@ static bool	normalize_map(char **map, int unit)
 	return (true);
 }
 
-bool	configure_map(t_map *map)
+bool	configure_map(t_map *map_data)
 {
-	get_map_size(map->map, &map->width, &map->height);
-	if (!normalize_map(map->map, map->width) || !check_map_content(map->map))
+	char	**map;
+	int		xlen;
+	int		ylen;
+
+	map = map_data->map;
+	get_map_size(map, &map_data->width, &map_data->height);
+	xlen = map_data->width;
+	ylen = map_data->height;
+	if (!normalize_map(map, xlen) || !check_map_content(map))
 		return (false);
-	if (!init_bfs(map->map, map->width, map->height))
+	if (!init_bfs(map, xlen, ylen))
 		return (false);
-	print_map(map->map, print_verification);
-	reset_after_bfs(map->map);
-	if (check_player_nb(map->map) != 1)
+	print_map(map, print_verification);
+	if (!ew_walls(map) || !ns_walls(map, xlen, ylen))
+		return (err(BFS_ERR));
+	reset_after_bfs(map);
+	if (check_player_nb(map) != 1)
 		return (err("The map must contain 1 player (max)"));
 	return (true);
 }

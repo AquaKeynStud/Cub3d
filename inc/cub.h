@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/03 16:26:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 16:04:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ typedef struct s_data
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 
+# define EOL			"     \e[0m\n"
+
 /* -- Error Reports Macros -- */
-# define EOL		"     \e[0m\n"
-# define ERROR		"\t\e[107;1;31m     🏮 Error: "
-# define ERRNOLOG	"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
+# define ERROR			"\t\e[107;1;31m     🏮 Error: "
+# define BFS_ERR		"⚗️  Map must be surrounded by walls 🎑"
+# define ERRNOLOG		"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
 # define USAGE_ERR		"\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
 # define WALL_IMG_ERR	"🪾  Failed to initialize %s wall image 🍂"
 # define COLOR_IMG_ERR	"🌈 No color found for %s 🍡"
@@ -88,6 +90,8 @@ void	print_verification(char c);
 void	debug(char *message);
 
 void	reset_after_bfs(char **map);
+bool	ew_walls(char **map);
+bool	ns_walls(char **map, int width, int height);
 bool	check_player_nb(char **map);
 bool	check_map_content(char **map);
 

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/03 16:01:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 15:52:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	breadth_first_search(t_bfs *bfs, char **map, int width, int height)
 		if (in_str(map[curr.y][curr.x], "1VNSEW", false))
 			continue ;
 		else if (map[curr.y][curr.x] != '0')
-			return (err("Map must be surrounded by walls"));
+			return (err(BFS_ERR));
 		map[curr.y][curr.x] = 'V';
 		add_queue(bfs, (t_point){curr.x + 1, curr.y}, width, height);
 		add_queue(bfs, (t_point){curr.x - 1, curr.y}, width, height);
@@ -92,12 +92,12 @@ bool	init_bfs(char **map, int width, int height)
 	closed = true;
 	bfs = create_bfs(width * height);
 	if (!bfs)
-		return (err("Failed to initialize map verification"));
+		return (err("🛟 Failed to initialize map verification 🐡"));
 	while (find_cell(map, &start))
 	{
 		if (start.x < 0 || start.y < 0 || start.x >= width || start.y >= height)
 		{
-			closed = err("Error while checking map borders; aborting...");
+			closed = err("🚧 Error while checking map borders; aborting... 🚈");
 			break ;
 		}
 		bfs->queue[bfs->rear++] = start;

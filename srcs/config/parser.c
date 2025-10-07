@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/03 16:25:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/07 16:04:31 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,50 @@ void	reset_after_bfs(char **map)
 		}
 		i++;
 	}
+}
+
+bool	ew_walls(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = ft_strlen(map[i]) - 1;
+		while (j >= 0 && map[i][j] && map[i][j] == ' ')
+			j--;
+		if (j >= 0 && (!map[i][j] || map[i][j] != '1'))
+			return (false);
+		j = 0;
+		while (j >= 0 && map[i][j] && map[i][j] == ' ')
+			j++;
+		if (j >= 0 && (!map[i][j] || map[i][j] != '1'))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	ns_walls(char **map, int width, int height)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < width)
+	{
+		j = height - 1;
+		while (j >= 0 && map[j][i] && map[j][i] == ' ')
+			j--;
+		if (j >= 0 && (!map[j][i] || map[j][i] != '1'))
+			return (false);
+		j = 0;
+		while (j < height && map[j][i] && map[j][i] == ' ')
+			j++;
+		if (j < height && (!map[j][i] || map[j][i] != '1'))
+			return (false);
+		i++;
+	}
+	return (true);
 }
