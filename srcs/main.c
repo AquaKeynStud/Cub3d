@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 18:13:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 08:41:50 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,6 @@ void	clean_exit(t_data *data, int code)
 		free(data->mlx);
 	}
 	exit(code);
-}
-
-int	close_on_esc(int keycode, t_data *data)
-{
-	if (keycode == 65307)
-		mlx_loop_end(data->mlx);
-	return (0);
 }
 
 int	main(int argc, char **argv)

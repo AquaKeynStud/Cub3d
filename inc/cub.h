@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 18:12:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 08:42:23 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void	print_type(char c);
 void	debug(char *message);
 void	print_verification(char c);
 void	print_map(char **map, void (*printer)(char c));
+
+int	close_on_esc(int keycode, t_data *data);
 
 #endif
