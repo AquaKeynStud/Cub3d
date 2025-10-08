@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:05:32 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 17:52:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 09:14:39 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ bool	err_str(char *msg, char *str)
 	return (false);
 }
 
-bool	err_errno(char *msg)
+bool	err_errno(char *msg, char *custom_err, bool exit_err)
 {
 	if (!msg || !*msg)
 		msg = "errno";
-	ft_printf(ERRNOLOG, msg, strerror(errno));
+	if (!custom_err || !*custom_err)
+		custom_err = strerror(errno);
+	if (exit_err)
+	{
+		ft_printf(ERROR);
+		ft_printf("%s: %s", msg, custom_err);
+		ft_printf(EOL);
+	}
+	else
+		ft_printf(ERRNOLOG, msg, custom_err);
 	return (false);
-}
-
-void	debug(char *message)
-{
-	ft_printf("\e[1;31m📛 DEBUG - %s 📛\e[0m\n", message);
 }

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 08:42:23 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 11:45:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,10 @@
 /* -- Includes -- */
 # include "mlx.h"
 # include "data.h"
-# include <stdbool.h>
 # include "mlx_int.h"
+# include <stdbool.h>
 
 /* -- Structures -- */
-typedef struct s_file
-{
-	int	fd;
-	int	nl;
-	int	pos;
-	int	cap;
-	int	line_nb;
-}			t_file;
-
 typedef struct s_data
 {
 	t_map	map;
@@ -49,16 +40,12 @@ typedef struct s_data
 
 # define EOL			"     \e[0m\n"
 
-/* -- Error Reports Macros -- */
+/* -- Error Messages -- */
 # define ERROR			"\t\e[107;1;31m     🏮 Error: "
 # define ERRNOLOG		"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
 # define USAGE_ERR		"\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
 
-# define WALL_DATA_ERR	"🪾  Failed to initialize %s wall image 🍂"
-# define COLOR_DATA_ERR	"🌈 No color found for %s 🍡"
-
-/* -- Info Reports Macros -- */
-# define MAPLOG		"\t\e[107;1;38;5;210m     "
+/* -- Info Messages -- */
 # define INFO		"\t\e[107;1;34m     🗻 Info: "
 # define TOPBAND	"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
 # define BOTTOMBAND	"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
@@ -66,24 +53,19 @@ typedef struct s_data
 /* -- Logs Functions -- */
 void	print_header(void);
 
-/* -- File Functions -- */
-bool	parse_param(t_data *data, char *line);
-bool	has_ext(const char *filename, char *ext);
-bool	get_info_from_file(t_data *data, const char *filename);
-bool	parse_map(char ***map, char *line, int *pos, int *cap);
-
 /* -- Display Functions -- */
 bool	create_window(t_data *data, int width, int height, char *name);
 
 /* -- Error Functions -- */
 bool	err(char *msg);
-bool	err_errno(char *msg);
 bool	err_str(char *msg, char *str);
+bool	err_errno(char *msg, char *custom_err, bool exit_err);
 
 /* -- Print Functions -- */
 void	print_type(char c);
 void	debug(char *message);
 void	print_verification(char c);
+bool	info(char *message, char *format, char *str);
 void	print_map(char **map, void (*printer)(char c));
 
 int	close_on_esc(int keycode, t_data *data);

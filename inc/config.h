@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:56:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 18:12:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 11:56:39 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ typedef struct s_bfs
 	int		front;
 	t_point	*queue;
 }			t_bfs;
+
+/* -- Parsing Info Messages -- */
+# define CFG_LOG	"\t\e[107;1;38;5;75m     "
+# define CFG_END	"%s🎋 Data configured successfully ! 💮%s"
+# define CFG_START	"%s🗺️  Starting configuration of the map 🌐%s"
+# define NORM_START	"%s🍱 Normalization of the map... 🎐%s"
+# define BFS_START	"%s🥡 Processing BFS verification... 🦈%s"
+# define PSG_START	"%s🗼 Verifying map syntax... ⛲️ %s"
 
 /* -- Error Messages -- */
 # define BFS_ERR		"⚗️  Map must be surrounded by walls 🎑"

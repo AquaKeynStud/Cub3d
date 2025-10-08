@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:05:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/01 10:03:20 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 11:53:37 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	print_map(char **map, void (*printer)(char c))
 	int	j;
 
 	i = 0;
+	ft_printf("\n");
 	while (map[i])
 	{
 		j = 0;

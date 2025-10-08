@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 18:14:09 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 11:51:51 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ bool	init_bfs(char **map, int width, int height)
 	bool	result;
 
 	result = true;
+	info(BFS_START, CFG_LOG, NULL);
 	bfs = create_bfs(width * height);
 	if (!bfs)
 		return (err(BFS_INIT_ERR));

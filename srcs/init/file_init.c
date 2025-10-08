@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 18:12:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 11:45:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,22 @@ static bool	get_data_from_line(t_data *data, char *line)
 	{
 		if (!data->map.map)
 			return (parse_param(data, line));
-		return (err("The map should be after all parameters"));
+		return (err(MAP_NOT_EOF));
 	}
 	if (in_str(*line, "10 ", false))
 	{
 		if (data->file.nl)
-			return (err("Empty line in map"));
+			return (err(EMPTY_LINE));
 		return (parse_map(&data->map.map, line, &data->file.pos, &data->file.cap));
 	}
-	free(line);
 	if (empty)
+	{
+		free(line);
 		return (data->file.nl += (data->file.nl == false));
+	}
 	else
-		return ((data->file.nl -= (data->file.nl == true)) || true);
-	return (err_str("🏞️  Invalid line in file : `%s` 🍥", line));
+		data->file.nl -= (data->file.nl == true);
+	return (err_str(INVALID_LINE, line));
 }
 
 static bool	read_lines(t_data *data)
@@ -81,7 +83,7 @@ static bool	everything_set(t_data *data, t_txts txts)
 	if (txts.ceiling == -1)
 		return (err_str(COLOR_DATA_ERR, "ceiling"));
 	if (!data->map.map || !*data->map.map)
-		return (err("🧭 No map found in file 🗺️"));
+		return (err(NO_MAP_ERR));
 	return (true);
 }
 
@@ -95,15 +97,15 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	data->file.fd = open(filename, O_RDONLY);
 	if (data->file.fd == -1)
 	{
-		perror("open");
+		err_errno((char *)filename, NULL, true);
 		return (false);
 	}
-	ft_printf("%s⛩️  Start reading file: %s 🚏%s", MAPLOG, filename, EOL);
+	info(READ_START, MAPLOG, (char *)filename);
 	checker = read_lines(data);
 	close(data->file.fd);
 	if (!data->file.line_nb)
-		return (err("🌁 Config file seems empty... 🔬"));
+		return (err(EMPTY_CONFIG));
 	if (checker && everything_set(data, data->assets))
-		return (ft_printf("%s🎏 Info saved, file closed 📚%s", MAPLOG, EOL));
+		return (info(READ_END, MAPLOG, NULL));
 	return (false);
 }

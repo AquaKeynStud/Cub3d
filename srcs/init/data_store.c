@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/30 16:34:35 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 10:25:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static t_image	get_image(t_data *data, char *path, char *ext)
 	(void)ext;
 	if (!has_ext(path, ".xpm"))
 	{
-		printf("\e[1;38;5;203m🈲    %s: Invalid extension    🈲\e[0m\n", path);
+		err_errno(path, INVALID_EXT, false);
 		return ((t_image){0});
 	}
 	img.img = mlx_xpm_file_to_image(data->mlx, path, &img.width, &img.height);
 	if (!img.img)
 	{
-		err_errno(path);
+		err_errno(path, NULL, false);
 		return ((t_image){0});
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.slen, &img.endian);
@@ -71,7 +71,7 @@ static bool	upscale_map(char ***map, int *pos, int *cap)
 	{
 		*map = (char **)malloc(slot);
 		if (!*map)
-			return (err("Failed to allocate memory for the map"));
+			return (err(MAP_SIZE_ERR));
 	}
 	if ((*pos) >= (*cap) - 1)
 	{
@@ -79,7 +79,7 @@ static bool	upscale_map(char ***map, int *pos, int *cap)
 		if (!tmp)
 		{
 			double_free((void **)*map, 0);
-			return (err("Failed to upscale the map; aborting..."));
+			return (err(MAP_UPSC_ERR));
 		}
 		*map = tmp;
 		(*cap) *= 2;
@@ -92,7 +92,7 @@ bool	parse_param(t_data *data, char *line)
 	char	*value;
 
 	if (count_words(line, " \t\n\v\f\r") != 2)
-		return (err_str("Too many arguments on line: `%s`", line));
+		return (err_str(MANY_ARGS_ERR, line));
 	value = get_word(line, 1);
 	if (!ft_strncmp(line, "F ", 2) && data->assets.floor == -1)
 		data->assets.floor = to_rgb(value);
@@ -109,7 +109,7 @@ bool	parse_param(t_data *data, char *line)
 	else
 	{
 		free(value);
-		return (err_str("Invalid identifier: `%.2s`", line));
+		return (err_str(INVALID_ARG, line));
 	}
 	free(line);
 	free(value);
@@ -135,7 +135,7 @@ bool	parse_map(char ***map, char *line, int *pos, int *cap)
 	if (!tmp)
 	{
 		double_free((void **)(*map), 0);
-		return (err("Failed to crop the map at the right size"));
+		return (err(MAP_CROP_ERR));
 	}
 	(*map) = tmp;
 	return (true);
