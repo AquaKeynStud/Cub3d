@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:45:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/08 15:20:29 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 /* -- Includes -- */
 # include "mlx.h"
 # include "data.h"
+# include "player.h"
 # include "mlx_int.h"
 # include <stdbool.h>
 
 /* -- Structures -- */
 typedef struct s_data
 {
-	t_map	map;
-	void	*mlx;
-	void	*win;
-	t_file	file;
-	t_txts	assets;
+	t_map		map;
+	void		*mlx;
+	void		*win;
+	t_file		file;
+	t_txts		assets;
+	t_player	player;
 }			t_data;
 
 /* -- Input Macros -- */
