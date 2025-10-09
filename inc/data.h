@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:37:25 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:35:42 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ typedef struct s_data	t_data;
 
 /* -- Read Info Messages -- */
 # define MAPLOG		"\t\e[107;1;38;5;210m     "
-# define READ_END	"%s🎏 Data saved successfully, file closed 📚%s"
-# define READ_START	"%s⛩️  Start reading file: %s 🚏%s"
+# define READ_END	"🎏 Data saved successfully, file closed 📚"
+# define READ_START	"⛩️  Start reading file: %s 🚏"
 
 /* -- Syntax Error Messages -- */
 # define INVALID_EXT	"Invalid extension"

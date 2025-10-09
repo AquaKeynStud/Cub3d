@@ -59,10 +59,12 @@ LST_PAR	=	bfs.c		\
 			parser.c	\
 			config.c
 
-LST_EVT	=	inputs.c
+LST_EVT	=	inputs.c	\
+			gameplay.c
 
 LST_INC	=	cub.h		\
 			data.h		\
+			events.h		\
 			config.h
 
 LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT)

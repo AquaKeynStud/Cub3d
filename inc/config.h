@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:56:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:32:08 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:34:56 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ typedef struct s_bfs
 
 /* -- Parsing Info Messages -- */
 # define CFG_LOG	"\t\e[107;1;38;5;75m     "
-# define CFG_END	"%s🎋 Data configured successfully ! 💮%s"
-# define CFG_START	"%s🗺️  Starting configuration of the map 🌐%s"
-# define NORM_START	"%s🍱 Normalization of the map... 🎐%s"
-# define BFS_START	"%s🥡 Processing BFS verification... 🦈%s"
-# define PSG_START	"%s🗼 Starting verification of map syntax... ⛲️%s"
-# define PLR_START	"%s🍥 Getting player informations... 🍙%s"
+# define CFG_END	"🎋 Data configured successfully ! 💮"
+# define CFG_START	"🗺️  Starting configuration of the map 🌐"
+# define NORM_START	"🍱 Normalization of the map... 🎐"
+# define BFS_START	"🥡 Processing BFS verification... 🦈"
+# define PSG_START	"🗼 Starting verification of map syntax... ⛲️"
+# define PLR_START	"🍥 Getting player informations... 🍙"
 
 /* -- Error Messages -- */
 # define BFS_ERR		"⚗️  Map must be surrounded by walls 🎑"
@@ -49,7 +49,7 @@ typedef struct s_bfs
 # define MAP_NORM_ERR	"🍱 Failed to normalize the map 🫚"
 
 # define NO_PLAYER_ERR		"🎎 The map must contain at least 1 player 🀄️"
-# define MANY_PLAYER_ERR	"🍇 The map cannot contain more than 1 player 🫐"
+# define MANY_PLAYER_ERR	"🍇 Several players have been detected on map 🫐"
 
 /* -- Format Functions -- */
 void	debug_assets(t_txts txts);

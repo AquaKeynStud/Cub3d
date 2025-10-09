@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:05:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:33:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:59:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	debug_assets(t_txts txts)
 	ft_printf(BOTTOMBAND, "   ", "肌", "理");
 }
 
-void	player_infos(t_player player, char orientation)
+bool	player_infos(t_player player, char orientation)
 {
 	ft_printf(TOPBAND, "🎐 Player 🀄️");
 	printf("\t%7cPosition : (%.1f, %.1f)\n", ' ', player.x + 1, player.y + 1);
@@ -47,6 +47,7 @@ void	player_infos(t_player player, char orientation)
 	printf("\t%9cPlayer speed : %.2f\n", ' ', player.speed);
 	printf("\t%9cCamera speed : %.2f\n", ' ', player.velocity);
 	ft_printf(BOTTOMBAND, "   ", "選", "手");
+	return (true);
 }
 
 void	print_type(char c)

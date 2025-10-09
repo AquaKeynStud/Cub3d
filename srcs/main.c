@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:23:04 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:24:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ int	main(int argc, char **argv)
 		free(data.mlx);
 		return (1);
 	}
-	mlx_hook(data.win, 17, 0, mlx_loop_end, data.mlx);
-	mlx_hook(data.win, 2, 1L << 0, close_on_esc, &data);
+	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
+	mlx_hook(data.win, PRESS, 1L<<0, key_pressed, &data);
+	mlx_hook(data.win, RELEASE, 1L<<1, key_released, &data);
+	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
 	clean_exit(&data, EXIT_SUCCESS);

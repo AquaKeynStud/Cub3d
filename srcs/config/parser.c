@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:31:55 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:58:31 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ bool	get_player(char **map, t_player *player)
 				if (debounce)
 					return (err(MANY_PLAYER_ERR));
 				init_player_data(player, i, j, map[i][j]);
+				debounce = map[i][j];
 				map[i][j] = '0';
-				debounce = true;
 			}
 			j++;
 		}
