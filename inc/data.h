@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 16:40:41 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:37:25 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_player
 	double	velocity;
 }			t_player;
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 /* -- Read Info Messages -- */
 # define MAPLOG		"\t\e[107;1;38;5;210m     "

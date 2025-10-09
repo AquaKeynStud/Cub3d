@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/07 18:11:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:31:55 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "config.h"
 
-bool	check_map_content(char **map)
+bool	check_map_content(char **map, t_player player)
 {
 	int	i;
 	int	j;
@@ -27,7 +27,7 @@ bool	check_map_content(char **map)
 		{
 			if (!in_str(map[i][j], "01NSEW ", false))
 			{
-				print_map(map, print_type);
+				print_map(map, player, print_type);
 				return (err(MAP_TYPE_ERR));
 			}
 			j++;
@@ -37,48 +37,46 @@ bool	check_map_content(char **map)
 	return (true);
 }
 
-int	check_player_nb(char **map)
+static void	init_player_data(t_player *player, int i, int j, char dir)
+{
+	player->x = j + 0.5f;
+	player->y = i + 0.5f;
+	player->ori_x = (dir == 'E') - (dir == 'W');
+	player->ori_y = (dir == 'S') - (dir == 'N');
+	player->cam_x = ((dir == 'N') - (dir == 'S')) * 0.66f;
+	player->cam_y = ((dir == 'E') - (dir == 'W')) * 0.66f;
+	player->speed = PLAYER_SPEED;
+	player->velocity = ROTATION_SPEED;
+	player_infos(*player, dir);
+}
+
+bool	get_player(char **map, t_player *player)
 {
 	int		i;
 	int		j;
-	int		count;
+	bool	debounce;
 
 	i = 0;
-	count = 0;
-	if (!map || !*map)
-		return (-1);
+	debounce = false;
+	info(PLR_START, CFG_LOG, NULL);
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-					|| map[i][j] == 'W' || map[i][j] == 'E')
-				count += 1;
-			j++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-void	reset_after_bfs(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == 'V')
+			if (in_str(map[i][j], "NSEW", false))
+			{
+				if (debounce)
+					return (err(MANY_PLAYER_ERR));
+				init_player_data(player, i, j, map[i][j]);
 				map[i][j] = '0';
+				debounce = true;
+			}
 			j++;
 		}
 		i++;
 	}
+	return (debounce || err(NO_PLAYER_ERR));
 }
 
 bool	east_west_walls(char **map)

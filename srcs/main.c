@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 16:26:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:23:04 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ static bool	setup_data(t_data *data, char *filename)
 	if (!get_info_from_file(data, filename))
 		clean_exit(data, EXIT_FAILURE);
 	debug_assets((*data).assets);
-	if (!configure_map(&data->map))
+	if (!configure(data, &data->map))
 		clean_exit(data, EXIT_FAILURE);
-	print_map((*data).map.map, print_type);
 	return (true);
 }
 

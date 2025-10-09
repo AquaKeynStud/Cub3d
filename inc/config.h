@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:56:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:56:39 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:32:08 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_bfs
 # define CFG_START	"%s🗺️  Starting configuration of the map 🌐%s"
 # define NORM_START	"%s🍱 Normalization of the map... 🎐%s"
 # define BFS_START	"%s🥡 Processing BFS verification... 🦈%s"
-# define PSG_START	"%s🗼 Verifying map syntax... ⛲️ %s"
+# define PSG_START	"%s🗼 Starting verification of map syntax... ⛲️%s"
+# define PLR_START	"%s🍥 Getting player informations... 🍙%s"
 
 /* -- Error Messages -- */
 # define BFS_ERR		"⚗️  Map must be surrounded by walls 🎑"
@@ -52,16 +53,15 @@ typedef struct s_bfs
 
 /* -- Format Functions -- */
 void	debug_assets(t_txts txts);
-void	reset_after_bfs(char **map);
 
 /* -- Parsing Functions -- */
 bool	east_west_walls(char **map);
-int		check_player_nb(char **map);
-bool	check_map_content(char **map);
+bool	get_player(char **map, t_player *player);
 bool	init_bfs(char **map, int width, int height);
+bool	check_map_content(char **map, t_player player);
 bool	south_north_walls(char **map, int width, int height);
 
 /* -- Config Main Function -- */
-bool	configure_map(t_map *map);
+bool	configure(t_data *data, t_map *map_data);
 
 #endif
