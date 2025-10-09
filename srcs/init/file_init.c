@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:45:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 14:31:20 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	}
 	info(READ_START, MAPLOG, (char *)filename);
 	checker = read_lines(data);
+	init_player_position(data);
 	close(data->file.fd);
 	if (!data->file.line_nb)
 		return (err(EMPTY_CONFIG));

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:55:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/09 13:13:58 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/09 14:35:39 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ void	draw_square(t_data *data, int px, int py, int size, int color)
 	}
 }
 
+void	draw_circle(t_data *data, int cx, int cy, int radius, int color)
+{
+	int	y;
+	int	x;
+
+	y = -radius;
+	while (y <= radius)
+	{
+		x = -radius;
+		while (x <= radius)
+		{
+			if (x*x + y*y <= radius*radius)
+				mlx_pixel_put(data->mlx, data->win, cx + x, cy + y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_map(t_data *data)
 {
 	int	i;
@@ -47,9 +66,17 @@ void	draw_map(t_data *data)
 			if (data->map.map[i][j] == '1')
 				draw_square(data, j * tile_size, i * tile_size,
 					tile_size, 0xA9A9A9);
-			else
+			else if (data->map.map[i][j] == '0')
 				draw_square(data, j * tile_size, i * tile_size,
 					tile_size, 0xFFFFFF);
+			else
+			{
+				draw_square(data, j * tile_size, i * tile_size,
+					tile_size, 0xFFFFFF);
+				draw_circle(data, (int)(data->player.x * tile_size),
+					(int)(data->player.y * tile_size),
+							4, 0x000000);
+			}
 			j++;
 		}
 		i++;

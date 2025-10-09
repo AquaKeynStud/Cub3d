@@ -48,7 +48,8 @@ D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_MOV)
 LST_SRC	=	main.c
 
 LST_INT	=	file_init.c		\
-			data_store.c
+			data_store.c	\
+			init_player.c
 
 LST_UIS	=	window.c
 

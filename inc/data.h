@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:14:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 14:15:12 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ bool	parse_param(t_data *data, char *line);
 bool	has_ext(const char *filename, char *ext);
 bool	get_info_from_file(t_data *data, const char *filename);
 bool	parse_map(char ***map, char *line, int *pos, int *cap);
+void	init_player_position(t_data *data);
 
 #endif
