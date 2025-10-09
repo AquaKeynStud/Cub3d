@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 19:43:59 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 20:35:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	key_pressed(int keycode, t_data *data)
 		data->inputs.rotate_left = true;
 	else if (keycode == KEY_D)
 		data->inputs.rotate_right = true;
-	else if (keycode > 96 && keycode < 123)
+	else if (keycode >= 'a' && keycode <= 'z')
 		ft_printf("%s🈲 The key : %c isn't handled 🈲%s", MAPLOG, keycode - 32, EOL);
 	return (0);
 }
