@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:14:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 16:40:41 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ typedef struct s_map
 	int		width;
 	int		height;
 }			t_map;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	ori_x;
+	double	ori_y;
+	double	cam_x;
+	double	cam_y;
+	double	speed;
+	double	velocity;
+}			t_player;
 
 typedef struct s_data t_data;
 

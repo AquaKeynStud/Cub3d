@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:45:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 16:41:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 /* -- Structures -- */
 typedef struct s_data
 {
-	t_map	map;
-	void	*mlx;
-	void	*win;
-	t_file	file;
-	t_txts	assets;
+	t_map		map;
+	void		*mlx;
+	void		*win;
+	t_file		file;
+	t_txts		assets;
+	t_player	player;
 }			t_data;
 
 /* -- Input Macros -- */
@@ -37,6 +38,10 @@ typedef struct s_data
 # define KEY_ESC 65307
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+
+/* -- Gameplay Modificators -- */
+# define PLAYER_SPEED 0.05
+# define ROTATION_SPEED 0.03
 
 # define EOL			"     \e[0m\n"
 

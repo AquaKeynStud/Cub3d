@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:27:02 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:52:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 16:39:45 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,37 @@ static bool	normalize_map(char **map, int unit)
 		i++;
 	}
 	return (true);
+}
+
+static bool	init_player_data(t_player *player, char dir)
+{
+	
+}
+
+static bool	get_player(char **map, t_player *player)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (in_str(map[i][j], "NSEW", false))
+			{
+				player->x = j + 0.5;
+				player->y = i + 0.5;
+				player->cam_x = (map[i][j] == 'E') - (map[i][j] == 'W');
+				player->cam_y = (map[i][j] == 'S') - (map[i][j] == 'N');
+				return (true);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (false);
 }
 
 bool	configure_map(t_map *map_data)
