@@ -6,28 +6,28 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:55:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/08 16:16:49 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/09 13:13:58 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "config.h"
 
-void	draw_square(t_data *data, int x, int y, int size, int color)
+void	draw_square(t_data *data, int px, int py, int size, int color)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (i < size)
+	y = 0;
+	while (y < size)
 	{
-		j = 0;
-		while (j < size)
+		x = 0;
+		while (x < size)
 		{
-			mlx_pixel_put(data->mlx, data->win, x + 1, y + 1, color);
-			j++;
+			mlx_pixel_put(data->mlx, data->win, px + x, py + y, color);
+			x++;
 		}
-		i++;
+		y++;
 	}
 }
 
@@ -46,7 +46,7 @@ void	draw_map(t_data *data)
 		{
 			if (data->map.map[i][j] == '1')
 				draw_square(data, j * tile_size, i * tile_size,
-					tile_size, 0x0000FF);
+					tile_size, 0xA9A9A9);
 			else
 				draw_square(data, j * tile_size, i * tile_size,
 					tile_size, 0xFFFFFF);

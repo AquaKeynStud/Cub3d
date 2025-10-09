@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:08:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 13:09:47 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
 #include "config.h"
+#include "player.h"
 #include "ft_printf.h"
 
 bool	has_ext(const char *filename, char *ext)
@@ -47,6 +48,20 @@ void	clean_exit(t_data *data, int code)
 	exit(code);
 }
 
+int	key_press(int keycode, t_data *data)
+{
+	if (keycode == KEY_W)
+		move_forward(data);
+	else if (keycode == KEY_S)
+		move_back(data);
+	else if (keycode == KEY_A)
+		move_left(data);
+	else if (keycode == KEY_D)
+		move_right(data);
+	draw_map(data);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -69,6 +84,8 @@ int	main(int argc, char **argv)
 		free(data.mlx);
 		return (1);
 	}
+	draw_map(&data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);
 	mlx_hook(data.win, 17, 0, mlx_loop_end, data.mlx);
 	mlx_hook(data.win, 2, 1L << 0, close_on_esc, &data);
 	mlx_loop(data.mlx);
