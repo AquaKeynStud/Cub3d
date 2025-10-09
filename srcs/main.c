@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:08:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 16:19:26 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void	clean_exit(t_data *data, int code)
 	exit(code);
 }
 
+bool	setup_data(t_data *data, char filename)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	(*data).mlx = mlx_init();
+	if (!(*data).mlx)
+		return (1);
+	if (!get_info_from_file(data, filename))
+		clean_exit(data, EXIT_FAILURE);
+	debug_assets((*data).assets);
+	if (!configure_map(&data->map))
+		clean_exit(data, EXIT_FAILURE);
+	print_map((*data).map.map, print_type);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -54,16 +68,7 @@ int	main(int argc, char **argv)
 	if (argc != 2 || !has_ext(argv[1], ".cub"))
 		return (ft_printf(USAGE_ERR, argv[0]));
 	print_header();
-	ft_memset(&data, 0, sizeof(t_data));
-	data.mlx = mlx_init();
-	if (!data.mlx)
-		return (1);
-	if (!get_info_from_file(&data, argv[1]))
-		clean_exit(&data, EXIT_FAILURE);
-	debug_assets(data.assets);
-	if (!configure_map(&data.map))
-		clean_exit(&data, EXIT_FAILURE);
-	print_map(data.map.map, print_type);
+	setup_data(&data, argv[1]);
 	if (!create_window(&data, 800, 600, "cub3d"))
 	{
 		free(data.mlx);
