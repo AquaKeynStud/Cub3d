@@ -60,7 +60,8 @@ LST_PAR	=	bfs.c		\
 			config.c
 
 LST_EVT	=	inputs.c	\
-			gameplay.c
+			gameplay.c	\
+			movement.c
 
 LST_INC	=	cub.h		\
 			data.h		\
@@ -79,7 +80,7 @@ LIBS		:=	-L$(D_LFT) -lft -lreadline -lncurses
 
 INCS		:=	-I$(D_INC) -I$(D_LFT)inc/ -I$(D_MLX)
 
-LIBS		:=	-L$(D_LIB) -lft -lmlx -lX11 -lXext
+LIBS		:=	-L$(D_LIB) -lft -lmlx -lX11 -lXext -lm
 
 LIBFT		:=	$(D_LIB)libft.a
 

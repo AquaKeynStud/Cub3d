@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:58:31 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/10 14:54:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	init_player_data(t_player *player, int i, int j, char dir)
 	player->ori_y = (dir == 'S') - (dir == 'N');
 	player->cam_x = ((dir == 'N') - (dir == 'S')) * 0.66f;
 	player->cam_y = ((dir == 'E') - (dir == 'W')) * 0.66f;
-	player->speed = PLAYER_SPEED;
-	player->velocity = ROTATION_SPEED;
 	player_infos(*player, dir);
 }
 
