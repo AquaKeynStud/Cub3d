@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 15:20:29 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/10 14:30:48 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 /* -- Includes -- */
 # include "mlx.h"
 # include "data.h"
-# include "player.h"
 # include "mlx_int.h"
 # include <stdbool.h>
 
