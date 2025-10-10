@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 19:27:18 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/10 15:35:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,26 @@ typedef struct s_data
 	t_txts		assets;
 	t_player	player;
 	t_inputs	inputs;
+	int			screen_width;
+	int			screen_height;
 }			t_data;
 
 /* -- Gameplay Modificators -- */
 # define PLAYER_SPEED	0.05f
 # define ROTATION_SPEED	0.03f
+# define FOV			60
 
 /* -- Readible Variables -- */
 # define EOL			"     \e[0m\n"
 # define CROSS			17
 # define PRESS			2
 # define RELEASE		3
+# define PI				3.14159265358979323846
+
+/* -- Math Macros -- */
+# define RAD(deg)		((deg) * (PI / 180))
+# define DEG(rad)		((rad) * (180 / PI))
+# define ABS(value)		((value) * (1 - 2 * ((value) < 0)))
 
 /* -- Error Messages -- */
 # define ERROR			"\n\t\e[107;1;31m     🏮 Error: "
@@ -71,6 +80,9 @@ bool	info(char *message, char *format, char *str);
 bool	player_infos(t_player player, char orientation);
 void	print_map(char **map, t_player player, void (*printer)(char c));
 
-int		close_on_esc(int keycode, t_data *data);
+/* -- Math functions -- */
+double	rad(double deg);
+double	deg(double rad);
+double	norm(double angle);
 
 #endif

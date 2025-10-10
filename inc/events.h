@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 15:00:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/10 15:37:54 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ typedef struct s_data	t_data;
 /* -- Inputs Functions -- */
 int	key_pressed(int keycode, t_data *data);
 int	key_released(int keycode, t_data *data);
+
+/* -- Movement Functions -- */
+void	handle_movement(t_data *data);
 
 /* -- Loop Functions -- */
 int	game_loop(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:05:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 14:56:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/10 15:22:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ bool	player_infos(t_player player, char orientation)
 		ft_printf("\t            Facing : East\n");
 	else if (orientation == 'W')
 		ft_printf("\t            Facing : West\n");
-	printf("\t%9cPlayer speed : %.2f\n", ' ', PLAYER_SPEED);
-	printf("\t%9cCamera speed : %.2f\n", ' ', ROTATION_SPEED);
+	printf("\t%9cPlayer speed : %.2f\n", ' ', PLAYER_SPEED * 100);
+	printf("\t%9cCamera speed : %.2f\n", ' ', ROTATION_SPEED * 100);
 	ft_printf(BOTTOMBAND, "   ", "選", "手");
 	return (true);
 }

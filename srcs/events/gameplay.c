@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 14:54:59 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/10 15:11:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,9 @@ void	handle_rotation(t_data *data)
 
 int	game_loop(t_data *data)
 {
-	if (data->inputs.left)
-		return (0);
-	if (data->inputs.right)
-		return (0);
-	if (data->inputs.forward)
-		return (0); // Faire avancer le joueur
-	if (data->inputs.backward)
-		return (0); // Faire reculer le joueur
-
+	if (data->inputs.left || data->inputs.right
+			|| data->inputs.forward || data->inputs.backward)
+		handle_movement(data);
 	if (data->inputs.rotate_left || data->inputs.rotate_right)
 		handle_rotation(data);
 	return (0);
