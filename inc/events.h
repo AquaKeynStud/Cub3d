@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/11 02:30:39 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/11 15:42:29 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void	handle_movement(t_data *data);
 void	handle_rotation(t_data *data);
 
 void	draw_map(t_data *data);
+void	draw_square(t_data *data, int px, int py, int size, int color);
+void	draw_circle(t_data *data, int cx, int cy, int radius, int color);
 
 #endif
