@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 14:30:48 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/10 15:35:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 /* -- Includes -- */
 # include "mlx.h"
 # include "data.h"
+# include "events.h"
 # include "mlx_int.h"
 # include <stdbool.h>
 
@@ -28,28 +29,37 @@ typedef struct s_data
 	t_file		file;
 	t_txts		assets;
 	t_player	player;
+	t_inputs	inputs;
+	int			screen_width;
+	int			screen_height;
 }			t_data;
 
-/* -- Input Macros -- */
-# define KEY_W 122 // 119
-# define KEY_A 113 // 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_ESC 65307
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
+/* -- Gameplay Modificators -- */
+# define PLAYER_SPEED	0.05f
+# define ROTATION_SPEED	0.03f
+# define FOV			60
 
+/* -- Readible Variables -- */
 # define EOL			"     \e[0m\n"
+# define CROSS			17
+# define PRESS			2
+# define RELEASE		3
+# define PI				3.14159265358979323846
+
+/* -- Math Macros -- */
+# define RAD(deg)		((deg) * (PI / 180))
+# define DEG(rad)		((rad) * (180 / PI))
+# define ABS(value)		((value) * (1 - 2 * ((value) < 0)))
 
 /* -- Error Messages -- */
-# define ERROR			"\t\e[107;1;31m     🏮 Error: "
+# define ERROR			"\n\t\e[107;1;31m     🏮 Error: "
 # define ERRNOLOG		"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
 # define USAGE_ERR		"\e[1;31m😾 Usage: %s <path_to_map.cub> 😾\e[0m\n"
 
 /* -- Info Messages -- */
-# define INFO		"\t\e[107;1;34m     🗻 Info: "
-# define TOPBAND	"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
-# define BOTTOMBAND	"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
+# define INFO			"\t\e[107;1;34m     🗻 Info: "
+# define TOPBAND		"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
+# define BOTTOMBAND		"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
 
 /* -- Logs Functions -- */
 void	print_header(void);
@@ -67,8 +77,12 @@ void	print_type(char c);
 void	debug(char *message);
 void	print_verification(char c);
 bool	info(char *message, char *format, char *str);
-void	print_map(char **map, void (*printer)(char c));
+bool	player_infos(t_player player, char orientation);
+void	print_map(char **map, t_player player, void (*printer)(char c));
 
-int	close_on_esc(int keycode, t_data *data);
+/* -- Math functions -- */
+double	rad(double deg);
+double	deg(double rad);
+double	norm(double angle);
 
 #endif

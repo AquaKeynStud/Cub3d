@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 14:30:31 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/11 14:30:53 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,29 @@ typedef struct s_player
 	double	ori_y;
 	double	cam_x;
 	double	cam_y;
+	double	angle;
 	double	speed;
-	double	velocity;
 }			t_player;
 
-typedef struct s_data t_data;
+typedef struct s_pos
+{
+	int		x;
+	int		y;
+}			t_pos;
+
+typedef struct s_minimap
+{
+	t_pos	center;
+	t_pos	start;
+	int	tile_size;
+}				t_minimap;
+
+typedef struct s_data	t_data;
 
 /* -- Read Info Messages -- */
 # define MAPLOG		"\t\e[107;1;38;5;210m     "
-# define READ_END	"%s🎏 Data saved successfully, file closed 📚%s"
-# define READ_START	"%s⛩️  Start reading file: %s 🚏%s"
+# define READ_END	"🎏 Data saved successfully, file closed 📚"
+# define READ_START	"⛩️  Start reading file: %s 🚏"
 
 /* -- Syntax Error Messages -- */
 # define INVALID_EXT	"Invalid extension"
@@ -97,6 +110,5 @@ bool	parse_param(t_data *data, char *line);
 bool	has_ext(const char *filename, char *ext);
 bool	get_info_from_file(t_data *data, const char *filename);
 bool	parse_map(char ***map, char *line, int *pos, int *cap);
-void	init_player_position(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:56:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:56:39 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:34:56 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ typedef struct s_bfs
 
 /* -- Parsing Info Messages -- */
 # define CFG_LOG	"\t\e[107;1;38;5;75m     "
-# define CFG_END	"%s🎋 Data configured successfully ! 💮%s"
-# define CFG_START	"%s🗺️  Starting configuration of the map 🌐%s"
-# define NORM_START	"%s🍱 Normalization of the map... 🎐%s"
-# define BFS_START	"%s🥡 Processing BFS verification... 🦈%s"
-# define PSG_START	"%s🗼 Verifying map syntax... ⛲️ %s"
+# define CFG_END	"🎋 Data configured successfully ! 💮"
+# define CFG_START	"🗺️  Starting configuration of the map 🌐"
+# define NORM_START	"🍱 Normalization of the map... 🎐"
+# define BFS_START	"🥡 Processing BFS verification... 🦈"
+# define PSG_START	"🗼 Starting verification of map syntax... ⛲️"
+# define PLR_START	"🍥 Getting player informations... 🍙"
 
 /* -- Error Messages -- */
 # define BFS_ERR		"⚗️  Map must be surrounded by walls 🎑"
@@ -48,20 +49,19 @@ typedef struct s_bfs
 # define MAP_NORM_ERR	"🍱 Failed to normalize the map 🫚"
 
 # define NO_PLAYER_ERR		"🎎 The map must contain at least 1 player 🀄️"
-# define MANY_PLAYER_ERR	"🍇 The map cannot contain more than 1 player 🫐"
+# define MANY_PLAYER_ERR	"🍇 Several players have been detected on map 🫐"
 
 /* -- Format Functions -- */
 void	debug_assets(t_txts txts);
-void	reset_after_bfs(char **map);
 
 /* -- Parsing Functions -- */
 bool	east_west_walls(char **map);
-int		check_player_nb(char **map);
-bool	check_map_content(char **map);
+bool	get_player(char **map, t_player *player);
 bool	init_bfs(char **map, int width, int height);
+bool	check_map_content(char **map, t_player player);
 bool	south_north_walls(char **map, int width, int height);
 
 /* -- Config Main Function -- */
-bool	configure_map(t_map *map);
+bool	configure(t_data *data, t_map *map_data);
 
 #endif

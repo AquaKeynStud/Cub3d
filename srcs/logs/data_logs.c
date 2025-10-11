@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:05:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:53:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/10 15:22:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,29 @@ void	debug_assets(t_txts txts)
 	ft_printf(BOTTOMBAND, "   ", "肌", "理");
 }
 
+bool	player_infos(t_player player, char orientation)
+{
+	ft_printf(TOPBAND, "🎐 Player 🀄️");
+	printf("\t%7cPosition : (%.1f, %.1f)\n", ' ', player.x + 1, player.y + 1);
+	if (orientation == 'N')
+		ft_printf("\t            Facing : North\n");
+	else if (orientation == 'S')
+		ft_printf("\t            Facing : South\n");
+	else if (orientation == 'E')
+		ft_printf("\t            Facing : East\n");
+	else if (orientation == 'W')
+		ft_printf("\t            Facing : West\n");
+	printf("\t%9cPlayer speed : %.2f\n", ' ', PLAYER_SPEED * 100);
+	printf("\t%9cCamera speed : %.2f\n", ' ', ROTATION_SPEED * 100);
+	ft_printf(BOTTOMBAND, "   ", "選", "手");
+	return (true);
+}
+
 void	print_type(char c)
 {
 	if (c == ' ')
 		ft_printf("   ");
-	else if (in_str(c, "NSWE", false))
+	else if (in_str(c, "P", false))
 		ft_printf("🎐 ");
 	else if (c == '1')
 		ft_printf("🪵 ");
@@ -50,7 +68,7 @@ void	print_verification(char c)
 {
 	if (c == ' ')
 		ft_printf("   ");
-	else if (in_str(c, "NSWE", false))
+	else if (in_str(c, "P", false))
 		ft_printf("🚢 ");
 	else if (c == '1')
 		ft_printf("🫧 ");
@@ -60,7 +78,7 @@ void	print_verification(char c)
 		ft_printf("🦐 ");
 }
 
-void	print_map(char **map, void (*printer)(char c))
+void	print_map(char **map, t_player player, void (*printer)(char c))
 {
 	int	i;
 	int	j;
@@ -72,7 +90,13 @@ void	print_map(char **map, void (*printer)(char c))
 		j = 0;
 		ft_printf("\t%4i ", i + 1);
 		while (map[i][j])
-			printer(map[i][j++]);
+		{
+			if (i == (int)player.y && j == (int)player.x)
+				printer('P');
+			else
+				printer(map[i][j]);
+			j++;
+		}
 		ft_printf("\n");
 		i++;
 	}

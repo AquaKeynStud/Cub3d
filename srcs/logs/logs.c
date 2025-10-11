@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:08:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:46:46 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 19:34:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	info(char *message, char *format, char *str)
 	if (!message || !*message)
 		return (true);
 	if (!str || !*str)
-		ft_printf(message, format, EOL);
+		ft_printf("%s%s%s", format, message, EOL);
 	else
-		ft_printf(message, format, str, EOL);
+		ft_printf("%s%s%s%s", format, message, str, EOL);
 	return (true);
 }

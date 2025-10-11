@@ -39,17 +39,17 @@ D_LOG	=	$(D_SRC)logs/
 D_PAR	=	$(D_SRC)config/
 D_EVT	=	$(D_SRC)events/
 D_MOV	=	$(D_SRC)movement/
+D_MAP	=	$(D_SRC)minimap/
 
 D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 
-D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_MOV)
+D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_MOV) $(D_MAP)
 
 # file lists
 LST_SRC	=	main.c
 
 LST_INT	=	file_init.c		\
-			data_store.c	\
-			init_player.c
+			data_store.c
 
 LST_UIS	=	window.c
 
@@ -61,16 +61,19 @@ LST_PAR	=	bfs.c		\
 			parser.c	\
 			config.c
 
-LST_EVT	=	inputs.c
+LST_EVT	=	inputs.c	\
+			gameplay.c	\
+			movement.c	\
+			rotation.c
 
 LST_INC	=	cub.h		\
 			data.h		\
-			config.h
+			config.h	\
+			events.h
 
-LST_MOV =	mini_map.c	\
-			movement.c
+LST_MAP =	mini_map.c
 
-LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_MOV)
+LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_MAP)
 
 INC			=	$(addprefix $(D_INC), $(LST_INC))
 
@@ -82,7 +85,7 @@ LIBS		:=	-L$(D_LFT) -lft -lreadline -lncurses
 
 INCS		:=	-I$(D_INC) -I$(D_LFT)inc/ -I$(D_MLX)
 
-LIBS		:=	-L$(D_LIB) -lft -lmlx -lX11 -lXext
+LIBS		:=	-L$(D_LIB) -lft -lmlx -lX11 -lXext -lm
 
 LIBFT		:=	$(D_LIB)libft.a
 

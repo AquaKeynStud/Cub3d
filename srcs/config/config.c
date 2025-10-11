@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 15:27:02 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:52:57 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/09 18:58:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,26 @@ static bool	normalize_map(char **map, int unit)
 	return (true);
 }
 
-bool	configure_map(t_map *map_data)
+static void	reset_after_bfs(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'V')
+				map[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+}
+
+bool	configure(t_data *data, t_map *map_data)
 {
 	char	**map;
 	int		xlen;
@@ -72,18 +91,17 @@ bool	configure_map(t_map *map_data)
 	get_map_size(map, &map_data->width, &map_data->height);
 	xlen = map_data->width;
 	ylen = map_data->height;
-	if (!normalize_map(map, xlen) || !check_map_content(map)
-		|| !init_bfs(map, xlen, ylen))
-		return (false);
-	print_map(map, print_verification);
-	if (!east_west_walls(map) || !south_north_walls(map, xlen, ylen))
-		return (err(BFS_ERR));
-	reset_after_bfs(map);
 	info(PSG_START, CFG_LOG, NULL);
-	if (check_player_nb(map) > 1)
-		return (err(MANY_PLAYER_ERR));
-	else if (check_player_nb(map) < 1)
-		return (err(NO_PLAYER_ERR));
+	if (!normalize_map(map, xlen) || !check_map_content(map, data->player))
+		return (false);
+	if (!get_player(map, &data->player))
+		return (false);
+	if (!init_bfs(map, xlen, ylen) || !east_west_walls(map)
+		|| !south_north_walls(map, xlen, ylen))
+		return (err(BFS_ERR));
+	print_map(map, data->player, print_verification);
+	reset_after_bfs(map);
 	info(CFG_END, CFG_LOG, NULL);
+	print_map(map, data->player, print_type);
 	return (true);
 }

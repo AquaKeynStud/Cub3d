@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 14:30:57 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/11 02:16:34 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ void	clean_exit(t_data *data, int code)
 	exit(code);
 }
 
-int	key_press(int keycode, t_data *data)
+static bool	setup_data(t_data *data, char *filename)
 {
-	if (keycode == KEY_W)
-		move_forward(data);
-	else if (keycode == KEY_S)
-		move_back(data);
-	else if (keycode == KEY_A)
-		move_left(data);
-	else if (keycode == KEY_D)
-		move_right(data);
-	draw_map(data);
-	return (0);
+	ft_memset(data, 0, sizeof(t_data));
+	(*data).mlx = mlx_init();
+	if (!(*data).mlx)
+		return (false);
+	if (!get_info_from_file(data, filename))
+		clean_exit(data, EXIT_FAILURE);
+	debug_assets((*data).assets);
+	if (!configure(data, &data->map))
+		clean_exit(data, EXIT_FAILURE);
+	return (true);
 }
 
 int	main(int argc, char **argv)
@@ -68,25 +68,17 @@ int	main(int argc, char **argv)
 	if (argc != 2 || !has_ext(argv[1], ".cub"))
 		return (ft_printf(USAGE_ERR, argv[0]));
 	print_header();
-	ft_memset(&data, 0, sizeof(t_data));
-	data.mlx = mlx_init();
-	if (!data.mlx)
+	if (!setup_data(&data, argv[1]))
 		return (1);
-	if (!get_info_from_file(&data, argv[1]))
-		clean_exit(&data, EXIT_FAILURE);
-	debug_assets(data.assets);
-	if (!configure_map(&data.map))
-		clean_exit(&data, EXIT_FAILURE);
-	print_map(data.map.map, print_type);
 	if (!create_window(&data, 800, 600, "cub3d"))
 	{
 		free(data.mlx);
 		return (1);
 	}
-	draw_map(&data);
-	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &data);
-	mlx_hook(data.win, 17, 0, mlx_loop_end, data.mlx);
-	mlx_hook(data.win, 2, 1L << 0, close_on_esc, &data);
+	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
+	mlx_hook(data.win, PRESS, 1L<<0, key_pressed, &data);
+	mlx_hook(data.win, RELEASE, 1L<<1, key_released, &data);
+	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);
 	clean_exit(&data, EXIT_SUCCESS);

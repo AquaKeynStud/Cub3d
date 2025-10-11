@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 14:31:20 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/09 18:35:43 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <fcntl.h>
 
-static bool	get_data_from_line(t_data *data, char *line)
+static bool	get_data_from_line(t_data *data, t_file *file, char *line)
 {
 	bool	empty;
 
@@ -29,7 +29,7 @@ static bool	get_data_from_line(t_data *data, char *line)
 	{
 		if (data->file.nl)
 			return (err(EMPTY_LINE));
-		return (parse_map(&data->map.map, line, &data->file.pos, &data->file.cap));
+		return (parse_map(&data->map.map, line, &file->pos, &file->cap));
 	}
 	if (empty)
 	{
@@ -59,7 +59,7 @@ static bool	read_lines(t_data *data)
 			free(line);
 			continue ;
 		}
-		else if (!get_data_from_line(data, line))
+		else if (!get_data_from_line(data, &data->file, line))
 			break ;
 	}
 	if (line)
@@ -102,7 +102,6 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	}
 	info(READ_START, MAPLOG, (char *)filename);
 	checker = read_lines(data);
-	init_player_position(data);
 	close(data->file.fd);
 	if (!data->file.line_nb)
 		return (err(EMPTY_CONFIG));
