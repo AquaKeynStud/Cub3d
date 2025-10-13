@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:55:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/11 15:59:39 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/11 16:28:05 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ static void	draw_line(t_data *data, t_minimap *minimap, int *i)
 	int	j;
 
 	j = 0;
-	while (j < data->map.width && j <= 10)
+	while (j < 10 && minimap->start.x + j < data->map.width)
 	{
-		if (data->map.map[minimap->start.y][minimap->start.x] == '1')
+		if (data->map.map[minimap->start.y + *i][minimap->start.x + j] == '1')
 			draw_square(data, j * minimap->tile_size, *i * minimap->tile_size,
 				minimap->tile_size, 0xA9A9A9);
 		else
 			draw_square(data, j * minimap->tile_size, *i * minimap->tile_size,
 				minimap->tile_size, 0xFFFFFF);
 		j++;
-		minimap->start.x++;
 	}
 }
 
@@ -49,13 +48,13 @@ static void	handle_circle(t_data *data, t_minimap *minimap)
 		draw_circle(data, minimap->center.x, minimap->center.y, 4, 0x000000);
 	else if (data->map.height <= 8 && data->map.width > 10)
 		draw_circle(data, minimap->center.x,
-			(int)data->player.y * minimap->tile_size, 4, 0x000000);
+			(int)(data->player.y * minimap->tile_size), 4, 0x000000);
 	else if (data->map.height > 8 && data->map.width <= 10)
-		draw_circle(data, (int)data->player.x * minimap->tile_size,
+		draw_circle(data, (int)(data->player.x * minimap->tile_size),
 			minimap->center.y, 4, 0x000000);
 	else if (data->map.height <= 8 && data->map.width <= 10)
-		draw_circle(data, (int)data->player.x * minimap->tile_size,
-			(int)data->player.y * minimap->tile_size, 4, 0x000000);
+		draw_circle(data, (int)(data->player.x * minimap->tile_size),
+			(int)(data->player.y * minimap->tile_size), 4, 0x000000);
 }
 
 void	draw_map(t_data *data)
@@ -70,11 +69,10 @@ void	draw_map(t_data *data)
 	minimap.start.y = data->player.y - 4;
 	minimap.start.x = data->player.x - 5;
 	clamp_index(&minimap.start, &data->map);
-	while (i < data->map.height && i <= 8)
+	while (minimap.start.y + i < data->map.height && i < 8)
 	{
 		draw_line(data, &minimap, &i);
 		i++;
-		minimap.start.y++;
 	}
 	handle_circle(data, &minimap);
 }
