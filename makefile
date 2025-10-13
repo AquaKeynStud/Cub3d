@@ -61,6 +61,7 @@ LST_PAR	=	bfs.c		\
 			config.c
 
 LST_EVT	=	inputs.c	\
+			raycast.c	\
 			gameplay.c	\
 			movement.c
 

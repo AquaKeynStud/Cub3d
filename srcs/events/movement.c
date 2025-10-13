@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:17:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/10 14:55:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 18:20:30 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	move_backward(t_data *data)
 	}
 }
 
-static void	move_right(t_data *data)
+static void	move_left(t_data *data)
 {
 	float	new_x;
 	float	new_y;
@@ -54,7 +54,7 @@ static void	move_right(t_data *data)
 	}
 }
 
-static void	move_left(t_data *data)
+static void	move_right(t_data *data)
 {
 	float	new_x;
 	float	new_y;

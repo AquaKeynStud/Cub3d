@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 14:41:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 19:24:28 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 	void		*win;
 	t_file		file;
 	t_txts		assets;
+	t_image		screen;
 	t_player	player;
 	t_inputs	inputs;
 	int			screen_width;
@@ -35,10 +36,10 @@ typedef struct s_data
 }			t_data;
 
 /* -- Gameplay Modificators -- */
-# define PLAYER_SPEED	0.05f
-# define ROTATION_SPEED	0.03f
+# define PLAYER_SPEED	0.005f
+# define ROTATION_SPEED	0.005f
 # define FOV			60.0
-# define RENDER_DIST	30.0
+# define RENDER_DIST	100.0
 
 /* -- Readible Variables -- */
 # define EOL			"     \e[0m\n"
@@ -85,5 +86,10 @@ void	print_map(char **map, t_player player, void (*printer)(char c));
 double	rad(double deg);
 double	deg(double rad);
 double	norm(double angle);
+bool	in_bound(int x, int y, int width, int height);
+
+void	raycast(t_data *data);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	clean_exit(t_data *data, int code);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 11:51:51 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 17:08:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_bfs	*create_bfs(int size)
 
 static void	add_queue(t_bfs *bfs, t_point cell, int width, int height)
 {
-	if (cell.x < 0 || cell.y < 0 || cell.x >= width || cell.y >= height)
+	if (!in_bound(cell.x, cell.y, width, height))
 		return ;
 	bfs->queue[bfs->rear] = cell;
 	bfs->rear = (bfs->rear + 1) % bfs->size;

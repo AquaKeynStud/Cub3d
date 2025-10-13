@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 14:45:50 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 16:56:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_raycast
 	double	pos;
 	int		side;
 	double	magn;
+	double	dist;
 	double	dir_x;
 	double	dir_y;
 	int		cell_x;

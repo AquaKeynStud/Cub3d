@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 19:24:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 17:47:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	clean_exit(t_data *data, int code)
 		mlx_destroy_image(data->mlx, data->assets.south.img);
 	if (data->assets.north.img)
 		mlx_destroy_image(data->mlx, data->assets.north.img);
+	if (data->screen.img)
+		mlx_destroy_image(data->mlx, data->screen.img);
 	if (data->map.map)
 		double_free((void **)data->map.map, 0);
 	if (data->mlx)
@@ -75,6 +77,8 @@ int	main(int argc, char **argv)
 		free(data.mlx);
 		return (1);
 	}
+	data.screen.img = mlx_new_image(data.mlx, data.screen_width, data.screen_height);
+	data.screen.addr = mlx_get_data_addr(data.screen.img, &data.screen.bpp, &data.screen.slen, &data.screen.endian);
 	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
 	mlx_hook(data.win, PRESS, 1L<<0, key_pressed, &data);
 	mlx_hook(data.win, RELEASE, 1L<<1, key_released, &data);
