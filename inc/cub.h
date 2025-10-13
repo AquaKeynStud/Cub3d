@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 15:35:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 14:41:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_data
 /* -- Gameplay Modificators -- */
 # define PLAYER_SPEED	0.05f
 # define ROTATION_SPEED	0.03f
-# define FOV			60
+# define FOV			60.0
+# define RENDER_DIST	30.0
 
 /* -- Readible Variables -- */
 # define EOL			"     \e[0m\n"

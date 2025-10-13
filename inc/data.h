@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 14:54:04 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 11:50:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_player
 	double	cam_x;
 	double	cam_y;
 	double	angle;
+	double	cam_fov;
 }			t_player;
 
 typedef struct s_data	t_data;

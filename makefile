@@ -36,12 +36,13 @@ D_LIB	=	$(D_BLD)libs/
 D_UIS	=	$(D_SRC)ui/
 D_INT	=	$(D_SRC)init/
 D_LOG	=	$(D_SRC)logs/
+D_UTL	=	$(D_SRC)utils/
 D_PAR	=	$(D_SRC)config/
 D_EVT	=	$(D_SRC)events/
 
 D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 
-D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT)
+D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_UTL)
 
 # file lists
 LST_SRC	=	main.c
@@ -63,12 +64,14 @@ LST_EVT	=	inputs.c	\
 			gameplay.c	\
 			movement.c
 
+LST_UTL	=	math_utils.c
+
 LST_INC	=	cub.h		\
 			data.h		\
 			events.h		\
 			config.h
 
-LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT)
+LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_UTL)
 
 INC			=	$(addprefix $(D_INC), $(LST_INC))
 

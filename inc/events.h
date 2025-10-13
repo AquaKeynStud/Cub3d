@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 15:37:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/13 14:45:50 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@ typedef struct s_inputs
 	bool	rotate_left;
 	bool	rotate_right;
 }			t_inputs;
+
+typedef struct s_raycast
+{
+	bool	hit;
+	double	pos;
+	int		side;
+	double	magn;
+	double	dir_x;
+	double	dir_y;
+	int		cell_x;
+	int		cell_y;
+	int		step_x;
+	int		step_y;
+	double	magn_x;
+	double	magn_y;
+	double	delta_x;
+	double	delta_y;
+}			t_ray;
 
 typedef struct s_data	t_data;
 
