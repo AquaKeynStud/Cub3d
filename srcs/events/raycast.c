@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 19:55:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/14 10:49:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ static void	get_wall(t_data *data, t_ray ray, int x)
 	int	color;
 	int	line_len;
 
-	line_len = (int)(data->screen_height / ray.dist);
-	end = line_len / 2 + data->screen_height / 2;
-	start = -line_len / 2 + data->screen_height / 2;
+	line_len = (int)(data->win_h / ray.dist);
+	end = line_len / 2 + data->win_h / 2;
+	start = -line_len / 2 + data->win_h / 2;
 	if (ray.side)
 		color = 0x0000FF;
 	else
 		color = 0x000088;
 	if (start < 0)
 		start = 0;
-	if (end >= data->screen_height)
-		end = data->screen_height - 1;
+	if (end >= data->win_h)
+		end = data->win_h - 1;
 	for (int y = start; y <= end; y++)
 		my_mlx_pixel_put(&data->screen, x, y, color);
 }
@@ -98,10 +98,10 @@ void	raycast(t_data *data)
 	t_ray	ray;
 
 	x = 0;
-	while (x < data->screen_width)
+	while (x < data->win_w)
 	{
 		ft_memset(&ray, 0, sizeof(t_ray));
-		ray.pos = 2 * x / ((double)data->screen_width) - 1;
+		ray.pos = 2 * x / ((double)data->win_w) - 1;
 		ray.dir_x = data->player.ori_x + data->player.cam_x * ray.pos;
 		ray.dir_y = data->player.ori_y + data->player.cam_y * ray.pos;
 		init_ray(data->player, &ray);

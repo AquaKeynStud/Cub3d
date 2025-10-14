@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 16:56:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/14 11:00:24 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@
 typedef struct s_inputs
 {
 	bool	esc;
+	bool	alt;
 	bool	left;
 	bool	right;
 	bool	forward;
 	bool	backward;
 	bool	rotate_left;
 	bool	rotate_right;
+
+	int		mouse_x;
+	bool	allow_mouse;
 }			t_inputs;
+
 
 typedef struct s_raycast
 {
@@ -55,6 +60,7 @@ typedef struct s_data	t_data;
 # define KEY_S			115
 # define KEY_D			100
 # define KEY_ESC		65307
+# define KEY_LALT		65513
 # define KEY_LEFT		65361
 # define KEY_RIGHT		65363
 
@@ -67,6 +73,8 @@ int	key_released(int keycode, t_data *data);
 
 /* -- Movement Functions -- */
 void	handle_movement(t_data *data);
+int		mouse_move(int x, int y, t_data *data);
+void	rotate_player(t_data *data, double angle);
 
 /* -- Loop Functions -- */
 int	game_loop(t_data *data);

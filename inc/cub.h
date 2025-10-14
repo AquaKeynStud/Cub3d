@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 19:24:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/14 11:06:15 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,28 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	t_file		file;
+	int			win_w;
+	int			win_h;
 	t_txts		assets;
 	t_image		screen;
 	t_player	player;
 	t_inputs	inputs;
-	int			screen_width;
-	int			screen_height;
 }			t_data;
 
 /* -- Gameplay Modificators -- */
-# define PLAYER_SPEED	0.005f
-# define ROTATION_SPEED	0.005f
+# define PLAYER_SPEED	0.03f
+# define ROTATION_SPEED	0.01f
+# define SENSIBILITY	0.0005f
 # define FOV			60.0
 # define RENDER_DIST	100.0
 
 /* -- Readible Variables -- */
+# define PI				3.14159265358979323846
 # define EOL			"     \e[0m\n"
 # define CROSS			17
 # define PRESS			2
 # define RELEASE		3
-# define PI				3.14159265358979323846
+# define MOUSE_MOV		6
 
 /* -- Math Macros -- */
 # define RAD(deg)		((deg) * (PI / 180))
