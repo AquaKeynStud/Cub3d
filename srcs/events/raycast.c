@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 10:49:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/14 20:03:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	dda_grid(t_map map, t_ray *ray)
 		}
 		if (!in_bound(ray->cell_x, ray->cell_y, map.width, map.height))
 			break ;
-		ray->magn = ((ray->side) * ray->magn_x) + ((!ray->side) * ray->magn_y);
+		ray->magn = ((!ray->side) * ray->magn_x) + ((ray->side) * ray->magn_y);
 		if (map.map[ray->cell_y][ray->cell_x] == '1')
 		{
 			ray->hit = true;

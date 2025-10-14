@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 15:10:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 17:07:19 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/14 20:20:45 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ double	norm(double angle)
 
 bool	in_bound(int x, int y, int width, int height)
 {
-	return (x > 0 && x < width && y > 0 && y < height);
+	return (x >= 0 && x < width && y >= 0 && y < height);
 }
