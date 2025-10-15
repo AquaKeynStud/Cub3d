@@ -50,8 +50,9 @@ LST_SRC	=	main.c
 LST_INT	=	file_init.c		\
 			data_store.c
 
-LST_UIS	=	draw.c		\
-			window.c
+LST_UIS	=	pixels.c		\
+			window.c		\
+			texture.c
 
 LST_LOG	=	logs.c		\
 			errors.c	\

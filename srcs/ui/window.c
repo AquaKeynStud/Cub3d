@@ -6,12 +6,19 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 10:49:39 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 17:50:45 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "ft_printf.h"
+
+// void	clear_screen(t_data *data, int color)
+// {
+// 	for (int y = 0; y < data->win_h; y++)
+// 		for (int x = 0; x < data->win_w; x++)
+// 			print_pixel(&data->screen, x, y, color);
+// }
 
 bool	create_window(t_data *data, int width, int height, char *name)
 {

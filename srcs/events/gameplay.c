@@ -6,10 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 14:33:25 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 18:46:28 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ui.h"
 #include "cub.h"
 #include "libft.h"
 #include <math.h>
@@ -25,8 +26,8 @@ void	rotate_player(t_data *data, double angle)
 
 int	mouse_move(int x, int y, t_data *data)
 {
-	int delta_x;
-	
+	int	delta_x;
+
 	(void)y;
 	if (!data->inputs.allow_mouse || x == data->win_w / 2)
 		return (0);
@@ -48,19 +49,28 @@ void	handle_rotation(t_data *data)
 
 void	clear_screen(t_data *data, int color)
 {
-	for (int y = 0; y < data->win_h; y++)
-		for (int x = 0; x < data->win_w; x++)
-			my_mlx_pixel_put(&data->screen, x, y, color);
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->win_h)
+	{
+		x = 0;
+		while (x < data->win_w)
+			put_pixel(&data->screen, x++, y, color);
+		y++;
+	}
 }
 
 int	game_loop(t_data *data)
 {
 	clear_screen(data, 0x0f0f0f);
 	if (data->inputs.left || data->inputs.right
-			|| data->inputs.forward || data->inputs.backward)
+		|| data->inputs.forward || data->inputs.backward)
 		handle_movement(data);
 	if (data->inputs.rotate_left || data->inputs.rotate_right)
 		handle_rotation(data);
+	display_background(data);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->screen.img, 0, 0);
 	return (0);

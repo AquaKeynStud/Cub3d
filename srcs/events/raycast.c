@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 14:31:23 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 17:52:42 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	raycast(t_data *data)
 		dda_raycasting(data->map, &ray);
 		if (ray.hit)
 			get_ray_result(data, &ray);
-		get_wall(data, ray, x);
+		display_wall(data, ray, x);
 		x++;
 	}
 }

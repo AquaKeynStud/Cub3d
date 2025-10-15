@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 19:57:26 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 18:44:08 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	print_header();
 	if (!setup_data(&data, argv[1]))
 		return (1);
-	if (!create_window(&data, 1280, 720, "cub3d"))
+	if (!create_window(&data, -1, -1, "cub3d"))
 	{
 		free(data.mlx);
 		return (1);
@@ -80,9 +80,9 @@ int	main(int argc, char **argv)
 	data.screen.img = mlx_new_image(data.mlx, data.win_w, data.win_h);
 	data.screen.addr = mlx_get_data_addr(data.screen.img, &data.screen.bpp, &data.screen.slen, &data.screen.endian);
 	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
-	mlx_hook(data.win, PRESS, 1L<<0, key_pressed, &data);
-	mlx_hook(data.win, RELEASE, 1L<<1, key_released, &data);
-	mlx_hook(data.win, MOUSE_MOV, 1L<<6, mouse_move, &data);
+	mlx_hook(data.win, PRESS, 1L << 0, key_pressed, &data);
+	mlx_hook(data.win, RELEASE, 1L << 1, key_released, &data);
+	mlx_hook(data.win, MOUSE_MOV, 1L << 6, mouse_move, &data);
 	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.win);

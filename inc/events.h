@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 14:32:09 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 18:47:38 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_data	t_data;
 # define NO_KEY_ERR	"%s🈲 The key : %c isn't handled 🈲%s"
 
 /* -- Inputs Functions -- */
-int	key_pressed(int keycode, t_data *data);
-int	key_released(int keycode, t_data *data);
+int		key_pressed(int keycode, t_data *data);
+int		key_released(int keycode, t_data *data);
 
 /* -- Movement Functions -- */
 void	handle_movement(t_data *data);
@@ -73,6 +73,6 @@ int		mouse_move(int x, int y, t_data *data);
 void	rotate_player(t_data *data, double angle);
 
 /* -- Loop Functions -- */
-int	game_loop(t_data *data);
+int		game_loop(t_data *data);
 
 #endif

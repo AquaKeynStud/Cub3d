@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 14:32:58 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 18:47:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	init_player_data(t_player *player, int i, int j, char dir)
 	player->ori.y = (dir == 'S') - (dir == 'N');
 	player->angle = atan2(player->ori.y, player->ori.x);
 	player->cam.x = -player->ori.y * player->cam_fov;
-	player->cam.y =  player->ori.x * player->cam_fov;
+	player->cam.y = player->ori.x * player->cam_fov;
 	player_infos(*player, dir);
 }
 

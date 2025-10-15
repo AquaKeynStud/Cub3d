@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:28:23 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 14:31:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 18:47:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@ typedef struct s_dot
 	double	y;
 }			t_dot;
 
-/* -- Macros -- */
-# define RAD(deg)		((deg) * (PI / 180))
-# define DEG(rad)		((rad) * (180 / PI))
-# define ABS(value)		((value) * (1 - 2 * ((value) < 0)))
-
 /* -- Functions -- */
 double	rad(double deg);
 double	deg(double rad);
 double	norm(double angle);
+int		clamp(double x, int min, int max);
 bool	in_bound(int x, int y, int width, int height);
 
 #endif
