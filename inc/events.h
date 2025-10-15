@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 11:00:24 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 14:32:09 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EVENTS_H
 
 /* -- Includes -- */
-# include <stdbool.h>
+# include "my_math.h"
 
 /* -- Structures -- */
 typedef struct s_inputs
@@ -32,24 +32,20 @@ typedef struct s_inputs
 	bool	allow_mouse;
 }			t_inputs;
 
-
 typedef struct s_raycast
 {
 	bool	hit;
 	double	pos;
 	int		side;
-	double	magn;
-	double	dist;
-	double	dir_x;
-	double	dir_y;
-	int		cell_x;
-	int		cell_y;
-	int		step_x;
-	int		step_y;
-	double	magn_x;
-	double	magn_y;
-	double	delta_x;
-	double	delta_y;
+	double	origin;
+	double	magnitude;
+
+	t_dot	cell;
+	t_dot	step;
+
+	t_dot	dir;
+	t_dot	magn;
+	t_dot	delta;
 }			t_ray;
 
 typedef struct s_data	t_data;

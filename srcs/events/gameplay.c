@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 11:01:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 14:33:25 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 void	rotate_player(t_data *data, double angle)
 {
 	data->player.angle += angle;
-	data->player.ori_x = cos(data->player.angle);
-	data->player.ori_y = sin(data->player.angle);
-	data->player.cam_y = data->player.ori_x * data->player.cam_fov;
-	data->player.cam_x = -data->player.ori_y * data->player.cam_fov;
+	data->player.ori.x = cos(data->player.angle);
+	data->player.ori.y = sin(data->player.angle);
+	data->player.cam.y = data->player.ori.x * data->player.cam_fov;
+	data->player.cam.x = -data->player.ori.y * data->player.cam_fov;
 }
 
 int	mouse_move(int x, int y, t_data *data)

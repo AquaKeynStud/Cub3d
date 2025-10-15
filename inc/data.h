@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 11:50:22 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 14:32:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DATA_H
 
 /* -- Includes -- */
-# include <stdbool.h>
+# include "my_math.h"
 
 /* -- Structures -- */
 typedef struct s_file
@@ -58,10 +58,8 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	ori_x;
-	double	ori_y;
-	double	cam_x;
-	double	cam_y;
+	t_dot	ori;
+	t_dot	cam;
 	double	angle;
 	double	cam_fov;
 }			t_player;

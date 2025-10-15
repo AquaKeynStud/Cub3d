@@ -50,7 +50,8 @@ LST_SRC	=	main.c
 LST_INT	=	file_init.c		\
 			data_store.c
 
-LST_UIS	=	window.c
+LST_UIS	=	draw.c		\
+			window.c
 
 LST_LOG	=	logs.c		\
 			errors.c	\
@@ -69,8 +70,9 @@ LST_UTL	=	math_utils.c
 
 LST_INC	=	cub.h		\
 			data.h		\
-			events.h		\
-			config.h
+			events.h	\
+			config.h	\
+			my_math.h
 
 LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_UTL)
 

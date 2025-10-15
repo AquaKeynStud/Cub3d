@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 11:06:15 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/15 14:29:46 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ typedef struct s_data
 # define RELEASE		3
 # define MOUSE_MOV		6
 
-/* -- Math Macros -- */
-# define RAD(deg)		((deg) * (PI / 180))
-# define DEG(rad)		((rad) * (180 / PI))
-# define ABS(value)		((value) * (1 - 2 * ((value) < 0)))
-
 /* -- Error Messages -- */
 # define ERROR			"\n\t\e[107;1;31m     🏮 Error: "
 # define ERRNOLOG		"\e[1;38;5;203m🈲    %s: %s    🈲\e[0m\n"
@@ -83,12 +78,6 @@ void	print_verification(char c);
 bool	info(char *message, char *format, char *str);
 bool	player_infos(t_player player, char orientation);
 void	print_map(char **map, t_player player, void (*printer)(char c));
-
-/* -- Math functions -- */
-double	rad(double deg);
-double	deg(double rad);
-double	norm(double angle);
-bool	in_bound(int x, int y, int width, int height);
 
 void	raycast(t_data *data);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
