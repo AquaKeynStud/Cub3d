@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:17:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/10 14:29:21 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/16 10:04:16 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,27 @@ static void	move_left(t_data *data)
 	}
 }
 
+
 void	handle_movement(t_data *data)
 {
 	if (data->inputs.forward)
+	{
 		move_forward(data);
-	else if (data->inputs.backward)
+		data->inputs.forward = 0;	
+	}
+	if (data->inputs.backward)
+	{
 		move_backward(data);
-	else if (data->inputs.left)
+		data->inputs.backward = 0;
+	}
+	if (data->inputs.left)
+	{
 		move_left(data);
-	else if (data->inputs.right)
+		data->inputs.left = 0;
+	}
+	if (data->inputs.right)
+	{
 		move_right(data);
+		data->inputs.right = 0;
+	}
 }
