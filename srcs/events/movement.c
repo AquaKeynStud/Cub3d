@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:17:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/15 14:33:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 09:21:40 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	handle_movement(t_data *data)
 {
 	if (data->inputs.forward)
 		move_forward(data);
-	else if (data->inputs.backward)
+	if (data->inputs.backward)
 		move_backward(data);
-	else if (data->inputs.left)
+	if (data->inputs.left)
 		move_left(data);
-	else if (data->inputs.right)
+	if (data->inputs.right)
 		move_right(data);
 }
