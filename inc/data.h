@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/11 14:30:53 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/16 09:25:49 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,18 @@ typedef struct s_player
 	double	speed;
 }			t_player;
 
-typedef struct s_pos
+typedef struct	s_square
 {
-	int		x;
-	int		y;
-}			t_pos;
+	int	start_y;
+	int	start_x;
+	int	color;
+}				t_square;
 
 typedef struct s_minimap
 {
-	t_pos	center;
-	t_pos	start;
-	int	tile_size;
+	int			center_y;
+	int			center_x;
+	t_square	square;
 }				t_minimap;
 
 typedef struct s_data	t_data;

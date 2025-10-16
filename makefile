@@ -71,8 +71,8 @@ LST_INC	=	cub.h		\
 			config.h	\
 			events.h
 
-LST_MAP =	mini_map.c	\
-			display.c
+LST_MAP =	map.c		\
+			init_map.c
 
 LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_MAP)
 
