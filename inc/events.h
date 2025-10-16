@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 18:47:38 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:12:28 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_raycast
 	bool	hit;
 	double	pos;
 	int		side;
+	double	dist;
 	double	origin;
-	double	magnitude;
 
 	t_dot	cell;
 	t_dot	step;
@@ -74,5 +74,10 @@ void	rotate_player(t_data *data, double angle);
 
 /* -- Loop Functions -- */
 int		game_loop(t_data *data);
+
+/* -- Utils Functions -- */
+int		red(int color);
+int		blue(int color);
+int		green(int color);
 
 #endif

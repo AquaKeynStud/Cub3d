@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 18:27:23 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:07:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,25 @@
 typedef struct s_data
 {
 	t_map		map;
+	t_image		dsp;
 	void		*mlx;
 	void		*win;
 	t_file		file;
 	int			win_w;
 	int			win_h;
 	t_txts		assets;
-	t_image		screen;
 	t_player	player;
 	t_inputs	inputs;
 }			t_data;
 
 /* -- Gameplay Modificators -- */
-# define PLAYER_SPEED	0.05f
-# define ROTATION_SPEED	0.01f
-# define SENSIBILITY	0.0003f
-# define FOV			60.0
-# define RENDER_DIST	100.0
+# define FOV				60.0f
+# define MIN_RENDER			8.0f
+# define MAX_RENDER			16.0f
+# define FOG_DENSITY		300.0f
+# define SENSIBILITY		0.0003f
+# define PLAYER_SPEED		0.05f
+# define ROTATION_SPEED		0.01f
 
 /* -- Readible Variables -- */
 # define PI				3.14159265358979323846

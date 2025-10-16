@@ -52,6 +52,7 @@ LST_INT	=	file_init.c		\
 
 LST_UIS	=	pixels.c		\
 			window.c		\
+			effects.c		\
 			texture.c
 
 LST_LOG	=	logs.c		\
@@ -67,7 +68,8 @@ LST_EVT	=	inputs.c	\
 			gameplay.c	\
 			movement.c
 
-LST_UTL	=	math_utils.c
+LST_UTL	=	math_utils.c	\
+			color_utils.c
 
 LST_INC	=	cub.h		\
 			data.h		\

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 14:32:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 13:34:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_image
 {
 	int		bpp;
 	int		slen;
+	int		plen;
 	void	*img;
 	char	*addr;
 	int		width;

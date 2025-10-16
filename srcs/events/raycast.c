@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 17:52:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:06:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "cub.h"
 #include <math.h>
 #include "libft.h"
+#include "events.h"
 
 void	init_ray(t_player player, t_ray *ray)
 {
@@ -35,15 +36,17 @@ void	init_ray(t_player player, t_ray *ray)
 
 static void	get_ray_result(t_data *data, t_ray *ray)
 {
+	if (!ray->hit)
+		return ;
 	if (!ray->side)
 	{
-		ray->magnitude = ray->magn.x - ray->delta.x;
-		ray->pos = data->player.y + ray->magnitude * ray->dir.y;
+		ray->dist = ray->magn.x - ray->delta.x;
+		ray->pos = data->player.y + ray->dist * ray->dir.y;
 	}
 	else
 	{
-		ray->magnitude = ray->magn.y - ray->delta.y;
-		ray->pos = data->player.x + ray->magnitude * ray->dir.x;
+		ray->dist = ray->magn.y - ray->delta.y;
+		ray->pos = data->player.x + ray->dist * ray->dir.x;
 	}
 	ray->pos -= floor(ray->pos);
 }
@@ -84,9 +87,9 @@ void	raycast(t_data *data)
 		ray.dir.y = data->player.ori.y + data->player.cam.y * ray.origin;
 		init_ray(data->player, &ray);
 		dda_raycasting(data->map, &ray);
-		if (ray.hit)
-			get_ray_result(data, &ray);
-		display_wall(data, ray, x);
+		get_ray_result(data, &ray);
+		if (ray.dist <= MAX_RENDER)
+			display_wall(data, ray, x);
 		x++;
 	}
 }

@@ -6,12 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 18:46:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:12:09 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui.h"
 #include "cub.h"
+#include <math.h>
 
 static t_image	get_img_column(t_txts *txts, t_ray ray, t_dot *txt)
 {
@@ -35,7 +36,7 @@ static t_txt_col	get_column_range(t_data *data, t_ray ray, t_image img)
 {
 	t_txt_col	c;
 
-	c.line_len = (int)((double)data->win_h / ray.magnitude);
+	c.line_len = (int)((double)data->win_h / ray.dist);
 	c.start = data->win_h / 2 - c.line_len / 2;
 	c.end = data->win_h / 2 + c.line_len / 2;
 	c.start = clamp((double)c.start, 0, data->win_h / 2);
@@ -45,19 +46,29 @@ static t_txt_col	get_column_range(t_data *data, t_ray ray, t_image img)
 	return (c);
 }
 
-void	display_background(t_data *data)
+void	display_background(t_data *data, t_txts txt)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	double	factor;
 
 	x = 0;
 	while (x < data->win_w)
 	{
 		y = 0;
-		while (y < data->win_h / 2)
-			put_pixel(&data->screen, x, y++, data->assets.floor);
 		while (y < data->win_h)
-			put_pixel(&data->screen, x, y++, data->assets.ceiling);
+		{
+			factor = fabs((data->win_h / 2.0) - y);
+			if (factor <= FOG_DENSITY)
+				factor *= (1.0 / FOG_DENSITY);
+			else
+				factor = 1;
+			if (y < (data->win_h / 2))
+				put_pixel(&data->dsp, x, y, apply_fade(txt.floor, factor));
+			else if (y < data->win_h)
+				put_pixel(&data->dsp, x, y, apply_fade(txt.ceiling, factor));
+			y++;
+		}
 		x++;
 	}
 }
@@ -78,6 +89,8 @@ void	display_wall(t_data *data, t_ray ray, int x)
 		txt.y = clamp(column.txt_pos, 0, img.height - 1);
 		column.txt_pos += column.y_step;
 		color = get_pixel(&img, txt.x, txt.y);
-		put_pixel(&data->screen, x, y++, color);
+		color = apply_fog(color, ray.dist);
+		color = distance_blur(ray.dist, color, get_pixel(&data->dsp, x, y));
+		put_pixel(&data->dsp, x, y++, color);
 	}
 }

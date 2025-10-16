@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/08 10:25:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 13:37:13 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static t_image	get_image(t_data *data, char *path, char *ext)
 		return ((t_image){0});
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.slen, &img.endian);
+	img.plen = img.slen / (img.bpp / 8);
 	return (img);
 }
 

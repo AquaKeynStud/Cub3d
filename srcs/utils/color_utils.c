@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixels.c                                           :+:      :+:    :+:   */
+/*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 18:32:30 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 21:09:43 by arocca           ###   ########.fr       */
+/*   Created: 2025/10/16 20:46:53 by arocca            #+#    #+#             */
+/*   Updated: 2025/10/16 21:12:18 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-
-int	get_pixel(t_image *img, int x, int y)
+int	red(int color)
 {
-	int	*pixels;
-
-	pixels = (int *)img->addr;
-	return (pixels[y * img->plen + x]);
+	return ((color >> 16) & 0xFF);
 }
 
-void	put_pixel(t_image *img, int x, int y, int color)
+int	green(int color)
 {
-	int	*pixels;
+	return ((color >> 8) & 0xFF);
+}
 
-	pixels = (int *)img->addr;
-	pixels[y * img->plen + x] = color;
+int	blue(int color)
+{
+	return (color & 0xFF);
 }
