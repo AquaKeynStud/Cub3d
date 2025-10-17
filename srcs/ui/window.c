@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/09/26 21:25:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/16 21:08:27 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,20 @@
 
 bool	create_window(t_data *data, int width, int height, char *name)
 {
-	int	screen_width;
-	int	screen_height;
-
 	if (!width || !height)
 		return (false);
-	screen_width = 0;
-	screen_height = 0;
-	mlx_get_screen_size(data->mlx, &screen_width, &screen_height);
-	if (width > screen_width || height > screen_height)
+	mlx_get_screen_size(data->mlx, &data->win_w, &data->win_h);
+	if (width > data->win_w || height > data->win_h)
 		return (false);
 	if (width < 0)
-		width = screen_width;
+		width = data->win_w;
 	if (height < 0)
-		height = screen_height;
+		height = data->win_h;
 	data->win = mlx_new_window(data->mlx, width, height, name);
 	if (!data->win)
 		return (false);
+	data->win_w = width;
+	data->win_h = height;
 	ft_printf("%s🗼 Window size : %ix%i 🚞%s", INFO, width, height, EOL);
 	return (true);
 }

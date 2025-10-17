@@ -6,29 +6,29 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 07:48:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/16 10:12:31 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/17 14:10:52 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include "ui.h"
 #include "cub.h"
 
-static void	draw_player_direction(t_data *data, t_minimap *map)
-{
-	float	length = 20.0f;
-	float	step = 0.5f;
-	float	t = 0;
-	int		color = 0x00FF00;
+// static void	draw_player_direction(t_data *data, t_minimap *map)
+// {
+// 	float	length = 20.0f;
+// 	float	step = 0.5f;
+// 	float	t = 0;
+// 	int		color = 0x00FF00;
 
-	while (t < length)
-	{
-		int px = map->center_x + data->player.ori_x * t;
-		int py = map->center_y + data->player.ori_y * t;
-		mlx_pixel_put(data->mlx, data->win, px, py, color);
-		t += step;
-	}
-}
-
+// 	while (t < length)
+// 	{
+// 		int px = map->center_x + data->player.ori_x * t;
+// 		int py = map->center_y + data->player.ori_y * t;
+// 		mlx_pixel_put(data->mlx, data->win, px, py, color);
+// 		t += step;
+// 	}
+// }
 
 static void	draw_square(t_data *data, t_minimap *map)
 {
@@ -41,7 +41,7 @@ static void	draw_square(t_data *data, t_minimap *map)
 		x = 0;
 		while (x < TILE_SIZE)
 		{
-			mlx_pixel_put(data->mlx, data->win, map->square.start_x + x,
+			put_pixel(&data->dsp, map->square.start_x + x,
 				map->square.start_y + y, map->square.color);
 			x++;
 		}
@@ -63,7 +63,7 @@ static void	draw_player(t_data *data, t_minimap *map)
 		while (x <= radius)
 		{
 			if (x * x + y * y <= radius * radius)
-				mlx_pixel_put(data->mlx, data->win, map->center_x + x,
+				put_pixel(&data->dsp, map->center_x + x,
 					map->center_y + y, 0xffa500);
 			x++;
 		}
@@ -105,5 +105,6 @@ void	draw_map(t_data *data)
 		i++;
 	}
 	draw_player(data, &map);
-	draw_player_direction(data, &map);
+	mlx_put_image_to_window(data->mlx, data->win, data->dsp.img, 0, 0);
+	// draw_player_direction(data, &map);
 }

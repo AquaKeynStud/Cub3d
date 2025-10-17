@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/11 02:16:34 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/17 14:18:45 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int	main(int argc, char **argv)
 		free(data.mlx);
 		return (1);
 	}
+	data.dsp.img = mlx_new_image(data.mlx, data.win_w, data.win_h);
+	data.dsp.addr = mlx_get_data_addr(data.dsp.img, &data.dsp.bpp, &data.dsp.slen, &data.dsp.endian);
+	data.dsp.plen = data.dsp.slen / (data.dsp.bpp / 8);
+	data.dsp.width = data.win_w;
+	data.dsp.height = data.win_h;
 	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
 	mlx_hook(data.win, PRESS, 1L<<0, key_pressed, &data);
 	mlx_hook(data.win, RELEASE, 1L<<1, key_released, &data);

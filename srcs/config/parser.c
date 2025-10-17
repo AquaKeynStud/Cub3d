@@ -6,11 +6,12 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 09:57:20 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/17 12:43:05 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include <math.h>
 #include "libft.h"
 #include "config.h"
 
@@ -41,11 +42,12 @@ static void	init_player_data(t_player *player, int i, int j, char dir)
 {
 	player->x = j + 0.5f;
 	player->y = i + 0.5f;
-	player->ori_x = (dir == 'E') - (dir == 'W');
-	player->ori_y = (dir == 'S') - (dir == 'N');
-	player->cam_x = ((dir == 'N') - (dir == 'S')) * 0.66f;
-	player->cam_y = ((dir == 'E') - (dir == 'W')) * 0.66f;
-	player->speed = 0.05f;
+	player->cam_fov = tan(rad(FOV) / 2.0);
+	player->ori.x = (dir == 'E') - (dir == 'W');
+	player->ori.y = (dir == 'S') - (dir == 'N');
+	player->angle = atan2(player->ori.y, player->ori.x);
+	player->cam.x = -player->ori.y * player->cam_fov;
+	player->cam.y = player->ori.x * player->cam_fov;
 	player_infos(*player, dir);
 }
 

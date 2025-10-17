@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 09:37:09 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/17 12:48:48 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,33 @@
 typedef struct s_inputs
 {
 	bool	esc;
+	bool	alt;
 	bool	left;
 	bool	right;
 	bool	forward;
 	bool	backward;
 	bool	rotate_left;
 	bool	rotate_right;
+
+	int		mouse_x;
+	bool	allow_mouse;
 }			t_inputs;
+
+typedef struct s_raycast
+{
+	bool	hit;
+	double	pos;
+	int		side;
+	double	dist;
+	double	origin;
+
+	t_dot	cell;
+	t_dot	step;
+
+	t_dot	dir;
+	t_dot	magn;
+	t_dot	delta;
+}			t_ray;
 
 typedef struct s_data	t_data;
 
@@ -43,18 +63,20 @@ typedef struct s_data	t_data;
 # define NO_KEY_ERR	"%s🈲 The key : %c isn't handled 🈲%s"
 
 /* -- Inputs Functions -- */
-int	key_pressed(int keycode, t_data *data);
-int	key_released(int keycode, t_data *data);
+int		key_pressed(int keycode, t_data *data);
+int		key_released(int keycode, t_data *data);
 
 /* -- Movement Functions -- */
 void	handle_movement(t_data *data);
+int		mouse_move(int x, int y, t_data *data);
 
 /* -- Loop Functions -- */
-int	game_loop(t_data *data);
+int		game_loop(t_data *data);
 
-/* -- Loop Functions -- */
-void	handle_movement(t_data *data);
-void	handle_rotation(t_data *data);
+/* -- Utils Functions -- */
+int		red(int color);
+int		blue(int color);
+int		green(int color);
 
 void		draw_map(t_data *data);
 void		init_square(t_data *data, t_minimap *map, int x, int y);

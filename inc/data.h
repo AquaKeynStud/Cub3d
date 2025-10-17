@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 09:25:49 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/17 12:14:02 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DATA_H
 
 /* -- Includes -- */
-# include <stdbool.h>
+# include "my_math.h"
 
 /* -- Structures -- */
 typedef struct s_file
@@ -30,6 +30,7 @@ typedef struct s_image
 {
 	int		bpp;
 	int		slen;
+	int		plen;
 	void	*img;
 	char	*addr;
 	int		width;
@@ -58,12 +59,10 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	ori_x;
-	double	ori_y;
-	double	cam_x;
-	double	cam_y;
+	t_dot	ori;
+	t_dot	cam;
 	double	angle;
-	double	speed;
+	double	cam_fov;
 }			t_player;
 
 typedef struct	s_square

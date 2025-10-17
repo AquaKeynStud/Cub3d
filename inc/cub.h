@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 11:22:52 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/17 12:50:12 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,25 @@
 typedef struct s_data
 {
 	t_map		map;
+	t_image		dsp;
 	void		*mlx;
 	void		*win;
 	t_file		file;
+	int			win_w;
+	int			win_h;
 	t_txts		assets;
 	t_player	player;
 	t_inputs	inputs;
-	int			screen_width;
-	int			screen_height;
 }			t_data;
 
 /* -- Gameplay Modificators -- */
 # define PLAYER_SPEED	0.05f
 # define ROTATION_SPEED	0.03f
 # define FOV			60
+# define MIN_RENDER			8.0f
+# define MAX_RENDER			16.0f
+# define FOG_DENSITY		300.0f
+# define SENSIBILITY		0.0003f
 
 /* -- Readible Variables -- */
 # define EOL			"     \e[0m\n"
@@ -85,9 +90,8 @@ bool	info(char *message, char *format, char *str);
 bool	player_infos(t_player player, char orientation);
 void	print_map(char **map, t_player player, void (*printer)(char c));
 
-/* -- Math functions -- */
-double	rad(double deg);
-double	deg(double rad);
-double	norm(double angle);
+void	raycast(t_data *data);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	clean_exit(t_data *data, int code);
 
 #endif
