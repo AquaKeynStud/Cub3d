@@ -6,29 +6,14 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 07:48:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/17 14:10:52 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/20 12:15:20 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "ui.h"
 #include "cub.h"
-
-// static void	draw_player_direction(t_data *data, t_minimap *map)
-// {
-// 	float	length = 20.0f;
-// 	float	step = 0.5f;
-// 	float	t = 0;
-// 	int		color = 0x00FF00;
-
-// 	while (t < length)
-// 	{
-// 		int px = map->center_x + data->player.ori_x * t;
-// 		int py = map->center_y + data->player.ori_y * t;
-// 		mlx_pixel_put(data->mlx, data->win, px, py, color);
-// 		t += step;
-// 	}
-// }
+#include "libft.h"
 
 static void	draw_square(t_data *data, t_minimap *map)
 {
@@ -105,6 +90,6 @@ void	draw_map(t_data *data)
 		i++;
 	}
 	draw_player(data, &map);
+	draw_minimap_ray(data, &map);
 	mlx_put_image_to_window(data->mlx, data->win, data->dsp.img, 0, 0);
-	// draw_player_direction(data, &map);
 }

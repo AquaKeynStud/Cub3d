@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/17 12:37:38 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/20 09:58:01 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	get_ray_result(t_data *data, t_ray *ray)
 	ray->pos -= floor(ray->pos);
 }
 
-static void	dda_raycasting(t_map map, t_ray *ray)
+void	dda_raycasting(t_map map, t_ray *ray)
 {
 	while (!ray->hit)
 	{

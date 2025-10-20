@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/17 12:48:48 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/20 12:14:05 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int		green(int color);
 void		draw_map(t_data *data);
 void		init_square(t_data *data, t_minimap *map, int x, int y);
 t_minimap	init_map(t_data *data);
+void		draw_minimap_ray(t_data *data, t_minimap *map);
 
 #endif
