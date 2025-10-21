@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 21:11:29 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/19 11:23:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,28 @@
 /* -- Structures -- */
 typedef struct s_txt_col
 {
+	int		x;
+	float	fog;
 	int		end;
 	int		start;
-	float	y_step;
-	float	txt_pos;
-	int		line_len;
+	float	alpha;
+	int		wall_h;
+	int		y_step;
+	int		txt_pos;
 }			t_txt_col;
 
 typedef struct s_data	t_data;
 
 /* -- Draw Functions -- */
 int		get_pixel(t_image *img, int x, int y);
-void	display_background(t_data *data, t_txts txt);
+void	create_background(t_data *data, t_txts txt);
 void	display_wall(t_data *data, t_ray ray, int x);
 void	put_pixel(t_image *img, int x, int y, int color);
-int		distance_blur(double distance, int color, int bg);
+
+bool	init_display_images(t_data *data);
 
 /* -- Windows Handling Functions -- */
-int		apply_fog(int color, double dist);
+int		apply_fog(int color, float factor);
 int		apply_fade(int color, double factor);
+int		distance_blur(int color, int bg, float alpha);
 #endif

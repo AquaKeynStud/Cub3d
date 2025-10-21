@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 13:34:44 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/21 17:43:44 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_image
 	int		slen;
 	int		plen;
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		width;
 	int		endian;
 	int		height;
@@ -44,8 +44,14 @@ typedef struct s_txts
 	t_image	east;
 	t_image	north;
 	t_image	south;
+
 	int		floor;
 	int		ceiling;
+
+	double	*fog;
+	double	*alpha;
+	double	fog_unit;
+	double	alpha_unit;
 }			t_txts;
 
 typedef struct s_map
@@ -96,5 +102,10 @@ bool	parse_param(t_data *data, char *line);
 bool	has_ext(const char *filename, char *ext);
 bool	get_info_from_file(t_data *data, const char *filename);
 bool	parse_map(char ***map, char *line, int *pos, int *cap);
+
+bool	init_fog_table(t_txts *txts);
+bool	init_alpha_table(t_txts *txts);
+double	get_fog(double *fogs, double dist, double unit);
+double	get_alpha(double *alpha, double dist, double unit);
 
 #endif

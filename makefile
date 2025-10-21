@@ -8,7 +8,8 @@ NAME := cub3d
 
 CC				:=	cc
 
-CFLAGS			:=	-Wall -Wextra -Werror -MMD
+CFLAGS			:=	-Wall -Wextra -Werror -MMD 
+# -Ofast -march=native -flto
 
 RM				:=	rm -rf
 
@@ -47,13 +48,14 @@ D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_UTL)
 # file lists
 LST_SRC	=	main.c
 
-LST_INT	=	file_init.c		\
+LST_INT	=	tables.c		\
+			file_init.c		\
 			data_store.c
 
-LST_UIS	=	pixels.c		\
+LST_UIS	=	walls.c			\
 			window.c		\
 			effects.c		\
-			texture.c
+			background.c
 
 LST_LOG	=	logs.c		\
 			errors.c	\

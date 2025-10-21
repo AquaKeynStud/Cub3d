@@ -6,10 +6,11 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 21:08:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/21 17:51:56 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ui.h"
 #include "cub.h"
 #include "libft.h"
 #include "config.h"
@@ -72,14 +73,14 @@ int	main(int argc, char **argv)
 	print_header();
 	if (!setup_data(&data, argv[1]))
 		return (1);
-	if (!create_window(&data, -1, -1, "cub3d"))
+	if (!init_fog_table(&data.assets) || !init_alpha_table(&data.assets))
+		return (1);
+	if (!create_window(&data, 1920, 1080, "cub3d"))
 	{
 		free(data.mlx);
 		return (1);
 	}
-	data.dsp.img = mlx_new_image(data.mlx, data.win_w, data.win_h);
-	data.dsp.addr = mlx_get_data_addr(data.dsp.img, &data.dsp.bpp, &data.dsp.slen, &data.dsp.endian);
-	data.dsp.plen = data.dsp.slen / (data.dsp.bpp / 8);
+	init_display_images(&data);
 	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
 	mlx_hook(data.win, PRESS, 1L << 0, key_pressed, &data);
 	mlx_hook(data.win, RELEASE, 1L << 1, key_released, &data);

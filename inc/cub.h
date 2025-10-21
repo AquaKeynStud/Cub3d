@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 21:07:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/21 18:12:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 /* -- Structures -- */
 typedef struct s_data
 {
+	t_image		bg;
 	t_map		map;
 	t_image		dsp;
 	void		*mlx;
@@ -39,9 +40,9 @@ typedef struct s_data
 # define FOV				60.0f
 # define MIN_RENDER			8.0f
 # define MAX_RENDER			16.0f
-# define FOG_DENSITY		300.0f
 # define SENSIBILITY		0.0003f
 # define PLAYER_SPEED		0.05f
+# define BG_FADE_SPREAD		3.0f
 # define ROTATION_SPEED		0.01f
 
 /* -- Readible Variables -- */
@@ -51,6 +52,7 @@ typedef struct s_data
 # define PRESS			2
 # define RELEASE		3
 # define MOUSE_MOV		6
+# define LOOKUP_VAL		1024
 
 /* -- Error Messages -- */
 # define ERROR			"\n\t\e[107;1;31m     🏮 Error: "

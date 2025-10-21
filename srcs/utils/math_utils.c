@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 15:10:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 18:47:25 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/17 11:15:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	in_bound(int x, int y, int width, int height)
 	return (x >= 0 && x < width && y >= 0 && y < height);
 }
 
-int	clamp(double x, int min, int max)
+double	clamp(double x, int min, int max)
 {
 	if (x < (double)min)
 		return ((double)min);

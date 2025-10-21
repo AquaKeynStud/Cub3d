@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 13:37:13 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/21 18:10:24 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	to_rgb(char *s)
 
 static t_image	get_image(t_data *data, char *path, char *ext)
 {
-	t_image	img;
+	t_image	i;
 
 	(void)ext;
 	if (!has_ext(path, ".xpm"))
@@ -49,15 +49,15 @@ static t_image	get_image(t_data *data, char *path, char *ext)
 		err_errno(path, INVALID_EXT, false);
 		return ((t_image){0});
 	}
-	img.img = mlx_xpm_file_to_image(data->mlx, path, &img.width, &img.height);
-	if (!img.img)
+	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
+	if (!i.img)
 	{
 		err_errno(path, NULL, false);
 		return ((t_image){0});
 	}
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.slen, &img.endian);
-	img.plen = img.slen / (img.bpp / 8);
-	return (img);
+	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
+	i.plen = i.slen / (i.bpp / 8);
+	return (i);
 }
 
 static bool	upscale_map(char ***map, int *pos, int *cap)

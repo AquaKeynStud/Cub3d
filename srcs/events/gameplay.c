@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 21:11:39 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/21 18:13:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,19 @@ void	handle_rotation(t_data *data)
 
 int	game_loop(t_data *data)
 {
-	if (data->inputs.left || data->inputs.right
-		|| data->inputs.forward || data->inputs.backward)
+	t_image		bg;
+	t_image		dsp;
+	t_inputs	input;
+
+	bg = data->bg;
+	dsp = data->dsp;
+	input = data->inputs;
+	if (input.left || input.right || input.forward || input.backward)
 		handle_movement(data);
-	if (data->inputs.rotate_left || data->inputs.rotate_right)
+	if (input.rotate_left || input.rotate_right)
 		handle_rotation(data);
-	display_background(data, data->assets);
+	ft_memcpy(dsp.addr, bg.addr, data->win_w * data->win_h * sizeof(int));
 	raycast(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->dsp.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, dsp.img, 0, 0);
 	return (0);
 }
