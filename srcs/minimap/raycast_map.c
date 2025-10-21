@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 13:20:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/20 12:27:25 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/21 10:51:49 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ static void	pixel_ray(t_data *data, int steps, t_dot *inc, t_dot *pos)
 	{
 		px = (int)pos->x;
 		py = (int)pos->y;
-		if (px >= 0 && px < WIDTH_SIZE * TILE_SIZE && py >= 0 && py < HEIGHT_SIZE * TILE_SIZE)
+		if (px >= 0 && px < WIDTH_SIZE * TILE_SIZE && py >= 0 && py
+			< HEIGHT_SIZE * TILE_SIZE)
 			put_pixel(&data->dsp, (int)pos->x, (int)pos->y, color);
 		else
-			break;
+			break ;
 		pos->x += inc->x;
 		pos->y += inc->y;
 		i++;

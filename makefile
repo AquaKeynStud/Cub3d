@@ -77,9 +77,10 @@ LST_INC	=	cub.h		\
 			my_math.h	\
 			ui.h
 
-LST_MAP =	map.c		\
-			init_map.c	\
-			raycast_map.c
+LST_MAP =	map.c			\
+			init_map.c		\
+			raycast_map.c	\
+			clear_image.c
 
 LST_UTL	=	math_utils.c	\
 			color_utils.c

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/17 12:14:02 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/21 10:10:21 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct	s_square
 {
 	int	start_y;
 	int	start_x;
+	int	tile_y;
+	int	tile_x;
 	int	color;
 }				t_square;
 
@@ -76,6 +78,9 @@ typedef struct s_minimap
 {
 	int			center_y;
 	int			center_x;
+	int			ori_y;
+	int			ori_x;
+	t_dot		frac;
 	t_square	square;
 }				t_minimap;
 

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/20 12:14:05 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/21 10:49:11 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct s_raycast
 typedef struct s_data	t_data;
 
 /* -- Inputs -- */
-# define KEY_W			122 // 119
-# define KEY_A			113 // 97
+# define KEY_W			119 // 122
+# define KEY_A			97 // 113
 # define KEY_S			115
 # define KEY_D			100
 # define KEY_ESC		65307
@@ -82,5 +82,6 @@ void		draw_map(t_data *data);
 void		init_square(t_data *data, t_minimap *map, int x, int y);
 t_minimap	init_map(t_data *data);
 void		draw_minimap_ray(t_data *data, t_minimap *map);
+void		clear_image(t_image *img, int color);
 
 #endif
