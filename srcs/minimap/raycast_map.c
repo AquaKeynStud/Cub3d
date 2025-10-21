@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 13:20:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/21 10:51:49 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/21 11:26:43 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,69 +15,100 @@
 #include "ui.h"
 #include <math.h>
 
-static t_dot	impact(t_data *data, t_minimap *map, t_ray *ray)
+static t_dot	ray_to_pixel(t_data *data, t_minimap *map, t_ray *ray)
 {
-	t_dot	ret;
+	t_dot end;
 
-	ret.x = map->center_x + (ray->cell.x - data->player.x) * TILE_SIZE;
-	ret.y = map->center_y + (ray->cell.y - data->player.y) * TILE_SIZE;
-	ret.x = clamp(ret.x, 0, WIDTH_SIZE * TILE_SIZE - 1);
-	ret.y = clamp(ret.y, 0, HEIGHT_SIZE * TILE_SIZE - 1);
-	return (ret);
+	end.x = map->center_x + (ray->cell.x - data->player.x) * TILE_SIZE;
+	end.y = map->center_y + (ray->cell.y - data->player.y) * TILE_SIZE;
+	return (end);
 }
 
-static void	pixel_ray(t_data *data, int steps, t_dot *inc, t_dot *pos)
+static void	draw_minimap_ray_pixel(t_data *data, t_dot *start, t_dot *end)
 {
-	int	i;
-	int	px;
-	int	py;
-	int	color;
+	t_dot inc = { end->x - start->x, end->y - start->y };
+	int steps = fmax(fabs(inc.x), fabs(inc.y));
+	t_dot pos = *start;
+	int i;
 
-	color = 0x00FF00;
-	i = 0;
-	while (i < steps)
+	inc.x /= steps;
+	inc.y /= steps;
+	for (i = 0; i < steps; i++)
 	{
-		px = (int)pos->x;
-		py = (int)pos->y;
-		if (px >= 0 && px < WIDTH_SIZE * TILE_SIZE && py >= 0 && py
-			< HEIGHT_SIZE * TILE_SIZE)
-			put_pixel(&data->dsp, (int)pos->x, (int)pos->y, color);
-		else
+		if ((int)pos.x < 0 || (int)pos.x >= data->dsp.width
+			|| (int)pos.y < 0 || (int)pos.y >= data->dsp.height)
 			break ;
-		pos->x += inc->x;
-		pos->y += inc->y;
-		i++;
+		put_pixel(&data->dsp, (int)pos.x, (int)pos.y, 0x00FF00);
+		pos.x += inc.x;
+		pos.y += inc.y;
 	}
 }
 
-static void	draw_ray(t_data *data, t_minimap *map, t_dot *end)
-{
-	int		dx;
-	int		dy;
-	t_dot	inc;
-	t_dot	pos;
-	int		steps;
-
-	dx = end->x - map->center_x;
-	dy = end->y - map->center_y;
-	steps = fmax(abs(dx), abs(dy));
-	inc.x = dx / (double)steps;
-	inc.y = dy / (double)steps;
-	pos.x = map->center_x;
-	pos.y = map->center_y;
-	pixel_ray(data, steps, &inc, &pos);
-}
-
-void	draw_minimap_ray(t_data *data, t_minimap *map)
+void	draw_minimap_rays(t_data *data, t_minimap *map)
 {
 	t_ray	ray;
 	t_dot	end;
+	int		i;
+	int		count = 60; // nombre de rayons pour le FOV
+	double	angle_step = data->player.cam_fov / (count - 1);
+	double	angle;
 
-	ft_memset(&ray, 0, sizeof(t_ray));
-	ray.dir.x = data->player.ori.x;
-	ray.dir.y = data->player.ori.y;
-	init_ray(data->player, &ray);
-	dda_raycasting(data->map, &ray);
-	end = impact(data, map, &ray);
-	draw_ray(data, map, &end);
+	for (i = 0; i < count; i++)
+	{
+		ft_memset(&ray, 0, sizeof(ray));
+		angle = data->player.angle - data->player.cam_fov / 2 + i * angle_step;
+		ray.dir.x = cos(angle);
+		ray.dir.y = sin(angle);
+		init_ray(data->player, &ray);
+		dda_raycasting(data->map, &ray);
+		end = ray_to_pixel(data, map, &ray);
+		draw_minimap_ray_pixel(data, &(t_dot){map->center_x, map->center_y}, &end);
+	}
+}
+
+static void	draw_minimap_vision_ray(t_data *data, t_minimap *map, t_dot *end)
+{
+	int		dx = end->x - map->center_x;
+	int		dy = end->y - map->center_y;
+	int		steps = fmax(abs(dx), abs(dy));
+	t_dot	inc = {dx / (double)steps, dy / (double)steps};
+	t_dot	pos = {map->center_x, map->center_y};
+	int		i;
+	int		color = 0x00FF00;
+
+	for (i = 0; i <= steps; i++)
+	{
+		if ((int)pos.x >= 0 && (int)pos.x < data->dsp.width &&
+			(int)pos.y >= 0 && (int)pos.y < data->dsp.height)
+			put_pixel(&data->dsp, (int)pos.x, (int)pos.y, color);
+		pos.x += inc.x;
+		pos.y += inc.y;
+	}
+}
+
+void	draw_minimap_vision(t_data *data, t_minimap *map)
+{
+	double	angle;
+	double	start_angle = atan2(data->player.ori.y, data->player.ori.x)
+						- (FOV / 2);
+	double	end_angle = start_angle + FOV;
+	double	step = FOV / 30; // 30 rayons suffisent sur une minimap
+	t_ray	ray;
+	t_dot	end;
+
+	for (angle = start_angle; angle <= end_angle; angle += step)
+	{
+		ft_memset(&ray, 0, sizeof(t_ray));
+		ray.dir.x = cos(angle);
+		ray.dir.y = sin(angle);
+		init_ray(data->player, &ray);
+		dda_raycasting(data->map, &ray);
+
+		// position d'impact sur la minimap
+		end.x = map->center_x + (ray.cell.x - data->player.x) * TILE_SIZE;
+		end.y = map->center_y + (ray.cell.y - data->player.y) * TILE_SIZE;
+
+		// trace le rayon
+		draw_minimap_vision_ray(data, map, &end);
+	}
 }

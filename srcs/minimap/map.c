@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 07:48:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/21 10:57:51 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/21 11:26:04 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ static void	set_tile(t_data *data, t_minimap *map, int i, int j)
 {
 	map->square.tile_x = (int)floor(data->player.x) - WIDTH_SIZE / 2 + j;
 	map->square.tile_y = (int)floor(data->player.y) - HEIGHT_SIZE / 2 + i;
-	map->square.start_x = map->center_x - (WIDTH_SIZE * TILE_SIZE) / 2
-		+ j * TILE_SIZE - (int)round(map->frac.x * TILE_SIZE);
-	map->square.start_y = map->center_y - (HEIGHT_SIZE * TILE_SIZE) / 2
-		+ i * TILE_SIZE - (int)round(map->frac.y * TILE_SIZE);
-	if (map->square.tile_x < 0 || map->square.tile_y < 0 || map->square.tile_x
-		>= data->map.width || map->square.tile_y >= data->map.height)
+	map->square.start_x = map->center_x + (map->square.tile_x
+			- data->player.x) * TILE_SIZE;
+	map->square.start_y = map->center_y + (map->square.tile_y
+			- data->player.y) * TILE_SIZE;
+	if (map->square.tile_x < 0 || map->square.tile_y < 0
+		|| map->square.tile_x >= data->map.width
+		|| map->square.tile_y >= data->map.height)
 		map->square.color = 0x303030;
 	else if (data->map.map[map->square.tile_y][map->square.tile_x] == '1')
 		map->square.color = 0xA9A9A9;
@@ -108,6 +109,6 @@ void	draw_map(t_data *data)
 	map.frac.y = data->player.y - floor(data->player.y);
 	draw_minimap_tiles(data, &map);
 	draw_player(data, &map);
-	draw_minimap_ray(data, &map);
+	draw_minimap_vision(data, &map);
 	mlx_put_image_to_window(data->mlx, data->win, data->dsp.img, 0, 0);
 }
