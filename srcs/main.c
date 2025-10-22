@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 09:50:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 15:35:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ int	main(int argc, char **argv)
 		free(data.mlx);
 		return (1);
 	}
+	data.player.sprint.start.x = data.win_w / 6;
+	data.player.sprint.start.y = 8 * data.win_h / 9;
+	data.player.sprint.len.x = data.win_w / 4;
+	data.player.sprint.len.y = data.win_h / 30;
 	init_display_images(&data);
 	mlx_hook(data.win, CROSS, 0, end_loop, &data);
 	mlx_hook(data.win, PRESS, 1L << 0, key_pressed, &data);

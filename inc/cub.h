@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:12:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:58:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,15 @@ typedef struct s_data
 
 /* -- Gameplay Modificators -- */
 # define FOV				60.0f
+# define MAX_STAMINA		300
+# define SENSIBILITY		0.0003f
+# define PLAYER_SPEED		0.025f
+# define ROTATION_SPEED		0.01f
+
+/* -- Render Modificators -- */
 # define MIN_RENDER			8.0f
 # define MAX_RENDER			16.0f
-# define SENSIBILITY		0.0003f
-# define PLAYER_SPEED		0.05f
 # define BG_FADE_SPREAD		3.0f
-# define ROTATION_SPEED		0.01f
 
 /* -- Readible Variables -- */
 # define PI				3.14159265358979323846

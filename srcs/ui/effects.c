@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:35:39 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 17:55:36 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 15:53:54 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 #include "events.h"
 
 int	apply_fog(int color, float factor)
-{
-	int		r;
-	int		g;
-	int		b;
-
-	r = red(color) * factor;
-	b = blue(color) * factor;
-	g = green(color) * factor;
-	return ((r << 16) | (g << 8) | b);
-}
-
-int	apply_fade(int color, double factor)
 {
 	int		r;
 	int		g;
@@ -49,4 +37,33 @@ int	distance_blur(int color, int bg, float alpha)
 	b = (int)(blue(color) * alpha + blue(bg) * alpha);
 	g = (int)(green(color) * alpha + green(bg) * alpha);
 	return ((r << 16) | (g << 8) | b);
+}
+
+void	display_sprint(t_data *data, t_sprint s)
+{
+	int	x;
+	int	y;
+	int	ratio;
+	int	pixel;
+	int	stam_width;
+
+	y = s.start.y - 1;
+	ratio = (data->player.stamina * 255) / MAX_STAMINA;
+	stam_width = (data->player.stamina * s.len.x) / MAX_STAMINA;
+	while (y++ <= s.start.y + s.len.y)
+	{
+		x = s.start.x - 1;
+		while (x++ <= s.start.x + s.len.x)
+		{
+			pixel = y * data->dsp.plen + x;
+			if (y == s.start.y || y > s.start.y + s.len.y)
+				data->dsp.addr[pixel] = 0XFFFFFF;
+			else if (x > s.start.x && x < s.start.x + stam_width)
+				data->dsp.addr[pixel] = ((255 - ratio) << 16) | (ratio << 8);
+			else if (x >= s.start.x + stam_width && x < s.start.x + s.len.x)
+				data->dsp.addr[pixel] = 0x202020;
+			else
+				data->dsp.addr[pixel] = 0XFFFFFF;
+		}
+	}
 }

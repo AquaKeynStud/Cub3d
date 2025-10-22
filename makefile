@@ -8,7 +8,8 @@ NAME := cub3D
 
 CC				:=	cc
 
-CFLAGS			:=	-Wall -Wextra -Werror -MMD -Ofast -march=native -flto
+CFLAGS			:=	-Wall -Wextra -Werror -MMD
+# -Ofast -march=native -flto
 
 RM				:=	rm -rf
 

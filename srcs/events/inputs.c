@@ -6,12 +6,18 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/14 11:03:03 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 14:28:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "ft_printf.h"
+
+int	end_loop(t_data *data)
+{
+	mlx_loop_end(data->mlx);
+	return (0);
+}
 
 void	handle_mouse(t_data *data, t_inputs *inputs)
 {
@@ -31,12 +37,25 @@ void	handle_mouse(t_data *data, t_inputs *inputs)
 	return ;
 }
 
+void	update_velocity(t_inputs *inputs, t_player *player, bool active)
+{
+	if (active)
+	{
+		player->sprint_mult = 2;
+		inputs->left_shift = true;
+	}
+	else
+	{
+		player->sprint_mult = 1;
+		inputs->left_shift = false;
+	}
+	return ;
+}
+
 int	key_pressed(int keycode, t_data *data)
 {
 	if (keycode == KEY_ESC)
 		mlx_loop_end(data->mlx);
-	else if (keycode == KEY_LALT)
-		handle_mouse(data, &data->inputs);
 	else if (keycode == KEY_A)
 		data->inputs.left = true;
 	else if (keycode == KEY_D)
@@ -45,10 +64,14 @@ int	key_pressed(int keycode, t_data *data)
 		data->inputs.forward = true;
 	else if (keycode == KEY_S)
 		data->inputs.backward = true;
+	else if (keycode == KEY_LALT)
+		handle_mouse(data, &data->inputs);
 	else if (keycode == KEY_LEFT)
 		data->inputs.rotate_left = true;
 	else if (keycode == KEY_RIGHT)
 		data->inputs.rotate_right = true;
+	else if (keycode == KEY_LSHIFT)
+		update_velocity(&data->inputs, &data->player, true);
 	else if (keycode >= 'a' && keycode <= 'z')
 		ft_printf(NO_KEY_ERR, MAPLOG, keycode - 32, EOL);
 	return (0);
@@ -68,5 +91,7 @@ int	key_released(int keycode, t_data *data)
 		data->inputs.rotate_left = false;
 	else if (keycode == KEY_RIGHT)
 		data->inputs.rotate_right = false;
+	else if (keycode == KEY_LSHIFT)
+		update_velocity(&data->inputs, &data->player, false);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:04:35 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 14:23:54 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_inputs
 	bool	right;
 	bool	forward;
 	bool	backward;
+	bool	left_shift;
 	bool	rotate_left;
 	bool	rotate_right;
 
@@ -59,6 +60,7 @@ typedef struct s_data	t_data;
 # define KEY_LALT		65513
 # define KEY_LEFT		65361
 # define KEY_RIGHT		65363
+# define KEY_LSHIFT		65505
 
 /* -- Error Messages -- */
 # define NO_KEY_ERR	"%s🈲 The key : %c isn't handled 🈲%s"
@@ -68,9 +70,10 @@ int		key_pressed(int keycode, t_data *data);
 int		key_released(int keycode, t_data *data);
 
 /* -- Movement Functions -- */
-void	handle_movement(t_data *data);
 int		mouse_move(int x, int y, t_data *data);
 void	rotate_player(t_data *data, double angle);
+void	handle_movement(t_data *data, t_player *player);
+void	update_velocity(t_inputs *inputs, t_player *player, bool active);
 
 /* -- Loop Functions -- */
 int		game_loop(t_data *data);

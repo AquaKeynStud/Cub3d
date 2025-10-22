@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:13:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 15:53:42 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,26 @@ void	handle_rotation(t_data *data)
 int	game_loop(t_data *data)
 {
 	t_image		bg;
-	t_image		dsp;
+	t_image		*dsp;
 	t_inputs	input;
 
 	bg = data->bg;
-	dsp = data->dsp;
+	dsp = &data->dsp;
 	input = data->inputs;
 	if (input.left || input.right || input.forward || input.backward)
-		handle_movement(data);
+	{
+		handle_movement(data, &data->player);
+		if (!data->inputs.left_shift && data->player.stamina < MAX_STAMINA)
+			data->player.stamina += 1;
+	}
+	else if (data->player.stamina < MAX_STAMINA)
+		data->player.stamina += 1;
 	if (input.rotate_left || input.rotate_right)
 		handle_rotation(data);
-	ft_memcpy(dsp.addr, bg.addr, data->win_w * data->win_h * sizeof(int));
+	ft_memcpy(dsp->addr, bg.addr, data->win_w * data->win_h * sizeof(int));
 	raycast(data);
-	mlx_put_image_to_window(data->mlx, data->win, dsp.img, 0, 0);
+	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
+		display_sprint(data, data->player.sprint);
+	mlx_put_image_to_window(data->mlx, data->win, dsp->img, 0, 0);
 	return (0);
 }
