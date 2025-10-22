@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 11:06:44 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:19:33 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static t_txt_col	get_column_data(t_data *data, t_ray ray, t_image img, int x)
 	c.end = (int)clamp((double)c.end, data->win_h / 2, data->win_h - 1);
 	c.y_step = 0;
 	if (c.wall_h != 0)
-		c.y_step = (img.height << 16) / c.wall_h;
-	c.txt_pos = ((c.start - data->win_h / 2 + c.wall_h / 2) * c.y_step);
+		c.y_step = (double)img.height / (double)c.wall_h;
+	c.txt_pos = (c.start - data->win_h / 2.0 + c.wall_h / 2.0) * c.y_step;
 	c.fog = get_fog(data->assets.fog, ray.dist, data->assets.fog_unit);
 	c.alpha = get_alpha(data->assets.alpha, ray.dist, data->assets.alpha_unit);
 	return (c);
@@ -61,7 +61,7 @@ void	display_texture(t_data *data, t_txt_col col, t_image img, t_idot txt)
 	dst = data->dsp.addr + y * data->dsp.plen + col.x;
 	while (y < col.end)
 	{
-		txt.y = (col.txt_pos >> 16);
+		txt.y = col.txt_pos;
 		col.txt_pos += col.y_step;
 		color = img.addr[txt.y * img.plen + (int)txt.x];
 		color = apply_fog(color, col.fog);

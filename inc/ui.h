@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 09:41:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 13:16:21 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_txt_col
 	int		start;
 	float	alpha;
 	int		wall_h;
-	int		y_step;
-	int		txt_pos;
+	double	y_step;
+	double	txt_pos;
 }			t_txt_col;
 
 typedef struct s_data	t_data;
