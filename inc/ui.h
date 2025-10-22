@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/19 11:23:10 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 09:41:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	display_wall(t_data *data, t_ray ray, int x);
 void	put_pixel(t_image *img, int x, int y, int color);
 
 bool	init_display_images(t_data *data);
+int		end_loop(t_data *data);
 
 /* -- Windows Handling Functions -- */
 int		apply_fog(int color, float factor);

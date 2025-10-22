@@ -10,7 +10,7 @@
 
 # Binaires
 a.out
-cub3d
+cub3D
 valgrind*
 
 # Fichiers de sauvegarde / éditeur

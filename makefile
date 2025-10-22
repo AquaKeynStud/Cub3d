@@ -2,14 +2,13 @@
 
 .DELETE_ON_ERROR:
 
-NAME := cub3d
+NAME := cub3D
 
 # ╭━━━━━━━━━━━━══════════╕出 ❖ BASICS VARIABLES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
 CC				:=	cc
 
-CFLAGS			:=	-Wall -Wextra -Werror -MMD 
-# -Ofast -march=native -flto
+CFLAGS			:=	-Wall -Wextra -Werror -MMD -Ofast -march=native -flto
 
 RM				:=	rm -rf
 

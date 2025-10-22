@@ -6,13 +6,19 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:06:56 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 09:41:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui.h"
 #include "cub.h"
 #include "ft_printf.h"
+
+int	end_loop(t_data *data)
+{
+	mlx_loop_end(data->mlx);
+	return (0);
+}
 
 static bool	new_image(t_image *image, void *mlx, int width, int height)
 {

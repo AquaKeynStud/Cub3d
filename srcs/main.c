@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 17:51:56 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 09:50:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,14 @@ void	clean_exit(t_data *data, int code)
 		mlx_destroy_image(data->mlx, data->assets.north.img);
 	if (data->dsp.img)
 		mlx_destroy_image(data->mlx, data->dsp.img);
+	if (data->bg.img)
+		mlx_destroy_image(data->mlx, data->bg.img);
 	if (data->map.map)
 		double_free((void **)data->map.map, 0);
+	if (data->assets.fog)
+		free(data->assets.fog);
+	if (data->assets.alpha)
+		free(data->assets.alpha);
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);
@@ -81,7 +87,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_display_images(&data);
-	mlx_hook(data.win, CROSS, 0, mlx_loop_end, &data);
+	mlx_hook(data.win, CROSS, 0, end_loop, &data);
 	mlx_hook(data.win, PRESS, 1L << 0, key_pressed, &data);
 	mlx_hook(data.win, RELEASE, 1L << 1, key_released, &data);
 	mlx_hook(data.win, MOUSE_MOV, 1L << 6, mouse_move, &data);

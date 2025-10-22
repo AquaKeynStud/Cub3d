@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/16 21:06:44 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/22 11:04:19 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	dda_raycasting(t_map map, t_ray *ray)
 {
 	while (!ray->hit)
 	{
-		ray->side = (ray->magn.x >= ray->magn.y);
+		ray->side = (ray->magn.x > ray->magn.y);
 		if (!ray->side)
 		{
 			ray->magn.x += ray->delta.x;
