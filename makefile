@@ -79,7 +79,7 @@ LST_INC	=	cub.h		\
 
 LST_MAP =	map.c			\
 			init_map.c		\
-			raycast_map.c	\
+			player.c	\
 			clear_image.c
 
 LST_UTL	=	math_utils.c	\

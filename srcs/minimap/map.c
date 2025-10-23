@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 07:48:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/21 11:26:04 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/23 11:54:20 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,6 @@
 #include "ui.h"
 #include "cub.h"
 #include "libft.h"
-
-static void	draw_player(t_data *data, t_minimap *map)
-{
-	int	y;
-	int	x;
-	int	radius;
-
-	radius = 4;
-	y = -radius;
-	while (y <= radius)
-	{
-		x = -radius;
-		while (x <= radius)
-		{
-			if (x * x + y * y <= radius * radius)
-				put_pixel(&data->dsp, map->center_x + x,
-					map->center_y + y, 0xffa500);
-			x++;
-		}
-		y++;
-	}
-}
 
 static void	draw_square(t_data *data, t_minimap *map)
 {
@@ -61,6 +39,7 @@ static void	draw_square(t_data *data, t_minimap *map)
 		y++;
 	}
 }
+
 
 static void	set_tile(t_data *data, t_minimap *map, int i, int j)
 {
@@ -108,7 +87,6 @@ void	draw_map(t_data *data)
 	map.frac.x = data->player.x - floor(data->player.x);
 	map.frac.y = data->player.y - floor(data->player.y);
 	draw_minimap_tiles(data, &map);
-	draw_player(data, &map);
-	draw_minimap_vision(data, &map);
+	draw_player_triangle(data, &map, 8);
 	mlx_put_image_to_window(data->mlx, data->win, data->dsp.img, 0, 0);
 }

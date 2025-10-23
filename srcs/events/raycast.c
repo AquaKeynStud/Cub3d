@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/20 09:58:01 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/10/23 08:29:04 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_ray(t_player player, t_ray *ray)
 		ray->magn.y = ((ray->cell.y + 1) - player.y) * ray->delta.y;
 }
 
-static void	get_ray_result(t_data *data, t_ray *ray)
+void	get_ray_result(t_data *data, t_ray *ray)
 {
 	if (!ray->hit)
 		return ;
