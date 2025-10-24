@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 13:58:58 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 11:44:00 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_data
 # define MAX_STAMINA		300
 # define SENSIBILITY		0.0003f
 # define PLAYER_SPEED		0.025f
+# define CROSSAIR_SIZE		4
+# define CROSSAIR_COLOR		0xFFFFFF
 # define ROTATION_SPEED		0.01f
 
 /* -- Render Modificators -- */

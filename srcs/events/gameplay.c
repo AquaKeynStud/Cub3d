@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 15:53:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 11:42:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	game_loop(t_data *data)
 	raycast(data);
 	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
 		display_sprint(data, data->player.sprint);
+	display_crossair(data);
 	mlx_put_image_to_window(data->mlx, data->win, dsp->img, 0, 0);
 	return (0);
 }

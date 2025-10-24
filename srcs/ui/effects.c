@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:35:39 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 15:53:54 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 11:43:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ int	distance_blur(int color, int bg, float alpha)
 	b = (int)(blue(color) * alpha + blue(bg) * alpha);
 	g = (int)(green(color) * alpha + green(bg) * alpha);
 	return ((r << 16) | (g << 8) | b);
+}
+
+void	display_crossair(t_data *data)
+{
+	int x;
+	int y;
+	int center_x;
+	int center_y;
+
+	if (CROSSAIR_SIZE == 0)
+		return ;
+	center_x = data->win_w / 2;
+	center_y = data->win_h / 2;
+	y = center_y - CROSSAIR_SIZE;
+	while (y <= center_y + CROSSAIR_SIZE)
+	{
+		x = center_x - (CROSSAIR_SIZE - abs(center_y - y));
+		while (x <= center_x + (CROSSAIR_SIZE - abs(center_y - y)))
+			data->dsp.addr[y * data->dsp.plen + x++] = CROSSAIR_COLOR;
+		y++;
+	}
 }
 
 void	display_sprint(t_data *data, t_sprint s)

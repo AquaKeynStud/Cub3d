@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 15:54:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 11:41:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	put_pixel(t_image *img, int x, int y, int color);
 bool	init_display_images(t_data *data);
 int		end_loop(t_data *data);
 
+void 	display_crossair(t_data *data);
 void	display_sprint(t_data *data, t_sprint s);
 
 /* -- Windows Handling Functions -- */
