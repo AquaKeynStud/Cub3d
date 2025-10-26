@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 13:19:33 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/26 11:58:36 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static t_image	get_img_column(t_txts *txts, t_ray ray, t_idot *txt)
 {
 	t_image	img;
 
-	if (ray.side && ray.dir.y <= 0)
+	if (ray.door)
+		img = txts->door;
+	else if (ray.side && ray.dir.y <= 0)
 		img = txts->north;
 	else if (ray.side && ray.dir.y > 0)
 		img = txts->south;
@@ -97,6 +99,8 @@ void	display_wall(t_data *data, t_ray ray, int x)
 	t_txt_col	column;
 
 	img = get_img_column(&data->assets, ray, &txt);
+	if (!img.img)
+		return ;
 	column = get_column_data(data, ray, img, x);
 	if (!column.fog)
 		display_fogged(data, column, 0x000000);

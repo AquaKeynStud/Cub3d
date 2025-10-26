@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:10:24 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 12:13:40 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ bool	parse_param(t_data *data, char *line)
 		data->assets.south = get_image(data, value, ".xpm");
 	else if (!ft_strncmp(line, "NO ", 3) && !data->assets.north.img)
 		data->assets.north = get_image(data, value, ".xpm");
+	else if (!ft_strncmp(line, "D ", 2) && !data->assets.door.img)
+		data->assets.door = get_image(data, value, ".xpm");
 	else
 	{
 		free(value);

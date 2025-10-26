@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:56:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 15:36:03 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 12:09:15 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	debug_assets(t_txts txts);
 bool	east_west_walls(char **map);
 bool	get_player(char **map, t_player *player);
 bool	init_bfs(char **map, int width, int height);
-bool	check_map_content(char **map, t_player player);
 bool	south_north_walls(char **map, int width, int height);
+bool	check_map_content(char **map, t_player player);
 
 /* -- Config Main Function -- */
 bool	configure(t_data *data, t_map *map_data);

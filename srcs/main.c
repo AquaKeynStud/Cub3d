@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 15:35:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/26 11:46:55 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	clean_exit(t_data *data, int code)
 		mlx_destroy_image(data->mlx, data->assets.south.img);
 	if (data->assets.north.img)
 		mlx_destroy_image(data->mlx, data->assets.north.img);
+	if (data->assets.door.img)
+		mlx_destroy_image(data->mlx, data->assets.door.img);
 	if (data->dsp.img)
 		mlx_destroy_image(data->mlx, data->dsp.img);
 	if (data->bg.img)
@@ -56,14 +58,44 @@ void	clean_exit(t_data *data, int code)
 	exit(code);
 }
 
+bool	setup_door(t_data *data, t_file *file)
+{
+	int	x;
+	int	y;
+	int	count;
+
+	if (!file->has_door || file->has_door > DOOR_LIMIT - 1)
+		return (file->has_door == false);
+	y = 0;
+	count = 0;
+	while (data->map.map[y])
+	{
+		x = 0;
+		while (data->map.map[y][x])
+		{
+			if (data->map.map[y][x] == 'D')
+			{
+				data->doors[count].pos.x = x;
+				data->doors[count].pos.y = y;
+				data->doors[count++].open = false;
+			}
+			x++;
+		}
+		y++;
+	}
+	return (true);
+}
+
 static bool	setup_data(t_data *data, char *filename)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	(*data).mlx = mlx_init();
 	if (!(*data).mlx)
-		return (false);
+		return (err("Failed to initialize mlx"));
 	if (!get_info_from_file(data, filename))
 		clean_exit(data, EXIT_FAILURE);
+	if (!setup_door(data, &data->file))
+		return (err("Failed to get doors data"));
 	debug_assets((*data).assets);
 	if (!configure(data, &data->map))
 		clean_exit(data, EXIT_FAILURE);

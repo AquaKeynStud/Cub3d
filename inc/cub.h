@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/24 11:44:00 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/26 12:01:23 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 	t_txts		assets;
 	t_player	player;
 	t_inputs	inputs;
+	t_door		doors[DOOR_LIMIT];
 }			t_data;
 
 /* -- Gameplay Modificators -- */

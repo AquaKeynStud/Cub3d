@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:35:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/26 10:36:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	get_data_from_line(t_data *data, t_file *file, char *line)
 	bool	empty;
 
 	empty = is_empty_line(line);
-	if (in_str(*line, "NSWEFC", false))
+	if (in_str(*line, "NSWEFCD", false))
 	{
 		if (!data->map.map)
 			return (parse_param(data, line));
@@ -29,6 +29,8 @@ static bool	get_data_from_line(t_data *data, t_file *file, char *line)
 	{
 		if (data->file.nl)
 			return (err(EMPTY_LINE));
+		if (in_str('D', line, false))
+			file->has_door += 1;
 		return (parse_map(&data->map.map, line, &file->pos, &file->cap));
 	}
 	if (empty)
@@ -78,6 +80,8 @@ static bool	everything_set(t_data *data, t_txts txts)
 		return (err_str(WALL_DATA_ERR, "north"));
 	if (!txts.south.img || !txts.south.addr)
 		return (err_str(WALL_DATA_ERR, "south"));
+	if (data->file.has_door && (!txts.door.img || !txts.door.addr))
+		return (err_str(WALL_DATA_ERR, "door"));
 	if (txts.floor == -1)
 		return (err_str(COLOR_DATA_ERR, "floor"));
 	if (txts.ceiling == -1)

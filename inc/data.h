@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 15:51:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/26 10:47:03 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 /* -- Structures -- */
 typedef struct s_file
 {
-	int	fd;
-	int	nl;
-	int	pos;
-	int	cap;
-	int	line_nb;
+	int		fd;
+	int		nl;
+	int		pos;
+	int		cap;
+	int		line_nb;
+	int		has_door;
 }			t_file;
 
 typedef struct s_image
@@ -44,6 +45,8 @@ typedef struct s_txts
 	t_image	east;
 	t_image	north;
 	t_image	south;
+
+	t_image	door;
 
 	int		floor;
 	int		ceiling;
@@ -66,6 +69,12 @@ typedef struct s_sprint
 	t_idot	len;
 	t_idot	start;
 }			t_sprint;
+
+typedef struct s_door
+{
+	t_idot			pos;
+	bool			open;
+}			t_door;
 
 typedef struct s_player
 {
