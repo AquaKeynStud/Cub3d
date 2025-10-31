@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/26 11:46:55 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/31 10:28:14 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	has_ext(const char *filename, char *ext)
 
 void	clean_exit(t_data *data, int code)
 {
+	int	i = 0;
 	if (data->assets.east.img)
 		mlx_destroy_image(data->mlx, data->assets.east.img);
 	if (data->assets.west.img)
@@ -40,6 +41,11 @@ void	clean_exit(t_data *data, int code)
 		mlx_destroy_image(data->mlx, data->assets.north.img);
 	if (data->assets.door.img)
 		mlx_destroy_image(data->mlx, data->assets.door.img);
+	if (data->file.has_door)
+	{
+		while (i < 5)
+			mlx_destroy_image(data->mlx, data->assets.d_anim[i++].img);
+	}
 	if (data->dsp.img)
 		mlx_destroy_image(data->mlx, data->dsp.img);
 	if (data->bg.img)
@@ -113,7 +119,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!init_fog_table(&data.assets) || !init_alpha_table(&data.assets))
 		return (1);
-	if (!create_window(&data, 1920, 1080, "cub3d"))
+	if (!create_window(&data, 480, 200, "cub3d"))
 	{
 		free(data.mlx);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/26 10:47:03 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/31 09:50:57 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_txts
 	int		floor;
 	int		ceiling;
 
+	t_image	d_anim[5];
+
 	double	*fog;
 	double	*alpha;
 	double	fog_unit;
@@ -74,6 +76,8 @@ typedef struct s_door
 {
 	t_idot			pos;
 	bool			open;
+	int				frames;
+	int				status;
 }			t_door;
 
 typedef struct s_player

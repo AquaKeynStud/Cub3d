@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/26 13:21:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/31 10:08:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	update_velocity(t_inputs *inputs, t_player *player, bool active)
 	return ;
 }
 
-void	handle_door(t_door doors[DOOR_LIMIT], char **map, int y, int x)
+void	handle_door(t_door doors[DOOR_LIMIT], int y, int x)
 {
 	int	i;
 
@@ -65,13 +65,11 @@ void	handle_door(t_door doors[DOOR_LIMIT], char **map, int y, int x)
 			if (doors[i].open)
 			{
 				doors[i].open = false;
-				map[y][x] = 'D';
 				printf("Porte a l'indice %ix%i, fermée\n", y, x);
 			}
 			else if (!doors[i].open)
 			{
 				doors[i].open = true;
-				map[y][x] = '0';
 				printf("Porte a l'indice %ix%i, ouverte\n", y, x);
 			}
 			return ;
@@ -102,7 +100,7 @@ void	check_door(t_data *data, int player_y, int player_x)
 				dx++;
 				continue ;
 			}
-			handle_door(data->doors, data->map.map, y, x);
+			handle_door(data->doors, y, x);
 			dx++;
 		}
 		dy++;

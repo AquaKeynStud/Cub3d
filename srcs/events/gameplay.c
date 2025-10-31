@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/24 11:42:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/31 10:31:40 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,51 @@ void	handle_rotation(t_data *data)
 		rotate_player(data, ROTATION_SPEED);
 }
 
+void	copy_non_black_pixels(t_image *dst, t_image *src)
+{
+	int	x;
+	int	y;
+	int	color;
+
+	if (!dst->addr || !src->addr)
+		return;
+
+	for (y = 0; y < src->height; y++)
+	{
+		for (x = 0; x < src->width; x++)
+		{
+			color = src->addr[y * src->plen + x];
+			if (color != 0x000000)
+				dst->addr[y * dst->plen + x] = color;
+		}
+	}
+}
+
+
+void	handle_door_animation(t_data *data, t_door doors[DOOR_LIMIT])
+{
+	int	i;
+
+	i = 0;
+	while (i <= DOOR_LIMIT - 1)
+	{
+		if (doors[i].open && doors[i].status < 5)
+		{
+			doors[i].frames += 1;
+			if (doors[i].frames >= 10)
+			{
+				doors[i].frames = 0;
+				doors[i].status += 1;
+				if (doors[i].status >= 5)
+					data->map.map[doors[i].pos.y][doors[i].pos.x] = '0';
+				else
+					copy_non_black_pixels(&data->assets.door, &data->assets.d_anim[doors[i].status - 1]);
+			}
+		}
+		i++;
+	}
+}
+
 int	game_loop(t_data *data)
 {
 	t_image		bg;
@@ -67,6 +112,9 @@ int	game_loop(t_data *data)
 	if (input.rotate_left || input.rotate_right)
 		handle_rotation(data);
 	ft_memcpy(dsp->addr, bg.addr, data->win_w * data->win_h * sizeof(int));
+
+	handle_door_animation(data, data->doors);
+
 	raycast(data);
 	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
 		display_sprint(data, data->player.sprint);
