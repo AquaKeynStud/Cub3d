@@ -55,7 +55,7 @@ LST_INT	=	tables.c		\
 
 LST_UIS	=	walls.c			\
 			effects.c		\
-			mlx_plus.c		\
+			mlx_wrap.c		\
 			background.c
 
 LST_LOG	=	logs.c		\
@@ -71,7 +71,8 @@ LST_EVT	=	inputs.c	\
 			gameplay.c	\
 			movement.c
 
-LST_UTL	=	math_utils.c	\
+LST_UTL	=	memory.c		\
+			math_utils.c	\
 			color_utils.c
 
 LST_INC	=	cub.h		\

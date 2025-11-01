@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_plus.c                                         :+:      :+:    :+:   */
+/*   mlx_wrap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 09:25:42 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:04:56 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ui.h"
 #include "cub.h"
 #include "ft_printf.h"
+
+int	end_loop(t_data *data)
+{
+	mlx_loop_end(data->mlx);
+	return (0);
+}
 
 bool	new_image(t_image *image, void *mlx, int width, int height)
 {
@@ -31,16 +37,6 @@ bool	new_image(t_image *image, void *mlx, int width, int height)
 	image->width = width;
 	image->height = height;
 	image->plen = image->slen / (image->bpp / 8);
-	return (true);
-}
-
-bool	init_display_images(t_data *data)
-{
-	if (!new_image(&data->dsp, data->mlx, data->win_w, data->win_h))
-		return (err("Failed to create display render image"));
-	if (!new_image(&data->bg, data->mlx, data->win_w, data->win_h))
-		return (err("Failed to create background render image"));
-	create_background(data, data->assets);
 	return (true);
 }
 

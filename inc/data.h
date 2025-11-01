@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 10:26:50 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 11:54:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,11 +137,10 @@ double	get_alpha(double *alpha, double dist, double unit);
 
 /* -- Doors Functions -- */
 t_door	*get_door(t_door *doors, int y, int x);
-bool	is_door_open(t_door *doors, int y, int x);
+bool	door_open(t_door *doors, int y, int x);
 bool	free_all_doors(t_data *data, t_door **doors);
 bool	add_door(t_data *data, t_door **doors, int y, int x);
 bool	init_doors(t_data *data, t_door **doors, char **map);
-bool	remove_door(t_data *data, t_door **doors, int y, int x);
 
 /* -- Mlx Complement -- */
 t_image	get_image(t_data *data, char *path, char *ext);

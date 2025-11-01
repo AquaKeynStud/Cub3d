@@ -6,21 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 10:53:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 10:28:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:06:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
-#include <sys/time.h>
-
-long	get_tick_time(void)
-{
-    struct timeval tv;
-    if (gettimeofday(&tv, NULL) == -1)
-        return (-1);
-    return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
-}
 
 bool	add_door(t_data *data, t_door **doors, int y, int x)
 {
@@ -62,7 +53,7 @@ t_door	*get_door(t_door *doors, int y, int x)
 	return (NULL);
 }
 
-bool	is_door_open(t_door *doors, int y, int x)
+bool	door_open(t_door *doors, int y, int x)
 {
 	t_door	*door;
 
@@ -104,7 +95,7 @@ bool	init_doors(t_data *data, t_door **doors, char **map)
 		while (map[y][x])
 		{
 			if (map[y][x] == 'D' && !add_door(data, doors, y, x))
-					return (free_all_doors(data, doors));
+				return (free_all_doors(data, doors));
 			x++;
 		}
 		y++;

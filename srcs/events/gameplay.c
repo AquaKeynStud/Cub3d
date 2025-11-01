@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 10:37:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:03:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,52 +47,32 @@ void	handle_rotation(t_data *data)
 		rotate_player(data, ROTATION_SPEED);
 }
 
-void	copy_non_black_pixels(t_image *dst, t_image *src)
+void	animate_doors(t_data *data, t_image anim[5], t_door **doors)
 {
-	int	x;
-	int	y;
-	int	color;
-
-	if (!dst->addr || !src->addr)
-		return;
-
-	for (y = 0; y < src->height; y++)
-	{
-		for (x = 0; x < src->width; x++)
-		{
-			color = src->addr[y * src->plen + x];
-			if (color != 0x000000)
-				dst->addr[y * dst->plen + x] = color;
-		}
-	}
-}
-
-void	animate_doors(t_data *data, t_image anims[5], t_door **doors)
-{
-	t_door	*current;
+	t_door	*door;
 	long	tick_time;
 
-	current = *doors;
+	door = *doors;
 	tick_time = get_tick_time();
-	while (current)
+	while (door)
 	{
-		if (current->open && current->status < 4)
+		if (door->open && door->status < 4)
 		{
-			if (tick_time - current->tick > 100)
+			if (tick_time - door->tick > 100)
 			{
-				current->status += 1;
-				current->tick = tick_time;
+				door->status += 1;
+				door->tick = tick_time;
 			}
-			copy_non_black_pixels(&current->texture, &anims[current->status]);
+			clear_background(&door->texture, &anim[door->status]);
 		}
-		else if (current->open && data->map.map[current->pos.y][current->pos.x] == 'D')
+		else if (door->open && data->map.map[door->pos.y][door->pos.x] == 'D')
 		{
-			data->map.map[current->pos.y][current->pos.x] = '0';
-			current->pos.y = -1;
-			current->pos.x = -1;
-			current->open = false;
+			data->map.map[door->pos.y][door->pos.x] = '0';
+			door->pos.y = -1;
+			door->pos.x = -1;
+			door->open = false;
 		}
-		current = current->next;
+		door = door->next;
 	}
 }
 
@@ -116,9 +96,7 @@ int	game_loop(t_data *data)
 	if (input.rotate_left || input.rotate_right)
 		handle_rotation(data);
 	ft_memcpy(dsp->addr, bg.addr, data->win_w * data->win_h * sizeof(int));
-
 	animate_doors(data, data->assets.d_anim, &data->assets.doors);
-
 	raycast(data);
 	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
 		display_sprint(data, data->player.sprint);

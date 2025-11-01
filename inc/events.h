@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/26 12:01:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 11:43:21 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ typedef struct s_data	t_data;
 # define KEY_RIGHT		65363
 # define KEY_LSHIFT		65505
 
-# define DOOR_LIMIT 15
-
 /* -- Error Messages -- */
 # define NO_KEY_ERR	"%s🈲 The key : %c isn't handled 🈲%s"
 
@@ -86,7 +84,5 @@ int		game_loop(t_data *data);
 int		red(int color);
 int		blue(int color);
 int		green(int color);
-
-bool	door_open(t_door doors[DOOR_LIMIT], int y, int x);
 
 #endif

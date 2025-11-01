@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 10:38:29 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 11:40:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,43 +28,6 @@ bool	has_ext(const char *filename, char *ext)
 	return (ft_strncmp(filename + (len - pad), ext, pad) == 0);
 }
 
-void	clean_exit(t_data *data, int code)
-{
-	int	i = 0;
-	if (data->assets.east.img)
-		mlx_destroy_image(data->mlx, data->assets.east.img);
-	if (data->assets.west.img)
-		mlx_destroy_image(data->mlx, data->assets.west.img);
-	if (data->assets.south.img)
-		mlx_destroy_image(data->mlx, data->assets.south.img);
-	if (data->assets.north.img)
-		mlx_destroy_image(data->mlx, data->assets.north.img);
-	if (data->assets.door.img)
-		mlx_destroy_image(data->mlx, data->assets.door.img);
-	if (data->file.has_door)
-	{
-		while (i < 5)
-			mlx_destroy_image(data->mlx, data->assets.d_anim[i++].img);
-		free_all_doors(data, &data->assets.doors);
-	}
-	if (data->dsp.img)
-		mlx_destroy_image(data->mlx, data->dsp.img);
-	if (data->bg.img)
-		mlx_destroy_image(data->mlx, data->bg.img);
-	if (data->map.map)
-		double_free((void **)data->map.map, 0);
-	if (data->assets.fog)
-		free(data->assets.fog);
-	if (data->assets.alpha)
-		free(data->assets.alpha);
-	if (data->mlx)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
-	exit(code);
-}
-
 static bool	setup_data(t_data *data, char *filename)
 {
 	ft_memset(data, 0, sizeof(t_data));
@@ -79,6 +42,25 @@ static bool	setup_data(t_data *data, char *filename)
 	return (true);
 }
 
+static bool	setup_display(t_data *data)
+{
+	if (!create_window(data, 1920, 1080, "cub3d"))
+	{
+		free(data->mlx);
+		return (1);
+	}
+	data->player.sprint.start.x = data->win_w / 6;
+	data->player.sprint.start.y = 8 * data->win_h / 9;
+	data->player.sprint.len.x = data->win_w / 4;
+	data->player.sprint.len.y = data->win_h / 30;
+	if (!new_image(&data->dsp, data->mlx, data->win_w, data->win_h))
+		return (err("Failed to create display render image"));
+	if (!new_image(&data->bg, data->mlx, data->win_w, data->win_h))
+		return (err("Failed to create background render image"));
+	create_background(data, data->assets);
+	return (true);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -90,16 +72,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!init_fog_table(&data.assets) || !init_alpha_table(&data.assets))
 		return (1);
-	if (!create_window(&data, 1920, 1080, "cub3d"))
-	{
-		free(data.mlx);
-		return (1);
-	}
-	data.player.sprint.start.x = data.win_w / 6;
-	data.player.sprint.start.y = 8 * data.win_h / 9;
-	data.player.sprint.len.x = data.win_w / 4;
-	data.player.sprint.len.y = data.win_h / 30;
-	init_display_images(&data);
+	setup_display(&data);
 	mlx_hook(data.win, CROSS, 0, end_loop, &data);
 	mlx_hook(data.win, PRESS, 1L << 0, key_pressed, &data);
 	mlx_hook(data.win, RELEASE, 1L << 1, key_released, &data);

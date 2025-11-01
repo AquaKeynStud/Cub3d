@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/31 11:11:08 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:09:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,8 @@ static bool	upscale_map(char ***map, int *pos, int *cap)
 	return (true);
 }
 
-bool	parse_param(t_data *data, char *line)
+static bool	get_type_data(t_data *data, char *line, char *value)
 {
-	char	*value;
-
-	if (count_words(line, " \t\n\v\f\r") != 2)
-		return (err_str(MANY_ARGS_ERR, line));
-	value = get_word(line, 1);
 	if (!ft_strncmp(line, "F ", 2) && data->assets.floor == -1)
 		data->assets.floor = to_rgb(value);
 	else if (!ft_strncmp(line, "C ", 2) && data->assets.ceiling == -1)
@@ -89,6 +84,18 @@ bool	parse_param(t_data *data, char *line)
 	else if (!ft_strncmp(line, "D ", 2) && !data->assets.door.img)
 		data->assets.door = get_image(data, value, ".xpm");
 	else
+		return (false);
+	return (true);
+}
+
+bool	parse_param(t_data *data, char *line)
+{
+	char	*value;
+
+	if (count_words(line, " \t\n\v\f\r") != 2)
+		return (err_str(MANY_ARGS_ERR, line));
+	value = get_word(line, 1);
+	if (!get_type_data(data, line, value))
 	{
 		free(value);
 		return (err_str(INVALID_ARG, line));

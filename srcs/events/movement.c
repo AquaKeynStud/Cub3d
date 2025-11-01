@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:17:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/11/01 09:13:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 11:43:05 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ static void	move_forward(t_data *data, t_player *player)
 {
 	float	x;
 	float	y;
+	char	**map;
 
+	map = data->map.map;
 	x = player->x + player->ori.x * (PLAYER_SPEED * player->sprint_mult);
 	y = player->y + player->ori.y * (PLAYER_SPEED * player->sprint_mult);
-	if (!in_str(data->map.map[(int)y][(int)x], "1D", false))
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;
@@ -36,15 +38,17 @@ static void	move_backward(t_data *data, t_player *player)
 {
 	float	x;
 	float	y;
+	char	**map;
 
+	map = data->map.map;
 	x = player->x - player->ori.x * (PLAYER_SPEED * player->sprint_mult);
 	y = player->y - player->ori.y * (PLAYER_SPEED * player->sprint_mult);
-	if (!in_str(data->map.map[(int)y][(int)x], "1D", false))
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;
@@ -55,15 +59,17 @@ static void	move_left(t_data *data, t_player *player)
 {
 	float	x;
 	float	y;
+	char	**map;
 
+	map = data->map.map;
 	x = player->x + player->ori.y * (PLAYER_SPEED * player->sprint_mult);
 	y = player->y + (-player->ori.x) * (PLAYER_SPEED * player->sprint_mult);
-	if (!in_str(data->map.map[(int)y][(int)x], "1D", false))
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;
@@ -74,15 +80,17 @@ static void	move_right(t_data *data, t_player *player)
 {
 	float	x;
 	float	y;
+	char	**map;
 
+	map = data->map.map;
 	x = player->x + (-player->ori.y) * (PLAYER_SPEED * player->sprint_mult);
 	y = player->y + player->ori.x * (PLAYER_SPEED * player->sprint_mult);
-	if (!in_str(data->map.map[(int)y][(int)x], "1D", false))
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;

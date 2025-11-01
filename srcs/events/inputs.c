@@ -6,19 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 10:19:59 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:04:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include <math.h>
 #include "ft_printf.h"
-
-int	end_loop(t_data *data)
-{
-	mlx_loop_end(data->mlx);
-	return (0);
-}
 
 void	handle_mouse(t_data *data, t_inputs *inputs)
 {

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 08:49:52 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:00:51 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,45 +91,29 @@ static bool	everything_set(t_data *data, t_txts txts)
 	return (true);
 }
 
-// static t_image	get_image(t_data *data, char *path, char *ext)
-// {
-// 	t_image	i;
-
-// 	(void)ext;
-// 	if (!has_ext(path, ".xpm"))
-// 	{
-// 		err_errno(path, INVALID_EXT, false);
-// 		return ((t_image){0});
-// 	}
-// 	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
-// 	if (!i.img)
-// 	{
-// 		err_errno(path, NULL, false);
-// 		return ((t_image){0});
-// 	}
-// 	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
-// 	i.plen = i.slen / (i.bpp / 8);
-// 	return (i);
-// }
-
-bool get_door_anims_img(t_data *data, t_txts *assets)
+bool	get_door_anims_img(t_data *data, t_txts *assets)
 {
 	assets->d_anim[0] = get_image(data, "./assets/door_break_1.xpm", ".xpm");
 	assets->d_anim[1] = get_image(data, "./assets/door_break_2.xpm", ".xpm");
 	assets->d_anim[2] = get_image(data, "./assets/door_break_3.xpm", ".xpm");
 	assets->d_anim[3] = get_image(data, "./assets/door_break_4.xpm", ".xpm");
 	assets->d_anim[4] = get_image(data, "./assets/door_break_5.xpm", ".xpm");
-	return (assets->d_anim[0].addr && assets->d_anim[1].addr && assets->d_anim[2].addr
-		&& assets->d_anim[3].addr && assets->d_anim[4].addr);
+	return (assets->d_anim[0].addr
+		&& assets->d_anim[1].addr
+		&& assets->d_anim[2].addr
+		&& assets->d_anim[3].addr
+		&& assets->d_anim[4].addr);
 }
 
 bool	get_info_from_file(t_data *data, const char *filename)
 {
 	bool	checker;
+	t_txts	*assets;
 
+	assets = &data->assets;
 	data->file.cap = 16;
-	data->assets.floor = -1;
-	data->assets.ceiling = -1;
+	assets->floor = -1;
+	assets->ceiling = -1;
 	data->file.fd = open(filename, O_RDONLY);
 	if (data->file.fd == -1)
 	{
@@ -141,11 +125,11 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	close(data->file.fd);
 	if (!data->file.line_nb)
 		return (err(EMPTY_CONFIG));
-	if (data->file.has_door && !get_door_anims_img(data, &data->assets))
+	if (data->file.has_door && !get_door_anims_img(data, assets))
 		return (err("On a pas réussi a charger les animations de porte"));
-	if (data->file.has_door && !init_doors(data, &data->assets.doors, data->map.map))
+	if (data->file.has_door && !init_doors(data, &assets->doors, data->map.map))
 		return (err("On a pas réussi à créer la table des portes"));
-	if (checker && everything_set(data, data->assets))
+	if (checker && everything_set(data, *assets))
 		return (info(READ_END, MAPLOG, NULL));
 	return (false);
 }
