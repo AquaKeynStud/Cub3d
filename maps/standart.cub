@@ -3,7 +3,7 @@ SO ./assets/stone_bricks2.xpm
 WE ./assets/stone_bricks3.xpm
 EA ./assets/stone_bricks4.xpm
 
-D ./assets/floor1.xpm
+D ./assets/door.xpm
 
 F 112,223,255
 C 140,160,100
