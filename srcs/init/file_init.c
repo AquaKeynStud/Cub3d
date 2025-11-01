@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/31 10:21:32 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 08:49:52 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,26 +91,26 @@ static bool	everything_set(t_data *data, t_txts txts)
 	return (true);
 }
 
-static t_image	get_image(t_data *data, char *path, char *ext)
-{
-	t_image	i;
+// static t_image	get_image(t_data *data, char *path, char *ext)
+// {
+// 	t_image	i;
 
-	(void)ext;
-	if (!has_ext(path, ".xpm"))
-	{
-		err_errno(path, INVALID_EXT, false);
-		return ((t_image){0});
-	}
-	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
-	if (!i.img)
-	{
-		err_errno(path, NULL, false);
-		return ((t_image){0});
-	}
-	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
-	i.plen = i.slen / (i.bpp / 8);
-	return (i);
-}
+// 	(void)ext;
+// 	if (!has_ext(path, ".xpm"))
+// 	{
+// 		err_errno(path, INVALID_EXT, false);
+// 		return ((t_image){0});
+// 	}
+// 	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
+// 	if (!i.img)
+// 	{
+// 		err_errno(path, NULL, false);
+// 		return ((t_image){0});
+// 	}
+// 	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
+// 	i.plen = i.slen / (i.bpp / 8);
+// 	return (i);
+// }
 
 bool get_door_anims_img(t_data *data, t_txts *assets)
 {
@@ -143,6 +143,8 @@ bool	get_info_from_file(t_data *data, const char *filename)
 		return (err(EMPTY_CONFIG));
 	if (data->file.has_door && !get_door_anims_img(data, &data->assets))
 		return (err("On a pas réussi a charger les animations de porte"));
+	if (data->file.has_door && !init_doors(data, &data->assets.doors, data->map.map))
+		return (err("On a pas réussi à créer la table des portes"));
 	if (checker && everything_set(data, data->assets))
 		return (info(READ_END, MAPLOG, NULL));
 	return (false);

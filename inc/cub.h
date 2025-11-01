@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/26 12:01:23 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 09:47:26 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_data
 	t_txts		assets;
 	t_player	player;
 	t_inputs	inputs;
-	t_door		doors[DOOR_LIMIT];
 }			t_data;
 
 /* -- Gameplay Modificators -- */
@@ -83,14 +82,14 @@ bool	err_errno(char *msg, char *custom_err, bool exit_err);
 
 /* -- Print Functions -- */
 void	print_type(char c);
-void	debug(char *message);
 void	print_verification(char c);
 bool	info(char *message, char *format, char *str);
 bool	player_infos(t_player player, char orientation);
 void	print_map(char **map, t_player player, void (*printer)(char c));
 
 void	raycast(t_data *data);
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	clean_exit(t_data *data, int code);
+
+long	get_tick_time(void);
 
 #endif

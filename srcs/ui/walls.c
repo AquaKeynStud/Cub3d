@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/26 11:58:36 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 09:18:12 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@
 static t_image	get_img_column(t_txts *txts, t_ray ray, t_idot *txt)
 {
 	t_image	img;
+	t_door	*door;
 
+	door = NULL;
 	if (ray.door)
-		img = txts->door;
+	{
+		door = get_door(txts->doors, ray.cell.y, ray.cell.x);
+		if (door && door->texture.img)
+			img = door->texture;
+	}
 	else if (ray.side && ray.dir.y <= 0)
 		img = txts->north;
 	else if (ray.side && ray.dir.y > 0)

@@ -6,26 +6,12 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:17:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/26 11:44:24 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 09:13:37 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
-
-bool	door_open(t_door doors[DOOR_LIMIT], int y, int x)
-{
-	int	i;
-
-	i = 0;
-	while (i <= (DOOR_LIMIT - 1))
-	{
-		if (doors[i].pos.x == x && doors[i].pos.y == y)
-			return (doors[i].open);
-		i++;
-	}
-	return (false);
-}
 
 static void	move_forward(t_data *data, t_player *player)
 {
@@ -39,7 +25,7 @@ static void	move_forward(t_data *data, t_player *player)
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && door_open(data->doors, y, x))
+	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;
@@ -58,7 +44,7 @@ static void	move_backward(t_data *data, t_player *player)
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && door_open(data->doors, y, x))
+	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;
@@ -77,7 +63,7 @@ static void	move_left(t_data *data, t_player *player)
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && door_open(data->doors, y, x))
+	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;
@@ -96,7 +82,7 @@ static void	move_right(t_data *data, t_player *player)
 		player->x = x;
 		player->y = y;
 	}
-	else if (data->map.map[(int)y][(int)x] == 'D' && door_open(data->doors, y, x))
+	else if (data->map.map[(int)y][(int)x] == 'D' && is_door_open(data->assets.doors, y, x))
 	{
 		player->y = y;
 		player->x = x;

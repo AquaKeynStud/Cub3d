@@ -8,7 +8,8 @@ NAME := cub3D
 
 CC				:=	cc
 
-CFLAGS			:=	-Wall -Wextra -Werror -MMD -Ofast -march=native -flto
+CFLAGS			:=	-Wall -Wextra -Werror -MMD
+# -Ofast -march=native -flto
 
 RM				:=	rm -rf
 
@@ -49,11 +50,12 @@ LST_SRC	=	main.c
 
 LST_INT	=	tables.c		\
 			file_init.c		\
+			doors_init.c	\
 			data_store.c
 
 LST_UIS	=	walls.c			\
-			window.c		\
 			effects.c		\
+			mlx_plus.c		\
 			background.c
 
 LST_LOG	=	logs.c		\

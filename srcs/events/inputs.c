@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/31 10:08:49 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 10:19:59 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,57 +53,21 @@ void	update_velocity(t_inputs *inputs, t_player *player, bool active)
 	return ;
 }
 
-void	handle_door(t_door doors[DOOR_LIMIT], int y, int x)
+void	check_door(t_data *data, t_door **doors)
 {
-	int	i;
+	int		dir_y;
+	int		dir_x;
+	t_door	*door;
 
-	i = 0;
-	while (i <= (DOOR_LIMIT - 1))
+	dir_y = (int)(data->player.y + data->player.ori.y * 1.0);
+	dir_x = (int)(data->player.x + data->player.ori.x * 1.0);
+	if (!in_bound(dir_x, dir_y, data->map.width, data->map.height))
+		return ;
+	else if (data->map.map[dir_y][dir_x] == 'D')
 	{
-		if (doors[i].pos.x == x && doors[i].pos.y == y)
-		{
-			if (doors[i].open)
-			{
-				doors[i].open = false;
-				printf("Porte a l'indice %ix%i, fermée\n", y, x);
-			}
-			else if (!doors[i].open)
-			{
-				doors[i].open = true;
-				printf("Porte a l'indice %ix%i, ouverte\n", y, x);
-			}
-			return ;
-		}
-		i++;
-	}
-	return ;
-}
-
-
-void	check_door(t_data *data, int player_y, int player_x)
-{
-	int	y;
-	int	x;
-	int	dy;
-	int	dx;
-
-	dy = -1;
-	while (dy <= 1)
-	{
-		dx = -1;
-		y = player_y + dy;
-		while (dx <= 1)
-		{
-			x = player_x + dx;
-			if (!in_bound(x, y, data->map.width, data->map.height))
-			{
-				dx++;
-				continue ;
-			}
-			handle_door(data->doors, y, x);
-			dx++;
-		}
-		dy++;
+		door = get_door(*doors, dir_y, dir_x);
+		if (door && !door->open)
+			door->open = true;
 	}
 }
 
@@ -120,7 +84,7 @@ int	key_pressed(int keycode, t_data *data)
 	else if (keycode == KEY_S)
 		data->inputs.backward = true;
 	else if (keycode == KEY_E)
-		check_door(data, (int)floor(data->player.y), (int)floor(data->player.x));
+		check_door(data, &data->assets.doors);
 	else if (keycode == KEY_LALT)
 		handle_mouse(data, &data->inputs);
 	else if (keycode == KEY_LEFT)

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/31 10:31:40 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 10:37:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,28 +67,32 @@ void	copy_non_black_pixels(t_image *dst, t_image *src)
 	}
 }
 
-
-void	handle_door_animation(t_data *data, t_door doors[DOOR_LIMIT])
+void	animate_doors(t_data *data, t_image anims[5], t_door **doors)
 {
-	int	i;
+	t_door	*current;
+	long	tick_time;
 
-	i = 0;
-	while (i <= DOOR_LIMIT - 1)
+	current = *doors;
+	tick_time = get_tick_time();
+	while (current)
 	{
-		if (doors[i].open && doors[i].status < 5)
+		if (current->open && current->status < 4)
 		{
-			doors[i].frames += 1;
-			if (doors[i].frames >= 10)
+			if (tick_time - current->tick > 100)
 			{
-				doors[i].frames = 0;
-				doors[i].status += 1;
-				if (doors[i].status >= 5)
-					data->map.map[doors[i].pos.y][doors[i].pos.x] = '0';
-				else
-					copy_non_black_pixels(&data->assets.door, &data->assets.d_anim[doors[i].status - 1]);
+				current->status += 1;
+				current->tick = tick_time;
 			}
+			copy_non_black_pixels(&current->texture, &anims[current->status]);
 		}
-		i++;
+		else if (current->open && data->map.map[current->pos.y][current->pos.x] == 'D')
+		{
+			data->map.map[current->pos.y][current->pos.x] = '0';
+			current->pos.y = -1;
+			current->pos.x = -1;
+			current->open = false;
+		}
+		current = current->next;
 	}
 }
 
@@ -113,7 +117,7 @@ int	game_loop(t_data *data)
 		handle_rotation(data);
 	ft_memcpy(dsp->addr, bg.addr, data->win_w * data->win_h * sizeof(int));
 
-	handle_door_animation(data, data->doors);
+	animate_doors(data, data->assets.d_anim, &data->assets.doors);
 
 	raycast(data);
 	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)

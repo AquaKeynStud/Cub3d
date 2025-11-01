@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/24 12:13:40 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/31 11:11:08 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,6 @@ static int	to_rgb(char *s)
 	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
 		return (-1);
 	return (r << 16 | g << 8 | b);
-}
-
-static t_image	get_image(t_data *data, char *path, char *ext)
-{
-	t_image	i;
-
-	(void)ext;
-	if (!has_ext(path, ".xpm"))
-	{
-		err_errno(path, INVALID_EXT, false);
-		return ((t_image){0});
-	}
-	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
-	if (!i.img)
-	{
-		err_errno(path, NULL, false);
-		return ((t_image){0});
-	}
-	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
-	i.plen = i.slen / (i.bpp / 8);
-	return (i);
 }
 
 static bool	upscale_map(char ***map, int *pos, int *cap)

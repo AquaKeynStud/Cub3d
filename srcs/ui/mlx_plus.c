@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   mlx_plus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 14:28:40 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 09:25:42 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "cub.h"
 #include "ft_printf.h"
 
-static bool	new_image(t_image *image, void *mlx, int width, int height)
+bool	new_image(t_image *image, void *mlx, int width, int height)
 {
 	if (!image || !mlx || width <= 0 || height <= 0)
 		return (err("Invalid image creation parameters"));
@@ -28,6 +28,8 @@ static bool	new_image(t_image *image, void *mlx, int width, int height)
 		mlx_destroy_image(mlx, image->img);
 		return (err("Failed to get data addr for image"));
 	}
+	image->width = width;
+	image->height = height;
 	image->plen = image->slen / (image->bpp / 8);
 	return (true);
 }
@@ -40,6 +42,49 @@ bool	init_display_images(t_data *data)
 		return (err("Failed to create background render image"));
 	create_background(data, data->assets);
 	return (true);
+}
+
+void	copy_image(t_data *data, t_image *dest, t_image *src)
+{
+	int	y;
+	int	x;
+	int	color;
+
+	y = 0;
+	if (!data || !dest || !src || !dest->addr || !src->addr)
+		return ;
+	while (y < dest->height && y < src->height)
+	{
+		x = 0;
+		while (x < dest->width && x < src->width)
+		{
+			color = src->addr[y * (src->slen / 4) + x];
+			dest->addr[y * (dest->slen / 4) + x] = color;
+			x++;
+		}
+		y++;
+	}
+}
+
+t_image	get_image(t_data *data, char *path, char *ext)
+{
+	t_image	i;
+
+	(void)ext;
+	if (!has_ext(path, ".xpm"))
+	{
+		err_errno(path, INVALID_EXT, false);
+		return ((t_image){0});
+	}
+	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
+	if (!i.img)
+	{
+		err_errno(path, NULL, false);
+		return ((t_image){0});
+	}
+	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
+	i.plen = i.slen / (i.bpp / 8);
+	return (i);
 }
 
 bool	create_window(t_data *data, int width, int height, char *name)
