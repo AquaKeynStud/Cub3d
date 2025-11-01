@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:03:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:31:23 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	animate_doors(t_data *data, t_image anim[5], t_door **doors)
 
 	door = *doors;
 	tick_time = get_tick_time();
-	while (door)
+	while (door && BONUS)
 	{
 		if (door->open && door->status < 4)
 		{

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 11:40:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:43:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ typedef struct s_data
 	t_player	player;
 	t_inputs	inputs;
 }			t_data;
+
+/* -- Bonus Detector -- */
+#ifndef BONUS
+# define BONUS 0
+#endif
 
 /* -- Gameplay Modificators -- */
 # define FOV				60.0f

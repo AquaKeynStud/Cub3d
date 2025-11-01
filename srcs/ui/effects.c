@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:35:39 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:03:36 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:31:09 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	display_crossair(t_data *data)
 	int	center_x;
 	int	center_y;
 
+	if (!BONUS)
+		return ;
 	if (CROSSAIR_SIZE == 0)
 		return ;
 	center_x = data->win_w / 2;

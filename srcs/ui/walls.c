@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 09:18:12 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:26:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_image	get_img_column(t_txts *txts, t_ray ray, t_idot *txt)
 	t_door	*door;
 
 	door = NULL;
-	if (ray.door)
+	if (ray.door && BONUS)
 	{
 		door = get_door(txts->doors, ray.cell.y, ray.cell.x);
 		if (door && door->texture.img)

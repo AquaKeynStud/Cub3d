@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:04:49 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:32:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ int	key_pressed(int keycode, t_data *data)
 		data->inputs.forward = true;
 	else if (keycode == KEY_S)
 		data->inputs.backward = true;
-	else if (keycode == KEY_E)
+	else if (keycode == KEY_E && BONUS)
 		check_door(data, &data->assets.doors);
-	else if (keycode == KEY_LALT)
+	else if (keycode == KEY_LALT && BONUS)
 		handle_mouse(data, &data->inputs);
 	else if (keycode == KEY_LEFT)
 		data->inputs.rotate_left = true;
 	else if (keycode == KEY_RIGHT)
 		data->inputs.rotate_right = true;
-	else if (keycode == KEY_LSHIFT)
+	else if (keycode == KEY_LSHIFT && BONUS)
 		update_velocity(&data->inputs, &data->player, true);
 	else if (keycode >= 'a' && keycode <= 'z')
 		ft_printf(NO_KEY_ERR, MAPLOG, keycode - 32, EOL);

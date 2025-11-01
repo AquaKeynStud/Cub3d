@@ -1,15 +1,17 @@
-.PHONY : all clean fclean re libft norminette supp valgrind rmv rmsupp
+.PHONY : all clean fclean re libft norminette supp valgrind rmv rmsupp bonus
 
 .DELETE_ON_ERROR:
 
 NAME := cub3D
 
+BONUS ?= 0
+
 # ╭━━━━━━━━━━━━══════════╕出 ❖ BASICS VARIABLES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
 
 CC				:=	cc
 
-CFLAGS			:=	-Wall -Wextra -Werror -MMD
-# -Ofast -march=native -flto
+CFLAGS			:=	-Wall -Wextra -Werror -MMD -DBONUS=$(BONUS)
+FASTFLAGS		:=	-Ofast -march=native -flto
 
 RM				:=	rm -rf
 
@@ -115,6 +117,10 @@ $(NAME): $(LIBFT) $(LIBMLX) $(OBJ) $(INC) makefile | $(D_BLDS) makefile
 	ELAPSED_SEC=$$(echo "scale=2; $$ELAPSED / 1000" | bc);	\
 	echo "\n\e[1;31m🍣 $(NAME) program created successfully in $${ELAPSED_SEC}ms ! 🍣\e[0m"
 
+bonus:
+	@$(MAKE) fclean
+	@$(MAKE) BONUS=1 all
+
 $(D_BLD):
 	@$(MKDIR) $@
 
@@ -131,7 +137,7 @@ check_newer:
 	fi
 
 $(D_OBJ)%.o: %.c $(INC) makefile | $(D_BLDS) makefile check_newer
-	@$(CC) $(CFLAGS) -g3 $(INCS) -c $< -o $@ -MF $(D_DEP)$(notdir $*.d)
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@ -MF $(D_DEP)$(notdir $*.d)
 	@echo "\e[1;38;5;210m   🦐 $(NAME): $@ created 🦐\e[0m"
 
 $(LIBFT): $(LFT_DEP) | $(D_BLDS) makefile
