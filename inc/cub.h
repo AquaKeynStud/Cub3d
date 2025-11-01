@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:12:47 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:43:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,24 @@ typedef struct s_data
 	t_inputs	inputs;
 }			t_data;
 
+/* -- Bonus Detector -- */
+#ifndef BONUS
+# define BONUS 0
+#endif
+
 /* -- Gameplay Modificators -- */
 # define FOV				60.0f
+# define MAX_STAMINA		300
+# define SENSIBILITY		0.0003f
+# define PLAYER_SPEED		0.025f
+# define CROSSAIR_SIZE		4
+# define CROSSAIR_COLOR		0xFFFFFF
+# define ROTATION_SPEED		0.01f
+
+/* -- Render Modificators -- */
 # define MIN_RENDER			8.0f
 # define MAX_RENDER			16.0f
-# define SENSIBILITY		0.0003f
-# define PLAYER_SPEED		0.05f
 # define BG_FADE_SPREAD		3.0f
-# define ROTATION_SPEED		0.01f
 
 /* -- Readible Variables -- */
 # define PI				3.14159265358979323846
@@ -77,14 +87,14 @@ bool	err_errno(char *msg, char *custom_err, bool exit_err);
 
 /* -- Print Functions -- */
 void	print_type(char c);
-void	debug(char *message);
 void	print_verification(char c);
 bool	info(char *message, char *format, char *str);
 bool	player_infos(t_player player, char orientation);
 void	print_map(char **map, t_player player, void (*printer)(char c));
 
 void	raycast(t_data *data);
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	clean_exit(t_data *data, int code);
+
+long	get_tick_time(void);
 
 #endif

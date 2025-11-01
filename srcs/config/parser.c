@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/15 18:47:17 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 12:08:37 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	check_map_content(char **map, t_player player)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!in_str(map[i][j], "01NSEW ", false))
+			if (!in_str(map[i][j], "01NSEW D", false))
 			{
 				print_map(map, player, print_type);
 				return (err(MAP_TYPE_ERR));
@@ -42,6 +42,8 @@ static void	init_player_data(t_player *player, int i, int j, char dir)
 {
 	player->x = j + 0.5f;
 	player->y = i + 0.5f;
+	player->sprint_mult = 1;
+	player->stamina = MAX_STAMINA;
 	player->cam_fov = tan(rad(FOV) / 2.0);
 	player->ori.x = (dir == 'E') - (dir == 'W');
 	player->ori.y = (dir == 'S') - (dir == 'N');

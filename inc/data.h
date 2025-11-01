@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 17:43:44 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 11:54:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 /* -- Structures -- */
 typedef struct s_file
 {
-	int	fd;
-	int	nl;
-	int	pos;
-	int	cap;
-	int	line_nb;
+	int		fd;
+	int		nl;
+	int		pos;
+	int		cap;
+	int		line_nb;
+	int		has_door;
 }			t_file;
 
 typedef struct s_image
@@ -38,6 +39,17 @@ typedef struct s_image
 	int		height;
 }			t_image;
 
+typedef struct s_door
+{
+	t_idot			pos;
+	bool			open;
+	long			tick;
+	int				status;
+	t_image			texture;
+
+	struct s_door	*next;
+}			t_door;
+
 typedef struct s_txts
 {
 	t_image	west;
@@ -45,8 +57,13 @@ typedef struct s_txts
 	t_image	north;
 	t_image	south;
 
+	t_image	door;
+
 	int		floor;
 	int		ceiling;
+
+	t_door	*doors;
+	t_image	d_anim[5];
 
 	double	*fog;
 	double	*alpha;
@@ -61,14 +78,24 @@ typedef struct s_map
 	int		height;
 }			t_map;
 
+typedef struct s_sprint
+{
+	t_idot	len;
+	t_idot	start;
+}			t_sprint;
+
 typedef struct s_player
 {
-	double	x;
-	double	y;
-	t_dot	ori;
-	t_dot	cam;
-	double	angle;
-	double	cam_fov;
+	double		x;
+	double		y;
+	t_dot		ori;
+	t_dot		cam;
+	double		angle;
+	double		cam_fov;
+
+	t_sprint	sprint;
+	int			stamina;
+	int			sprint_mult;
 }			t_player;
 
 typedef struct s_data	t_data;
@@ -107,5 +134,17 @@ bool	init_fog_table(t_txts *txts);
 bool	init_alpha_table(t_txts *txts);
 double	get_fog(double *fogs, double dist, double unit);
 double	get_alpha(double *alpha, double dist, double unit);
+
+/* -- Doors Functions -- */
+t_door	*get_door(t_door *doors, int y, int x);
+bool	door_open(t_door *doors, int y, int x);
+bool	free_all_doors(t_data *data, t_door **doors);
+bool	add_door(t_data *data, t_door **doors, int y, int x);
+bool	init_doors(t_data *data, t_door **doors, char **map);
+
+/* -- Mlx Complement -- */
+t_image	get_image(t_data *data, char *path, char *ext);
+void	copy_image(t_data *data, t_image *dest, t_image *src);
+bool	new_image(t_image *image, void *mlx, int width, int height);
 
 #endif

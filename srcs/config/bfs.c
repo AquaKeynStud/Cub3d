@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 21:12:21 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/13 17:08:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 11:52:13 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool	breadth_first_search(t_bfs *bfs, char **map, int width, int height)
 	{
 		curr = bfs->queue[bfs->front];
 		bfs->front = (bfs->front + 1) % bfs->size;
-		if (in_str(map[curr.y][curr.x], "1VNSEW", false))
+		if (in_str(map[curr.y][curr.x], "1VNSEWD", false))
 			continue ;
 		else if (map[curr.y][curr.x] != '0')
 			return (err(BFS_ERR));

@@ -6,76 +6,109 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 15:17:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/10/16 09:21:40 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 11:43:05 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "libft.h"
 
-static void	move_forward(t_data *data)
+static void	move_forward(t_data *data, t_player *player)
 {
-	float	new_x;
-	float	new_y;
+	float	x;
+	float	y;
+	char	**map;
 
-	new_x = data->player.x + data->player.ori.x * PLAYER_SPEED;
-	new_y = data->player.y + data->player.ori.y * PLAYER_SPEED;
-	if (data->map.map[(int)new_y][(int)new_x] != '1')
+	map = data->map.map;
+	x = player->x + player->ori.x * (PLAYER_SPEED * player->sprint_mult);
+	y = player->y + player->ori.y * (PLAYER_SPEED * player->sprint_mult);
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
-		data->player.x = new_x;
-		data->player.y = new_y;
+		player->x = x;
+		player->y = y;
+	}
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
+	{
+		player->y = y;
+		player->x = x;
 	}
 }
 
-static void	move_backward(t_data *data)
+static void	move_backward(t_data *data, t_player *player)
 {
-	float	new_x;
-	float	new_y;
+	float	x;
+	float	y;
+	char	**map;
 
-	new_x = data->player.x - data->player.ori.x * PLAYER_SPEED;
-	new_y = data->player.y - data->player.ori.y * PLAYER_SPEED;
-	if (data->map.map[(int)new_y][(int)new_x] != '1')
+	map = data->map.map;
+	x = player->x - player->ori.x * (PLAYER_SPEED * player->sprint_mult);
+	y = player->y - player->ori.y * (PLAYER_SPEED * player->sprint_mult);
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
-		data->player.x = new_x;
-		data->player.y = new_y;
+		player->x = x;
+		player->y = y;
+	}
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
+	{
+		player->y = y;
+		player->x = x;
 	}
 }
 
-static void	move_left(t_data *data)
+static void	move_left(t_data *data, t_player *player)
 {
-	float	new_x;
-	float	new_y;
+	float	x;
+	float	y;
+	char	**map;
 
-	new_x = data->player.x + data->player.ori.y * PLAYER_SPEED;
-	new_y = data->player.y + (-data->player.ori.x) * PLAYER_SPEED;
-	if (data->map.map[(int)new_y][(int)new_x] != '1')
+	map = data->map.map;
+	x = player->x + player->ori.y * (PLAYER_SPEED * player->sprint_mult);
+	y = player->y + (-player->ori.x) * (PLAYER_SPEED * player->sprint_mult);
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
-		data->player.x = new_x;
-		data->player.y = new_y;
+		player->x = x;
+		player->y = y;
+	}
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
+	{
+		player->y = y;
+		player->x = x;
 	}
 }
 
-static void	move_right(t_data *data)
+static void	move_right(t_data *data, t_player *player)
 {
-	float	new_x;
-	float	new_y;
+	float	x;
+	float	y;
+	char	**map;
 
-	new_x = data->player.x + (-data->player.ori.y) * PLAYER_SPEED;
-	new_y = data->player.y + data->player.ori.x * PLAYER_SPEED;
-	if (data->map.map[(int)new_y][(int)new_x] != '1')
+	map = data->map.map;
+	x = player->x + (-player->ori.y) * (PLAYER_SPEED * player->sprint_mult);
+	y = player->y + player->ori.x * (PLAYER_SPEED * player->sprint_mult);
+	if (!in_str(map[(int)y][(int)x], "1D", false))
 	{
-		data->player.x = new_x;
-		data->player.y = new_y;
+		player->x = x;
+		player->y = y;
+	}
+	else if (map[(int)y][(int)x] == 'D' && door_open(data->assets.doors, y, x))
+	{
+		player->y = y;
+		player->x = x;
 	}
 }
 
-void	handle_movement(t_data *data)
+void	handle_movement(t_data *data, t_player *player)
 {
+	if (data->inputs.left_shift && data->player.stamina <= 0)
+		update_velocity(&data->inputs, &data->player, false);
+	else if (data->inputs.left_shift && data->player.stamina > 0)
+		data->player.stamina -= 1;
 	if (data->inputs.forward)
-		move_forward(data);
+		move_forward(data, player);
 	if (data->inputs.backward)
-		move_backward(data);
+		move_backward(data, player);
 	if (data->inputs.left)
-		move_left(data);
+		move_left(data, player);
 	if (data->inputs.right)
-		move_right(data);
+		move_right(data, player);
 }

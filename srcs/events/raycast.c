@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:59:14 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/22 11:04:19 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:19:43 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ static void	dda_raycasting(t_map map, t_ray *ray)
 		}
 		if (!in_bound(ray->cell.x, ray->cell.y, map.width, map.height))
 			break ;
-		if (map.map[(int)ray->cell.y][(int)ray->cell.x] == '1')
+		if (in_str(map.map[(int)ray->cell.y][(int)ray->cell.x], "1D", false))
+		{
 			ray->hit = true;
+			ray->door = map.map[(int)ray->cell.y][(int)ray->cell.x] == 'D';
+		}
 	}
 }
 
@@ -88,7 +91,7 @@ void	raycast(t_data *data)
 		init_ray(data->player, &ray);
 		dda_raycasting(data->map, &ray);
 		get_ray_result(data, &ray);
-		if (ray.dist <= MAX_RENDER)
+		if (!BONUS || ray.dist <= MAX_RENDER)
 			display_wall(data, ray, x);
 		x++;
 	}

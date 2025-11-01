@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 12:29:11 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:11:15 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:18:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ double	get_fog(double *fogs, double dist, double unit)
 {
 	int	index;
 
+	if (!BONUS)
+		return (1.0);
 	if (dist >= MIN_RENDER)
 		return (0.0);
 	index = (int)(dist * unit);
@@ -33,7 +35,7 @@ double	get_alpha(double *alpha, double dist, double unit)
 
 	if (dist < MIN_RENDER)
 		return (0.0);
-	if (dist > MAX_RENDER)
+	if (dist > MAX_RENDER || !BONUS)
 		return (1.0);
 	index = (int)((dist - MIN_RENDER) * unit);
 	if (index < 0)

@@ -6,12 +6,13 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 15:10:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/17 11:15:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:06:05 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include <math.h>
+#include <sys/time.h>
 
 double	rad(double deg)
 {
@@ -21,14 +22,6 @@ double	rad(double deg)
 double	deg(double rad)
 {
 	return (rad * (180 / PI));
-}
-
-double	norm(double angle)
-{
-	angle = fmod(angle, (2 * PI));
-	if (angle < 0)
-		angle += (2 * PI);
-	return (angle);
 }
 
 bool	in_bound(int x, int y, int width, int height)
@@ -43,4 +36,13 @@ double	clamp(double x, int min, int max)
 	if (x > (double)max)
 		return ((double)max);
 	return (x);
+}
+
+long	get_tick_time(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) == -1)
+		return (-1);
+	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 18:10:24 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:09:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,6 @@ static int	to_rgb(char *s)
 	return (r << 16 | g << 8 | b);
 }
 
-static t_image	get_image(t_data *data, char *path, char *ext)
-{
-	t_image	i;
-
-	(void)ext;
-	if (!has_ext(path, ".xpm"))
-	{
-		err_errno(path, INVALID_EXT, false);
-		return ((t_image){0});
-	}
-	i.img = mlx_xpm_file_to_image(data->mlx, path, &i.width, &i.height);
-	if (!i.img)
-	{
-		err_errno(path, NULL, false);
-		return ((t_image){0});
-	}
-	i.addr = (int *)mlx_get_data_addr(i.img, &i.bpp, &i.slen, &i.endian);
-	i.plen = i.slen / (i.bpp / 8);
-	return (i);
-}
-
 static bool	upscale_map(char ***map, int *pos, int *cap)
 {
 	int		slot;
@@ -88,13 +67,8 @@ static bool	upscale_map(char ***map, int *pos, int *cap)
 	return (true);
 }
 
-bool	parse_param(t_data *data, char *line)
+static bool	get_type_data(t_data *data, char *line, char *value)
 {
-	char	*value;
-
-	if (count_words(line, " \t\n\v\f\r") != 2)
-		return (err_str(MANY_ARGS_ERR, line));
-	value = get_word(line, 1);
 	if (!ft_strncmp(line, "F ", 2) && data->assets.floor == -1)
 		data->assets.floor = to_rgb(value);
 	else if (!ft_strncmp(line, "C ", 2) && data->assets.ceiling == -1)
@@ -107,7 +81,21 @@ bool	parse_param(t_data *data, char *line)
 		data->assets.south = get_image(data, value, ".xpm");
 	else if (!ft_strncmp(line, "NO ", 3) && !data->assets.north.img)
 		data->assets.north = get_image(data, value, ".xpm");
+	else if (!ft_strncmp(line, "D ", 2) && !data->assets.door.img)
+		data->assets.door = get_image(data, value, ".xpm");
 	else
+		return (false);
+	return (true);
+}
+
+bool	parse_param(t_data *data, char *line)
+{
+	char	*value;
+
+	if (count_words(line, " \t\n\v\f\r") != 2)
+		return (err_str(MANY_ARGS_ERR, line));
+	value = get_word(line, 1);
+	if (!get_type_data(data, line, value))
 	{
 		free(value);
 		return (err_str(INVALID_ARG, line));

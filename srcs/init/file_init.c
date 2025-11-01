@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/09 18:35:43 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 13:33:49 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	get_data_from_line(t_data *data, t_file *file, char *line)
 	bool	empty;
 
 	empty = is_empty_line(line);
-	if (in_str(*line, "NSWEFC", false))
+	if (in_str(*line, "NSWEFCD", false))
 	{
 		if (!data->map.map)
 			return (parse_param(data, line));
@@ -29,6 +29,8 @@ static bool	get_data_from_line(t_data *data, t_file *file, char *line)
 	{
 		if (data->file.nl)
 			return (err(EMPTY_LINE));
+		if (in_str('D', line, false))
+			file->has_door += 1;
 		return (parse_map(&data->map.map, line, &file->pos, &file->cap));
 	}
 	if (empty)
@@ -70,6 +72,8 @@ static bool	read_lines(t_data *data)
 
 static bool	everything_set(t_data *data, t_txts txts)
 {
+	if (!BONUS && data->file.has_door)
+		return (err("Doors are not allowed without bonus mode activated"));
 	if (!txts.east.img || !txts.east.addr)
 		return (err_str(WALL_DATA_ERR, "east"));
 	if (!txts.west.img || !txts.west.addr)
@@ -78,6 +82,8 @@ static bool	everything_set(t_data *data, t_txts txts)
 		return (err_str(WALL_DATA_ERR, "north"));
 	if (!txts.south.img || !txts.south.addr)
 		return (err_str(WALL_DATA_ERR, "south"));
+	if (data->file.has_door && (!txts.door.img || !txts.door.addr))
+		return (err_str(WALL_DATA_ERR, "door"));
 	if (txts.floor == -1)
 		return (err_str(COLOR_DATA_ERR, "floor"));
 	if (txts.ceiling == -1)
@@ -87,13 +93,29 @@ static bool	everything_set(t_data *data, t_txts txts)
 	return (true);
 }
 
+bool	get_door_anims_img(t_data *data, t_txts *assets)
+{
+	assets->d_anim[0] = get_image(data, "./assets/door_break_1.xpm", ".xpm");
+	assets->d_anim[1] = get_image(data, "./assets/door_break_2.xpm", ".xpm");
+	assets->d_anim[2] = get_image(data, "./assets/door_break_3.xpm", ".xpm");
+	assets->d_anim[3] = get_image(data, "./assets/door_break_4.xpm", ".xpm");
+	assets->d_anim[4] = get_image(data, "./assets/door_break_5.xpm", ".xpm");
+	return (assets->d_anim[0].addr
+		&& assets->d_anim[1].addr
+		&& assets->d_anim[2].addr
+		&& assets->d_anim[3].addr
+		&& assets->d_anim[4].addr);
+}
+
 bool	get_info_from_file(t_data *data, const char *filename)
 {
 	bool	checker;
+	t_txts	*assets;
 
+	assets = &data->assets;
 	data->file.cap = 16;
-	data->assets.floor = -1;
-	data->assets.ceiling = -1;
+	assets->floor = -1;
+	assets->ceiling = -1;
 	data->file.fd = open(filename, O_RDONLY);
 	if (data->file.fd == -1)
 	{
@@ -105,7 +127,11 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	close(data->file.fd);
 	if (!data->file.line_nb)
 		return (err(EMPTY_CONFIG));
-	if (checker && everything_set(data, data->assets))
+	if (data->file.has_door && !get_door_anims_img(data, assets))
+		return (err("On a pas réussi a charger les animations de porte"));
+	if (data->file.has_door && !init_doors(data, &assets->doors, data->map.map))
+		return (err("On a pas réussi à créer la table des portes"));
+	if (checker && everything_set(data, *assets))
 		return (info(READ_END, MAPLOG, NULL));
 	return (false);
 }

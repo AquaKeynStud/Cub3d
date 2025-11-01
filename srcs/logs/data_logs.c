@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:05:31 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/10 15:22:49 by arocca           ###   ########.fr       */
+/*   Updated: 2025/10/24 11:54:36 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	print_type(char c)
 		ft_printf("🎐 ");
 	else if (c == '1')
 		ft_printf("🪵 ");
+	else if (c == 'D')
+		ft_printf("🍃 ");
 	else if (c == '0')
 		ft_printf("🌱 ");
 	else
@@ -72,6 +74,8 @@ void	print_verification(char c)
 		ft_printf("🚢 ");
 	else if (c == '1')
 		ft_printf("🫧 ");
+	else if (c == 'D')
+		ft_printf("🌊 ");
 	else if (c == 'V')
 		ft_printf("🍤 ");
 	else

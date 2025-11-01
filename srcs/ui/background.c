@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 17:03:08 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/21 11:48:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/01 12:21:40 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static int	get_bg_color(t_txts txt, float height, int center, int y)
 	float	factor;
 
 	factor = (float)abs(center - y);
-	if (factor <= (height / BG_FADE_SPREAD))
+	if (factor <= (height / BG_FADE_SPREAD) && BONUS)
 		factor *= 1.0f / (height / BG_FADE_SPREAD);
 	else
 		factor = 1.0f;
 	if (y >= center)
-		return (apply_fade(txt.ceiling, factor));
-	return (apply_fade(txt.floor, factor));
+		return (apply_fog(txt.ceiling, factor));
+	return (apply_fog(txt.floor, factor));
 }
 
 void	create_background(t_data *data, t_txts txt)
