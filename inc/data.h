@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 11:54:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/03 07:42:07 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,25 @@ typedef struct s_player
 	int			stamina;
 	int			sprint_mult;
 }			t_player;
+
+typedef struct	s_square
+{
+	int	start_y;
+	int	start_x;
+	int	tile_y;
+	int	tile_x;
+	int	color;
+}				t_square;
+
+typedef struct s_minimap
+{
+	int			center_y;
+	int			center_x;
+	int			ori_y;
+	int			ori_x;
+	t_dot		frac;
+	t_square	square;
+}				t_minimap;
 
 typedef struct s_data	t_data;
 

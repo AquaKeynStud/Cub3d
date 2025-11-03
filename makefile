@@ -41,11 +41,12 @@ D_INT	=	$(D_SRC)init/
 D_LOG	=	$(D_SRC)logs/
 D_UTL	=	$(D_SRC)utils/
 D_PAR	=	$(D_SRC)config/
+D_MAP	=	$(D_SRC)minimap/
 D_EVT	=	$(D_SRC)events/
 
 D_BLDS	=	$(D_OBJ) $(D_DEP) $(D_LIB)
 
-D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_UTL)
+D_SRCS	=	$(D_SRC) $(D_INT) $(D_UIS) $(D_LOG) $(D_INT) $(D_PAR) $(D_EVT) $(D_UTL) $(D_MAP)
 
 # file lists
 LST_SRC	=	main.c
@@ -83,7 +84,11 @@ LST_INC	=	cub.h		\
 			config.h	\
 			my_math.h
 
-LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_UTL)
+LST_MAP =	map.c			\
+			init_map.c		\
+			player.c
+
+LST_SRCS	=	$(LST_SRC) $(LST_INT) $(LST_UIS) $(LST_LOG) $(LST_PAR) $(LST_EVT) $(LST_MAP) $(LST_UTL)
 
 INC			=	$(addprefix $(D_INC), $(LST_INC))
 

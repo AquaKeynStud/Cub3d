@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 11:43:21 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/03 09:15:20 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,11 @@ int		game_loop(t_data *data);
 int		red(int color);
 int		blue(int color);
 int		green(int color);
+
+/* -- Mini-map -- */
+t_minimap	init_map(t_data *data);
+void		draw_map(t_data *data);
+void		init_square(t_data *data, t_minimap *map, int x, int y);
+void		draw_player_triangle(t_data *data, t_minimap *map, int size);
 
 #endif
