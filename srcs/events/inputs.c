@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 08:41:51 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:32:01 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:01:39 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	handle_mouse(t_data *data, t_inputs *inputs)
 	if (inputs->allow_mouse)
 	{
 		inputs->allow_mouse = false;
-		info("Mouse is now disabled", INFO, NULL);
+		info(MOUSE_OFF, INFO, NULL);
 		mlx_mouse_show(data->mlx, data->win);
 	}
 	else
 	{
 		inputs->allow_mouse = true;
-		info("Mouse is now enabled", INFO, NULL);
+		info(MOUSE_ON, INFO, NULL);
 		inputs->mouse_x = data->win_w / 2;
 		mlx_mouse_hide(data->mlx, data->win);
 	}
@@ -77,10 +77,10 @@ int	key_pressed(int keycode, t_data *data)
 		data->inputs.forward = true;
 	else if (keycode == KEY_S)
 		data->inputs.backward = true;
-	else if (keycode == KEY_E && BONUS)
-		check_door(data, &data->assets.doors);
 	else if (keycode == KEY_LALT && BONUS)
 		handle_mouse(data, &data->inputs);
+	else if (keycode == KEY_E && BONUS)
+		check_door(data, &data->assets.doors);
 	else if (keycode == KEY_LEFT)
 		data->inputs.rotate_left = true;
 	else if (keycode == KEY_RIGHT)

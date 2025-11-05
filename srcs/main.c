@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 11:40:07 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:19:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static bool	setup_display(t_data *data)
 	data->player.sprint.len.x = data->win_w / 4;
 	data->player.sprint.len.y = data->win_h / 30;
 	if (!new_image(&data->dsp, data->mlx, data->win_w, data->win_h))
-		return (err("Failed to create display render image"));
+		return (err(DSP_INIT_ERR));
 	if (!new_image(&data->bg, data->mlx, data->win_w, data->win_h))
-		return (err("Failed to create background render image"));
+		return (err(BG_INIT_ERR));
 	create_background(data, data->assets);
 	return (true);
 }

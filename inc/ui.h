@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 10:52:56 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:28:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,25 @@ typedef struct s_txt_col
 	double	txt_pos;
 }			t_txt_col;
 
-typedef struct s_data	t_data;
+/* -- Error Messages -- */
+# define MLX_IMG_ERR	"💣 Failed to create image with mlx 🧬"
+# define INVALID_IMG	"🪔 Invalid image creation parameters 🎎"
+# define IMG_ADDR_ERR	"📂 Failed to get data addr for image 🧧"
+
+# define BG_INIT_ERR	"🌅 Failed to create background render image 🏞️"
+# define DSP_INIT_ERR	"🌄 Failed to create display render image 🌁"
+
+/* -- Init Functions -- */
+void	create_background(t_data *data, t_txts txt);
+bool	create_window(t_data *data, int width, int height, char *name);
 
 /* -- Draw Functions -- */
-void	create_background(t_data *data, t_txts txt);
-void	display_wall(t_data *data, t_ray ray, int x);
-
-int		end_loop(t_data *data);
-
-void	display_bg_with_minimap(t_image *dst, t_image *src);
-
 void	display_crossair(t_data *data);
 void	display_sprint(t_data *data, t_sprint s);
+void	display_wall(t_data *data, t_ray ray, int x);
+void	display_bg_with_minimap(t_image *dst, t_image *src);
 
-/* -- Windows Handling Functions -- */
+/* -- Effects/Animations Functions -- */
 int		apply_fog(int color, float factor);
 void	clear_background(t_image *dst, t_image *src);
 int		distance_blur(int color, int bg, float alpha);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 14:28:23 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/17 20:19:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:29:29 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_idot
 /* -- Functions -- */
 double	rad(double deg);
 double	deg(double rad);
-double	norm(double angle);
+long	get_tick_time(void);
 double	clamp(double x, int min, int max);
 bool	in_bound(int x, int y, int width, int height);
 

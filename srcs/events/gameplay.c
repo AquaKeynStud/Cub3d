@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 10:53:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:14:25 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,18 @@ void	animate_doors(t_data *data, t_image anim[5], t_door **doors)
 
 void	display(t_data *data)
 {
-	animate_doors(data, data->assets.d_anim, &data->assets.doors);
+	if (BONUS)
+	{
+		draw_map(data);
+		display_bg_with_minimap(&data->dsp, &data->bg);
+		animate_doors(data, data->assets.d_anim, &data->assets.doors);
+	}
+	else
+		ft_memcpy(data->dsp.addr, data->bg.addr,
+			data->win_w * data->win_h * sizeof(int));
 	raycast(data);
+	if (!BONUS)
+		return ;
 	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
 		display_sprint(data, data->player.sprint);
 	display_crossair(data);
@@ -79,12 +89,8 @@ void	display(t_data *data)
 
 int	game_loop(t_data *data)
 {
-	t_image		bg;
-	t_image		*dsp;
 	t_inputs	input;
 
-	bg = data->bg;
-	dsp = &data->dsp;
 	input = data->inputs;
 	if (input.left || input.right || input.forward || input.backward)
 	{
@@ -98,9 +104,7 @@ int	game_loop(t_data *data)
 		rotate_player(data, -ROTATION_SPEED);
 	else if (data->inputs.rotate_right)
 		rotate_player(data, ROTATION_SPEED);
-	draw_map(data);
-	display_bg_with_minimap(dsp, &bg);
 	display(data);
-	mlx_put_image_to_window(data->mlx, data->win, dsp->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->dsp.img, 0, 0);
 	return (0);
 }

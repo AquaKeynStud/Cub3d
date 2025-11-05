@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:04:56 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:18:36 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ int	end_loop(t_data *data)
 bool	new_image(t_image *image, void *mlx, int width, int height)
 {
 	if (!image || !mlx || width <= 0 || height <= 0)
-		return (err("Invalid image creation parameters"));
+		return (err(INVALID_IMG));
 	image->img = mlx_new_image(mlx, width, height);
 	if (!image->img)
-		return (err("Failed to create image with mlx"));
+		return (err(MLX_IMG_ERR));
 	image->addr = (int *)mlx_get_data_addr(
 			image->img, &image->bpp, &image->slen, &image->endian);
 	if (!image->addr)
 	{
 		mlx_destroy_image(mlx, image->img);
-		return (err("Failed to get data addr for image"));
+		return (err(IMG_ADDR_ERR));
 	}
 	image->width = width;
 	image->height = height;
@@ -99,6 +99,6 @@ bool	create_window(t_data *data, int width, int height, char *name)
 		return (false);
 	data->win_w = width;
 	data->win_h = height;
-	ft_printf("%s🗼 Window size : %ix%i 🚞%s", INFO, width, height, EOL);
+	ft_printf(DSP_SIZE, INFO, width, height, EOL);
 	return (true);
 }

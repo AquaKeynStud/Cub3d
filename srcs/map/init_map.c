@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 09:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/11/05 09:33:41 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:24:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	init_square(t_data *data, t_minimap *map, int x, int y)
 	if (x < 0 || y < 0 || x >= data->map.width || y >= data->map.height)
 		square.color = 0x303030;
 	if (data->map.map[y][x] == '1')
-		square.color = 0xA9A9A9;
+		square.color = 0x595959;
+	if (data->map.map[y][x] == 'D')
+		square.color = 0xAfAfAf;
 	else
 		square.color = 0xFFFFFF;
 	map->square = square;

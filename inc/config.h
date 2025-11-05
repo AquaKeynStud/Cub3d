@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:56:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/24 12:09:15 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:28:17 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ typedef struct s_bfs
 
 # define NO_PLAYER_ERR		"🎎 The map must contain at least 1 player 🀄️"
 # define MANY_PLAYER_ERR	"🍇 Several players have been detected on map 🫐"
-
-/* -- Format Functions -- */
-void	debug_assets(t_txts txts);
 
 /* -- Parsing Functions -- */
 bool	east_west_walls(char **map);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 13:33:49 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:07:51 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static bool	read_lines(t_data *data)
 static bool	everything_set(t_data *data, t_txts txts)
 {
 	if (!BONUS && data->file.has_door)
-		return (err("Doors are not allowed without bonus mode activated"));
+		return (err(DOOR_MAP_ERR));
 	if (!txts.east.img || !txts.east.addr)
 		return (err_str(WALL_DATA_ERR, "east"));
 	if (!txts.west.img || !txts.west.addr)
@@ -128,9 +128,9 @@ bool	get_info_from_file(t_data *data, const char *filename)
 	if (!data->file.line_nb)
 		return (err(EMPTY_CONFIG));
 	if (data->file.has_door && !get_door_anims_img(data, assets))
-		return (err("On a pas réussi a charger les animations de porte"));
+		return (err(DOOR_ANIMS_ERR));
 	if (data->file.has_door && !init_doors(data, &assets->doors, data->map.map))
-		return (err("On a pas réussi à créer la table des portes"));
+		return (err(DOOR_TABLE_ERR));
 	if (checker && everything_set(data, *assets))
 		return (info(READ_END, MAPLOG, NULL));
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:54:57 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 09:46:34 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:30:47 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,13 @@ typedef struct s_data	t_data;
 # define MAP_CROP_ERR	"💉 Failed to crop the map at the right size 🧪"
 # define MAP_SIZE_ERR	"🏚️  Failed to allocate memory for the map ⛓️"
 # define MAP_UPSC_ERR	"☣️  Failed to upscale the map; aborting... 📐"
+# define DOOR_MAP_ERR	"🏮 Doors are not allowed without bonus mode 🚪"
 
 /* -- Assets Error Messages -- */
 # define WALL_DATA_ERR	"🪾  Failed to initialize %s wall image 🍂"
 # define COLOR_DATA_ERR	"🌈 No color found for %s 🍡"
+# define DOOR_ANIMS_ERR	"🎞️ Failed to initialize doors animation 🎎"
+# define DOOR_TABLE_ERR	"🚪 Failed to store doors states 💣"
 
 /* -- File Functions -- */
 bool	parse_param(t_data *data, char *line);
@@ -149,6 +152,7 @@ bool	has_ext(const char *filename, char *ext);
 bool	get_info_from_file(t_data *data, const char *filename);
 bool	parse_map(char ***map, char *line, int *pos, int *cap);
 
+/* -- Lookup Tables Functions -- */
 bool	init_fog_table(t_txts *txts);
 bool	init_alpha_table(t_txts *txts);
 double	get_fog(double *fogs, double dist, double unit);
@@ -161,7 +165,7 @@ bool	free_all_doors(t_data *data, t_door **doors);
 bool	add_door(t_data *data, t_door **doors, int y, int x);
 bool	init_doors(t_data *data, t_door **doors, char **map);
 
-/* -- Mlx Complement -- */
+/* -- MLX Wrappers/Complements -- */
 t_image	get_image(t_data *data, char *path, char *ext);
 void	copy_image(t_data *data, t_image *dest, t_image *src);
 bool	new_image(t_image *image, void *mlx, int width, int height);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 09:45:33 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:29:50 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_data
 # define TOPBAND		"\n\t\e[1;35m꧁  ⟣──╼━━━━ﾒ %s ﾒ━━━━╾──⟢ ꧂  \e[0m\n"
 # define BOTTOMBAND		"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
 
+# define DSP_SIZE		"%s🗼 Window size : %ix%i 🚞%s"
+
 /* -- Mini-map -- */
 # define TILE_SIZE		30
 # define WIDTH_SIZE		12
@@ -82,14 +84,12 @@ typedef struct s_data
 # define MAP_PADDING	15
 # define BG_COLOR		0x0f0f0f
 # define WALL_COLOR		0x6f6f6f
+# define DOOR_COLOR		0xBfBfBf
 # define FLOOR_COLOR	0xffffff
 # define PLR_COLOR		0x00FF00
 
 /* -- Logs Functions -- */
 void	print_header(void);
-
-/* -- Display Functions -- */
-bool	create_window(t_data *data, int width, int height, char *name);
 
 /* -- Error Functions -- */
 bool	err(char *msg);
@@ -98,14 +98,14 @@ bool	err_errno(char *msg, char *custom_err, bool exit_err);
 
 /* -- Print Functions -- */
 void	print_type(char c);
+void	debug_assets(t_txts txts);
 void	print_verification(char c);
 bool	info(char *message, char *format, char *str);
 bool	player_infos(t_player player, char orientation);
 void	print_map(char **map, t_player player, void (*printer)(char c));
 
-void	raycast(t_data *data);
+/* -- Cleanup Functions -- */
 void	clean_exit(t_data *data, int code);
-
-long	get_tick_time(void);
+bool	free_doors(t_data *data, t_door **doors);
 
 #endif

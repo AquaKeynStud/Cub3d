@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 07:48:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/11/05 09:42:33 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:25:22 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	set_tile(t_data *data, t_minimap *map, int i, int j)
 		map->square.color = BG_COLOR;
 	else if (data->map.map[map->square.tile_y][map->square.tile_x] == '1')
 		map->square.color = WALL_COLOR;
+	else if (data->map.map[map->square.tile_y][map->square.tile_x] == 'D')
+		map->square.color = DOOR_COLOR;
 	else
 		map->square.color = FLOOR_COLOR;
 }
