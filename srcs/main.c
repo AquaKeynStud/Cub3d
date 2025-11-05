@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 12:21:48 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:25:57 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	setup_data(t_data *data, char *filename)
 
 static bool	setup_display(t_data *data)
 {
-	if (!create_window(data, 1920, 1080, "cub3d"))
+	if (!create_window(data, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d"))
 	{
 		free(data->mlx);
 		return (1);

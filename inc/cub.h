@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 11:29:50 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:27:34 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_data
 # define CROSSAIR_SIZE		4
 # define CROSSAIR_COLOR		0xFFFFFF
 # define ROTATION_SPEED		0.01f
+# define WINDOW_HEIGHT		720
+# define WINDOW_WIDTH		1280
 
 /* -- Render Modificators -- */
 # define MIN_RENDER			8.0f

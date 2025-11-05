@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 11:29:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:28:01 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_raycast
 typedef struct s_data	t_data;
 
 /* -- Inputs -- */
-# define KEY_W			122 // 119
-# define KEY_A			113 // 97
+# define KEY_A			97
+# define KEY_W			119
 # define KEY_S			115
 # define KEY_D			100
 # define KEY_E			101
