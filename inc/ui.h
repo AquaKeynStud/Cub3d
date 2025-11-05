@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 11:28:01 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:20:02 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_txt_col
 
 /* -- Error Messages -- */
 # define MLX_IMG_ERR	"💣 Failed to create image with mlx 🧬"
-# define INVALID_IMG	"🪔 Invalid image creation parameters 🎎"
 # define IMG_ADDR_ERR	"📂 Failed to get data addr for image 🧧"
 
 # define BG_INIT_ERR	"🌅 Failed to create background render image 🏞️"

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 14:59:47 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 11:07:51 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:20:53 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	get_data_from_line(t_data *data, t_file *file, char *line)
 	{
 		if (data->file.nl)
 			return (err(EMPTY_LINE));
-		if (in_str('D', line, false))
+		if (BONUS && in_str('D', line, false))
 			file->has_door += 1;
 		return (parse_map(&data->map.map, line, &file->pos, &file->cap));
 	}
@@ -129,8 +129,6 @@ bool	get_info_from_file(t_data *data, const char *filename)
 		return (err(EMPTY_CONFIG));
 	if (data->file.has_door && !get_door_anims_img(data, assets))
 		return (err(DOOR_ANIMS_ERR));
-	if (data->file.has_door && !init_doors(data, &assets->doors, data->map.map))
-		return (err(DOOR_TABLE_ERR));
 	if (checker && everything_set(data, *assets))
 		return (info(READ_END, MAPLOG, NULL));
 	return (false);

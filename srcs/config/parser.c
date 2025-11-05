@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:05:20 by arocca            #+#    #+#             */
-/*   Updated: 2025/10/24 12:08:37 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:17:29 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ bool	check_map_content(char **map, t_player player)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!in_str(map[i][j], "01NSEW D", false))
+			if (!in_str(map[i][j], "01NSEW ", false))
 			{
+				if (BONUS && in_str(map[i][j], "D", false))
+				{
+					j++;
+					continue ;
+				}
 				print_map(map, player, print_type);
 				return (err(MAP_TYPE_ERR));
 			}

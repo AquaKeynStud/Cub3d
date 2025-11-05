@@ -6,12 +6,20 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 10:53:17 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:06:01 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:14:27 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
+
+static bool	free_door(t_data *data, t_door *new)
+{
+	if (new->texture.img)
+		mlx_destroy_image(data->mlx, new->texture.img);
+	free(new);
+	return (false);
+}
 
 bool	add_door(t_data *data, t_door **doors, int y, int x)
 {
@@ -20,16 +28,16 @@ bool	add_door(t_data *data, t_door **doors, int y, int x)
 
 	new_door = ft_calloc(1, sizeof(t_door));
 	if (!new_door)
-		return (false);
+		return (free_door(data, new_door));
 	if (!new_image(&new_door->texture, data->mlx,
 			data->assets.door.width, data->assets.door.height))
-		return (false);
+		return (free_door(data, new_door));
 	copy_image(data, &new_door->texture, &data->assets.door);
 	new_door->pos.y = y;
 	new_door->pos.x = x;
 	new_door->tick = get_tick_time();
 	if (new_door->tick == -1)
-		return (false);
+		return (free_door(data, new_door));
 	if (!*doors)
 	{
 		*doors = new_door;
@@ -63,26 +71,6 @@ bool	door_open(t_door *doors, int y, int x)
 	return (false);
 }
 
-bool	free_all_doors(t_data *data, t_door **doors)
-{
-	t_door	*next;
-	t_door	*current;
-
-	if (!doors || !*doors)
-		return (false);
-	current = *doors;
-	while (current)
-	{
-		next = current->next;
-		if (current->texture.img)
-			mlx_destroy_image(data->mlx, current->texture.img);
-		free(current);
-		current = next;
-	}
-	*doors = NULL;
-	return (false);
-}
-
 bool	init_doors(t_data *data, t_door **doors, char **map)
 {
 	int	y;
@@ -95,7 +83,7 @@ bool	init_doors(t_data *data, t_door **doors, char **map)
 		while (map[y][x])
 		{
 			if (map[y][x] == 'D' && !add_door(data, doors, y, x))
-				return (free_all_doors(data, doors));
+				return (free_doors(data, doors));
 			x++;
 		}
 		y++;

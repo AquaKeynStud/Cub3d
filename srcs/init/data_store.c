@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:10:37 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:09:02 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 11:54:07 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,13 @@ static bool	get_type_data(t_data *data, char *line, char *value)
 	else if (!ft_strncmp(line, "NO ", 3) && !data->assets.north.img)
 		data->assets.north = get_image(data, value, ".xpm");
 	else if (!ft_strncmp(line, "D ", 2) && !data->assets.door.img)
+	{
+		if (!BONUS)
+			return (err(DOOR_MAP_ERR));
 		data->assets.door = get_image(data, value, ".xpm");
+	}
 	else
-		return (false);
+		return (err_str(INVALID_ARG, line));
 	return (true);
 }
 
@@ -98,7 +102,7 @@ bool	parse_param(t_data *data, char *line)
 	if (!get_type_data(data, line, value))
 	{
 		free(value);
-		return (err_str(INVALID_ARG, line));
+		return (false);
 	}
 	free(line);
 	free(value);

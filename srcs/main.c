@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:32:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 11:19:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:21:48 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,17 @@ bool	has_ext(const char *filename, char *ext)
 
 static bool	setup_data(t_data *data, char *filename)
 {
+	t_txts	*assets;
+
+	assets = &data->assets;
 	ft_memset(data, 0, sizeof(t_data));
 	(*data).mlx = mlx_init();
 	if (!(*data).mlx)
 		return (err("Failed to initialize mlx"));
 	if (!get_info_from_file(data, filename))
 		clean_exit(data, EXIT_FAILURE);
+	if (data->file.has_door && !init_doors(data, &assets->doors, data->map.map))
+		return (err(DOOR_TABLE_ERR));
 	debug_assets((*data).assets);
 	if (!configure(data, &data->map))
 		clean_exit(data, EXIT_FAILURE);

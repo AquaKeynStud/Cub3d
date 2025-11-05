@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:53:04 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 11:18:36 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 12:18:58 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	end_loop(t_data *data)
 bool	new_image(t_image *image, void *mlx, int width, int height)
 {
 	if (!image || !mlx || width <= 0 || height <= 0)
-		return (err(INVALID_IMG));
+		return (false);
 	image->img = mlx_new_image(mlx, width, height);
 	if (!image->img)
 		return (err(MLX_IMG_ERR));
