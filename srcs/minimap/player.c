@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 08:00:42 by abouclie          #+#    #+#             */
-/*   Updated: 2025/11/03 09:01:20 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/11/05 09:40:29 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	draw_scanline(t_data *data, int y, double x_min, double x_max)
 	while (x <= (int)x_max)
 	{
 		if (x >= 0 && x < data->dsp.width && y >= 0 && y < data->dsp.height)
-			data->dsp.addr[y * data->dsp.plen + x] = 0x00FF00;
+			data->dsp.addr[y * data->dsp.plen + x] = PLR_COLOR;
 		x++;
 	}
 }

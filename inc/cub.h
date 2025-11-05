@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 08:54:11 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 09:45:33 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ typedef struct s_data
 }			t_data;
 
 /* -- Bonus Detector -- */
-#ifndef BONUS
-# define BONUS 0
-#endif
+# ifndef BONUS
+#  define BONUS 0
+# endif
 
 /* -- Gameplay Modificators -- */
 # define FOV				60.0f
@@ -77,8 +77,13 @@ typedef struct s_data
 
 /* -- Mini-map -- */
 # define TILE_SIZE		30
-# define WIDTH_SIZE		10
-# define HEIGHT_SIZE	8
+# define WIDTH_SIZE		12
+# define HEIGHT_SIZE	10
+# define MAP_PADDING	15
+# define BG_COLOR		0x0f0f0f
+# define WALL_COLOR		0x6f6f6f
+# define FLOOR_COLOR	0xffffff
+# define PLR_COLOR		0x00FF00
 
 /* -- Logs Functions -- */
 void	print_header(void);

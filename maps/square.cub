@@ -1,10 +1,10 @@
-NO ./assets/floor1.xpm
-SO ./assets/floor1.xpm
-WE ./assets/floor1.xpm
-EA ./assets/floor1.xpm
+NO ./assets/stone_bricks.xpm
+SO ./assets/stone_bricks2.xpm
+WE ./assets/stone_bricks3.xpm
+EA ./assets/stone_bricks4.xpm
 
-F 220,100,14
-C 225,30,185
+F 112,223,255
+C 140,160,100
 
 11111111111111111111111111111
 10000000000011000000000000001

@@ -123,7 +123,7 @@ $(NAME): $(LIBFT) $(LIBMLX) $(OBJ) $(INC) makefile | $(D_BLDS) makefile
 	echo "\n\e[1;31m🍣 $(NAME) program created successfully in $${ELAPSED_SEC}ms ! 🍣\e[0m"
 
 bonus:
-	@$(MAKE) fclean
+	@$(MAKE) clean
 	@$(MAKE) BONUS=1 all
 
 $(D_BLD):

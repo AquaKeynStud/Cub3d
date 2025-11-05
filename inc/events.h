@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:03:18 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/03 09:15:20 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/11/05 09:46:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,22 @@ typedef struct s_data	t_data;
 # define NO_KEY_ERR	"%s🈲 The key : %c isn't handled 🈲%s"
 
 /* -- Inputs Functions -- */
-int		key_pressed(int keycode, t_data *data);
-int		key_released(int keycode, t_data *data);
+int			key_pressed(int keycode, t_data *data);
+int			key_released(int keycode, t_data *data);
 
 /* -- Movement Functions -- */
-int		mouse_move(int x, int y, t_data *data);
-void	rotate_player(t_data *data, double angle);
-void	handle_movement(t_data *data, t_player *player);
-void	update_velocity(t_inputs *inputs, t_player *player, bool active);
+int			mouse_move(int x, int y, t_data *data);
+void		rotate_player(t_data *data, double angle);
+void		handle_movement(t_data *data, t_player *player);
+void		update_velocity(t_inputs *inputs, t_player *player, bool active);
 
 /* -- Loop Functions -- */
-int		game_loop(t_data *data);
+int			game_loop(t_data *data);
 
 /* -- Utils Functions -- */
-int		red(int color);
-int		blue(int color);
-int		green(int color);
+int			red(int color);
+int			blue(int color);
+int			green(int color);
 
 /* -- Mini-map -- */
 t_minimap	init_map(t_data *data);

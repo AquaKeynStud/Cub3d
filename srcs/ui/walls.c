@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:26:16 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 09:43:11 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ static t_txt_col	get_column_data(t_data *data, t_ray ray, t_image img, int x)
 
 void	display_texture(t_data *data, t_txt_col col, t_image img, t_idot txt)
 {
-	int	y;
-	int	*dst;
-	int	color;
+	int		y;
+	int		*dst;
+	int		color;
+	t_idot	endmap;
 
+	endmap.x = WIDTH_SIZE * TILE_SIZE - TILE_SIZE;
+	endmap.y = HEIGHT_SIZE * TILE_SIZE - TILE_SIZE;
 	y = col.start;
 	dst = data->dsp.addr + y * data->dsp.plen + col.x;
 	while (y < col.end)
@@ -73,7 +76,9 @@ void	display_texture(t_data *data, t_txt_col col, t_image img, t_idot txt)
 		col.txt_pos += col.y_step;
 		color = img.addr[txt.y * img.plen + (int)txt.x];
 		color = apply_fog(color, col.fog);
-		*dst = color;
+		if (!BONUS || !(col.x >= MAP_PADDING && col.x <= endmap.x
+				&& y >= MAP_PADDING && y <= endmap.y))
+			*dst = color;
 		y++;
 		dst += data->dsp.plen;
 	}
@@ -81,10 +86,13 @@ void	display_texture(t_data *data, t_txt_col col, t_image img, t_idot txt)
 
 void	display_fogged(t_data *data, t_txt_col col, int color)
 {
-	int	y;
-	int	bg;
-	int	*dst;
+	int		y;
+	int		bg;
+	int		*dst;
+	t_idot	endmap;
 
+	endmap.x = WIDTH_SIZE * TILE_SIZE - TILE_SIZE;
+	endmap.y = HEIGHT_SIZE * TILE_SIZE - TILE_SIZE;
 	y = col.start;
 	dst = data->dsp.addr + y * data->dsp.plen + col.x;
 	while (y < col.end)
@@ -92,7 +100,9 @@ void	display_fogged(t_data *data, t_txt_col col, int color)
 		bg = *dst;
 		color = apply_fog(color, col.fog);
 		color = distance_blur(color, bg, col.alpha);
-		*dst = color;
+		if (!BONUS || !(col.x >= MAP_PADDING && col.x <= endmap.x
+				&& y >= MAP_PADDING && y <= endmap.y))
+			*dst = color;
 		y++;
 		dst += data->dsp.plen;
 	}
