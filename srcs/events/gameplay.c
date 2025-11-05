@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gameplay.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 09:03:20 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 09:07:42 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,6 @@ int	mouse_move(int x, int y, t_data *data)
 	return (0);
 }
 
-void	handle_rotation(t_data *data)
-{
-	if (data->inputs.rotate_left)
-		rotate_player(data, -ROTATION_SPEED);
-	else if (data->inputs.rotate_right)
-		rotate_player(data, ROTATION_SPEED);
-}
-
 void	animate_doors(t_data *data, t_image anim[5], t_door **doors)
 {
 	t_door	*door;
@@ -76,6 +68,15 @@ void	animate_doors(t_data *data, t_image anim[5], t_door **doors)
 	}
 }
 
+void	display(t_data *data)
+{
+	animate_doors(data, data->assets.d_anim, &data->assets.doors);
+	raycast(data);
+	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
+		display_sprint(data, data->player.sprint);
+	display_crossair(data);
+}
+
 int	game_loop(t_data *data)
 {
 	t_image		bg;
@@ -93,15 +94,13 @@ int	game_loop(t_data *data)
 	}
 	else if (data->player.stamina < MAX_STAMINA)
 		data->player.stamina += 1;
-	if (input.rotate_left || input.rotate_right)
-		handle_rotation(data);
+	if (data->inputs.rotate_left)
+		rotate_player(data, -ROTATION_SPEED);
+	else if (data->inputs.rotate_right)
+		rotate_player(data, ROTATION_SPEED);
 	draw_map(data);
 	clear_background(dsp, &bg);
-	animate_doors(data, data->assets.d_anim, &data->assets.doors);
-	raycast(data);
-	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
-		display_sprint(data, data->player.sprint);
-	display_crossair(data);
+	display(data);
 	mlx_put_image_to_window(data->mlx, data->win, dsp->img, 0, 0);
 	return (0);
 }
