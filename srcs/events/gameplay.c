@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 09:27:28 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 10:53:16 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	game_loop(t_data *data)
 	else if (data->inputs.rotate_right)
 		rotate_player(data, ROTATION_SPEED);
 	draw_map(data);
-	clear_background(dsp, &bg);
+	display_bg_with_minimap(dsp, &bg);
 	display(data);
 	mlx_put_image_to_window(data->mlx, data->win, dsp->img, 0, 0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:34:59 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/01 12:04:05 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 10:52:56 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	create_background(t_data *data, t_txts txt);
 void	display_wall(t_data *data, t_ray ray, int x);
 
 int		end_loop(t_data *data);
+
+void	display_bg_with_minimap(t_image *dst, t_image *src);
 
 void	display_crossair(t_data *data);
 void	display_sprint(t_data *data, t_sprint s);

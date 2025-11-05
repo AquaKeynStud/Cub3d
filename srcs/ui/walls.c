@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 10:12:07 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 09:43:11 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 10:54:33 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	display_texture(t_data *data, t_txt_col col, t_image img, t_idot txt)
 	int		color;
 	t_idot	endmap;
 
-	endmap.x = WIDTH_SIZE * TILE_SIZE - TILE_SIZE;
-	endmap.y = HEIGHT_SIZE * TILE_SIZE - TILE_SIZE;
+	endmap.x = WIDTH_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
+	endmap.y = HEIGHT_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
 	y = col.start;
 	dst = data->dsp.addr + y * data->dsp.plen + col.x;
 	while (y < col.end)
@@ -91,8 +91,8 @@ void	display_fogged(t_data *data, t_txt_col col, int color)
 	int		*dst;
 	t_idot	endmap;
 
-	endmap.x = WIDTH_SIZE * TILE_SIZE - TILE_SIZE;
-	endmap.y = HEIGHT_SIZE * TILE_SIZE - TILE_SIZE;
+	endmap.x = WIDTH_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
+	endmap.y = HEIGHT_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
 	y = col.start;
 	dst = data->dsp.addr + y * data->dsp.plen + col.x;
 	while (y < col.end)

@@ -6,7 +6,7 @@
 /*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 17:03:08 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/05 09:43:53 by arocca           ###   ########.fr       */
+/*   Updated: 2025/11/05 10:57:10 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	create_background(t_data *data, t_txts txt)
 	t_idot	mapmax;
 
 	y = 0;
-	mapmax.x = WIDTH_SIZE * TILE_SIZE - TILE_SIZE;
-	mapmax.y = HEIGHT_SIZE * TILE_SIZE - TILE_SIZE;
+	mapmax.x = WIDTH_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
+	mapmax.y = HEIGHT_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
 	while (y < data->win_h)
 	{
 		x = 0;
@@ -51,6 +51,32 @@ void	create_background(t_data *data, t_txts txt)
 				continue ;
 			}
 			data->bg.addr[y * data->bg.plen + x++] = color;
+		}
+		y++;
+	}
+}
+
+void	display_bg_with_minimap(t_image *dst, t_image *src)
+{
+	int		x;
+	int		y;
+	t_idot	end;
+	int		color;
+
+	end.x = WIDTH_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
+	end.y = HEIGHT_SIZE * TILE_SIZE + MAP_PADDING - TILE_SIZE;
+	if (!dst->addr || !src->addr)
+		return ;
+	y = 0;
+	while (y < src->height)
+	{
+		x = 0;
+		while (x < src->width)
+		{
+			color = src->addr[y * src->plen + x];
+			if (x < MAP_PADDING || x > end.x || y < MAP_PADDING || y > end.y)
+				dst->addr[y * dst->plen + x] = color;
+			x++;
 		}
 		y++;
 	}
