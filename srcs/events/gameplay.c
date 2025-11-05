@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gameplay.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 19:22:45 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/03 09:03:00 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/11/05 09:03:20 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ int	game_loop(t_data *data)
 		data->player.stamina += 1;
 	if (input.rotate_left || input.rotate_right)
 		handle_rotation(data);
-	ft_memcpy(dsp->addr, bg.addr, data->win_w * data->win_h * sizeof(int));
+	draw_map(data);
+	clear_background(dsp, &bg);
 	animate_doors(data, data->assets.d_anim, &data->assets.doors);
 	raycast(data);
 	if (data->inputs.left_shift || data->player.stamina != MAX_STAMINA)
 		display_sprint(data, data->player.sprint);
 	display_crossair(data);
-	draw_map(data);
 	mlx_put_image_to_window(data->mlx, data->win, dsp->img, 0, 0);
 	return (0);
 }

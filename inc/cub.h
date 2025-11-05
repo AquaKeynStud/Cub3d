@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: arocca <arocca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:06:13 by arocca            #+#    #+#             */
-/*   Updated: 2025/11/03 07:42:35 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/11/05 08:54:11 by arocca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 # define MIN_RENDER			8.0f
 # define MAX_RENDER			16.0f
 # define BG_FADE_SPREAD		3.0f
+# define FOG_COLOR			0xFFFFFF
 
 /* -- Readible Variables -- */
 # define PI				3.14159265358979323846
@@ -75,7 +76,7 @@ typedef struct s_data
 # define BOTTOMBAND		"\t\e[1;35m%s꧁  ⟣──╼━━━ﾒ %s - %s ﾒ━━━╾──⟢ ꧂  \e[0m\n\n"
 
 /* -- Mini-map -- */
-# define TILE_SIZE		20
+# define TILE_SIZE		30
 # define WIDTH_SIZE		10
 # define HEIGHT_SIZE	8
 
