@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 07:48:59 by abouclie          #+#    #+#             */
-/*   Updated: 2025/11/03 09:15:10 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/11/04 09:56:20 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	draw_square(t_data *data, t_minimap *map)
 		y++;
 	}
 }
-
 
 static void	set_tile(t_data *data, t_minimap *map, int i, int j)
 {

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 09:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/11/03 09:14:33 by abouclie         ###   ########lyon.fr   */
+/*   Updated: 2025/11/04 09:48:30 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ t_minimap	init_map(t_data *data)
 {
 	t_minimap	map;
 
-	map.center_x = (WIDTH_SIZE * TILE_SIZE / 2) + 20;
-	map.center_y = (HEIGHT_SIZE * TILE_SIZE / 2) + 20;
+	map.center_x = (WIDTH_SIZE * TILE_SIZE / 2);
+	map.center_y = (HEIGHT_SIZE * TILE_SIZE / 2);
 	map.ori_x = map.center_x - (WIDTH_SIZE * TILE_SIZE) / 2;
 	map.ori_y = map.center_y - (HEIGHT_SIZE * TILE_SIZE) / 2;
 	get_frac(data, &map.frac);
